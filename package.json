@@ -2,9 +2,9 @@
   "name": "array-cop",
   "version": "0.0.1",
   "description": "Handy array tools",
-  "main": "src/index.js",
+  "main": "src/array-cop.js",
   "scripts": {
-    "test": "mocha src/index.test.js -w"
+    "test": "mocha src/array-cop.test.js -w"
   },
   "repository": {
     "type": "git",

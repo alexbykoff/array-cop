@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var arrayCop = require('./index');
+var arrayCop = require('./array-cop');
 
 describe('array-cop', function() {
     it('Must not fail', function() {
