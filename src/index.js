@@ -3,9 +3,9 @@ module.exports = {
         return (Array.isArray(arr)) ? true : console.log(typeof(arr) + " is not an Array");
     },
     flatten: function(arr) {
-        var self = this;
+        var _ = this;
         return this.isValid(arr) ? arr.reduce(function(flat, i) {
-            return flat.concat(Array.isArray(i) ? self.flatten(i) : i);
+            return flat.concat(Array.isArray(i) ? _.flatten(i) : i);
         }, []) : arr;
     },
     dedup: function(arr) {
