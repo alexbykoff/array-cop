@@ -1,7 +1,12 @@
-;
 (function(_) {
     var array_ = {
         isValid: function(arr) {
+            /**
+             *         Checks if an argument provided is a proper array
+             *         If not then it returns an argument back and logs the type
+             *         of an argument
+             */
+
             return (Array.isArray(arr)) ? true : console.log(typeof(arr) + " is not an Array");
         },
 
@@ -62,8 +67,38 @@
                 return sum;
             }
             return arr;
+        },
+
+        avg: function(arr, prec) {
+            /**
+             *         Returns an average of Number items in an array. Method evaluates
+             *         all Number items, including nested ones.
+             *         syntax array_.avg(array,[precison]) where [precision]
+             *         is the number of digits after a deciaml point. Optional,
+             *         falls back to 2 if no argument is provided.
+             */
+
+            if (this.isValid(arr)) {
+                arr = this.flatten(arr);
+                var sum = 0;
+                var num = 0;
+                for (var i in arr) {
+                    if (typeof(arr[i]) === 'number') {
+                        sum += arr[i];
+                        num++;
+                    }
+                }
+                return (sum / num).toFixed(prec || 2);
+            }
+            return arr;
+
         }
     }
+
+    /**
+     *        npm / <script> compatibility
+     */
+
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = array_;
     } else {

@@ -8,7 +8,8 @@ It is just an utility tools that makes life easier.
 - Flattens any kinds of nested arrays
 - Removes duplicates from an array  
 - Picks one random item from an array in a specific range  
-- Returns the sum of all numbers in an array no matter how deeply nested they are while ignoring all other types of items
+- Returns the sum of all numbers in an array no matter how deeply nested they are while ignoring all other types of items  
+- Returns and average of Number items in an array, including nested ones. Omits Nans  
 
 *ultra-early dev build. NOT PUBLISHED TO NPM*  
 
