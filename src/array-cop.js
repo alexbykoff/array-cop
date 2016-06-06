@@ -2,9 +2,9 @@
     var array_ = {
         isValid: function(arr) {
             /**
-             *         Checks if an argument provided is a proper array
-             *         If not then it returns an argument back and logs the type
-             *         of an argument
+             *    Checks if an argument provided is a proper array.
+             *    If not then it returns an argument back and logs the type
+             *    of an argument.
              */
 
             return (Array.isArray(arr)) ? true : console.log(typeof(arr) + " is not an Array");
@@ -12,7 +12,7 @@
 
         flatten: function(arr) {
             /**
-             *        Flattens all the layers of an array, no matter how deeply nested they are.
+             *    Flattens all the layers of an array, no matter how deeply nested they are.
              */
 
             var __ = this;
@@ -22,9 +22,10 @@
         },
 
         dedup: function(arr) {
-            /**       Removes duplicates from an array. Note: items in nested arrays are not
-             *        considered to be duplicates. If you want to remove duplicates from
-             *        the sub-arrays as well then apply flatten() first.
+            /**
+             *    Removes duplicates from an array. Note: items in nested arrays are not
+             *    considered to be duplicates. If you want to remove duplicates from
+             *    the sub-arrays as well then apply flatten() first.
              */
 
             if (this.isValid(arr)) {
@@ -41,9 +42,9 @@
 
         rand: function(arr, min, max) {
             /**
-             *        Picks a random item from an array in a range of min, max.
-             *        If no range is provided then array.length is taken
-             *        into a consideraton.
+             *    Picks a random item from an array in a range of min, max.
+             *    If no range is provided then array.length is taken
+             *    into a consideraton.
              */
 
             return this.isValid(arr) ? arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)] : arr;
@@ -51,9 +52,9 @@
 
         sum: function(arr) {
             /**
-             *        Returns the sum of all Number items in an array. If an array contains
-             *        NaN items they will be skipped. sum() grabs all Number items from
-             *        nested items as well.
+             *    Returns the sum of all Number items in an array. If an array contains
+             *    NaN items they will be skipped. sum() grabs all Number items from
+             *    nested items as well.
              */
 
             if (this.isValid(arr)) {
@@ -71,11 +72,11 @@
 
         avg: function(arr, prec) {
             /**
-             *         Returns an average of Number items in an array. Method evaluates
-             *         all Number items, including nested ones.
-             *         syntax array_.avg(array,[precison]) where [precision]
-             *         is the number of digits after a deciaml point. Optional,
-             *         falls back to 2 if no argument is provided.
+             *    Returns an average of Number items in an array. Method evaluates
+             *    all Number items, including nested ones.
+             *    Syntax: array_.avg(arr,[precison]) where [precision]
+             *    is the number of digits after a deciaml point. Optional,
+             *    falls back to 2 if no argument is provided.
              */
 
             if (this.isValid(arr)) {
@@ -92,11 +93,32 @@
             }
             return arr;
 
+        },
+        freq: function(arr) {
+            /**
+             *    Returns an object `item: frequency`, where `item` is the value
+             *    of an each array item and `frequency` is the number of times
+             *    that item appears in an array. Flattens an array before evaluation.
+             */
+
+            if (this.isValid(arr)) {
+                arr = this.flatten(arr);
+                var frequencyMap = arr.reduce(function(obj, item) {
+                    if (obj[item]) {
+                        obj[item]++;
+                    } else {
+                        obj[item] = 1;
+                    }
+                    return obj
+                }, {});
+                return frequencyMap;
+            }
+
         }
     }
 
     /**
-     *        npm / <script> compatibility
+     *    npm / <script> compatibility
      */
 
     if (typeof module !== 'undefined' && module.exports) {
