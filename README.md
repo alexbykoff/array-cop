@@ -1,8 +1,8 @@
 #array-cop#
-[![Code Climate](https://codeclimate.com/github/tomkallen/array-cop/badges/gpa.svg)](https://codeclimate.com/github/tomkallen/array-cop)
+[![Code Climate](https://codeclimate.com/github/tomkallen/array-cop/badges/gpa.svg)](https://codeclimate.com/github/tomkallen/array-cop) [![GitHub version](https://badge.fury.io/gh/tomkallen%2Farray-cop.svg)](https://badge.fury.io/gh/tomkallen%2Farray-cop)
 
 Array cop is a zero-dependant vanilla JS nano-library / npm module that deals with arrays.
-It is just an utility tools that makes life easier.
+It is just an utility tool that makes life easier.
 
 ##Current features:##
 - Flattens any kinds of nested arrays
