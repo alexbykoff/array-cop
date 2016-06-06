@@ -1,3 +1,4 @@
+;
 (function(_) {
     var array_ = {
         isValid: function(arr) {
@@ -6,7 +7,7 @@
 
         flatten: function(arr) {
             /**
-             **       Flattens all the layers of an array, no matter how deeply nested they are.
+             *        Flattens all the layers of an array, no matter how deeply nested they are.
              */
 
             var __ = this;
@@ -54,7 +55,9 @@
                 arr = this.flatten(arr);
                 var sum = 0;
                 for (var i in arr) {
-                    typeof(arr[i]) === 'number' ? sum += arr[i]: null;
+                    if (typeof(arr[i]) === 'number') {
+                        sum += arr[i]
+                    }
                 }
                 return sum;
             }
@@ -66,4 +69,4 @@
     } else {
         _.array_ = array_;
     }
-})(this);
+}(this));
