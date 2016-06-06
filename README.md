@@ -17,7 +17,7 @@ It is just an utility tool that makes life easier.
 ##Usage##
 
 ###Browser###
-`<script src = "./js/array-cop.js"`
+`<script src = "array-cop.min.js">`
 
 ###npm###
 `npm install --save array-cop`
