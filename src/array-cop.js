@@ -21,21 +21,18 @@
             }, []) : arr;
         },
 
-        dedup: function(arr) {
+        dedup: function(arr, force) {
             /**
              *    Removes duplicates from an array. Note: items in nested arrays are not
              *    considered to be duplicates. If you want to remove duplicates from
-             *    the sub-arrays as well then flatten() first.
+             *    the sub-arrays as well then pass true as a second argument.
              */
 
             if (this.isValid(arr)) {
-                var newArray = [];
-                arr.forEach(function(i) {
-                    if (newArray.indexOf(i) === -1) {
-                        newArray.push(i)
-                    }
+                if (force) arr = this.flatten(arr)
+                return arr.filter(function(item, i) {
+                    return arr.lastIndexOf(item) === i;
                 });
-                return newArray;
             }
             return arr;
         },

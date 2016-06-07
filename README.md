@@ -42,10 +42,14 @@ Flattens an array to a single-dimensional one. Goes as deep into subarrays as ne
 > [ 8, 1000,  'Jack',  8,  'Bob',  'Alice',  5,  1, [Function: x],  [Function: a],  2,  2,  3,  4,  5,  4,  6,  7,  11,  7,  2,  { x: 1, y: 'test' } ]
 
 ###**...get rid of the duplicates:**  
-**`array_.dedup(arr);`**  
+**`array_.dedup(arr, [force]);`**  
 Removes duplicates from an array. Items in nested arrays are not treated as duplicates to avoid mess. If you want to remove duplicates from the sub-arrays as well then `flatten()` first.  
 `console.log(array_.dedup(arr));`  
 > [ 8,   1000,  [ 'Jack', 8, 'Bob', 'Alice', 5 ],   1,  [Function: x],  [Function: a],  2,  [ 2, 3, 4, [ 5, 4, 6 ] ],  7,  11,  [ 2 ],  { x: 1, y: 'test' } ]  
+
+`console.log(array_.dedup(arr, true));`  
+> [ 1000, 'Jack', 8, 'Bob', 'Alice', 1, [Function: x], [Function: a], 3, 5, 4, 6, 11, 7, 2, { x: 1, y: 'test' } ]
+
 
 ###**...get a random array item:**
 **`array_.rand(arr,[min],[max])`**  
