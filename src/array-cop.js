@@ -69,10 +69,9 @@
             }
             return arr;
         },
-
-        avg: function(arr, prec) {
+        meanAri: function(arr, prec) {
             /**
-             *    Returns an average of Number items in an array. Method evaluates
+             *    Returns an arithmetic mean of Number items in an array. Method evaluates
              *    all Number items, including nested ones.
              *    Syntax: array_.avg(arr,[precison]) where [precision]
              *    is the number of digits after a deciaml point. Optional,
@@ -92,8 +91,48 @@
                 return (sum / num).toFixed(prec || 2);
             }
             return arr;
-
         },
+        meanGeo: function(arr, prec) {
+            /**
+             *    Returns an geometric mean of Number items in an array. Method evaluates
+             *    all Number items, including nested ones.
+             *    Syntax: array_.avg(arr,[precison]) where [precision]
+             *    is the number of digits after a deciaml point. Optional,
+             *    falls back to 2 if no argument is provided.
+             */
+
+            if (this.isValid(arr, prec)) {
+                arr = this.flatten(arr);
+                var mul = 1;
+                var num = 0;
+                for (var i in arr) {
+                    if (typeof(arr[i]) === 'number') {
+                        mul *= arr[i];
+                        num++;
+                    }
+                }
+                return Math.pow(mul, 1/num).toFixed(prec || 2);
+            }
+            return arr;
+        },
+        // median: function(arr) {
+        //     arr = this.flatten(arr);
+        //     var newArr = [];
+        //     for (var i in arr) {
+        //         if (typeof(arr[i]) === 'number') {
+        //             newArr.push(arr[i]);
+        //         }
+        //     }
+        //     if (!newArr) {
+        //         return null;
+        //     }
+        //     newArr.sort(function(a, b) {
+        //         return a - b;
+        //     });
+        //
+        //     if (newArr.length % 2)
+        //
+        // },
         freq: function(arr) {
             /**
              *    Returns an object `item: frequency`, where `item` is the value
