@@ -65,18 +65,17 @@ Flattens an array and takes only numeric values into a consideration.
 **type** — optional, sets the type of mean: `'ari'`: arithmetic, `'geo'`: geometric. If omitted then calculates an arithmetic mean.  
 **precision** — optional value, sets the number of digits after a decimal point. If omitted then falls back to 2
 Flattens an array and takes only numeric values into a consideration.  
-`console.log(array_.mean(arr, 'geo', 3);`
+`console.log(array_.mean(arr, 'geo', 3);`  
 > 67.188  
-`console.log(array_.mean(arr, 'ari', 2);`
-> 5.87
-`console.log(array_.mean(a, 4));`
-> 67.1875
-
+`console.log(array_.mean(arr, 'ari', 2);`  
+> 5.87  
+`console.log(array_.mean(a, 4));`  
+> 67.1875  
 
 ###**... get a frequency matrix:**  
 **`array_.freq(arr)`**  
 Returns an object `item: frequency`, where `item` is the value of an each array item and `frequency` is the number of times that item appears in an array. Flattens an array before evaluation.  
-`console.log(array_.freq(arr);`
+`console.log(array_.freq(arr);`  
 > { '1': 1,
   '2': 3,
   '3': 1,
