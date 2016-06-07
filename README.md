@@ -67,8 +67,10 @@ Flattens an array and takes only numeric values into a consideration.
 Flattens an array and takes only numeric values into a consideration.  
 `console.log(array_.mean(arr, 'geo', 3);`  
 > 67.188  
+
 `console.log(array_.mean(arr, 'ari', 2);`  
 > 5.87  
+
 `console.log(array_.mean(a, 4));`  
 > 67.1875  
 
