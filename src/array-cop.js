@@ -59,13 +59,9 @@
 
             if (this.isValid(arr)) {
                 arr = this.flatten(arr);
-                var sum = 0;
-                for (var i in arr) {
-                    if (typeof(arr[i]) === 'number') {
-                        sum += arr[i]
-                    }
-                }
-                return sum;
+                return arr.reduce(function(a, b) {
+                    return typeof(b) === 'number' ? a += b : a;
+                }, 0);
             }
             return arr;
         },
@@ -111,7 +107,7 @@
                         num++;
                     }
                 }
-                return Math.pow(mul, 1/num).toFixed(prec || 2);
+                return Math.pow(mul, 1 / num).toFixed(prec || 2);
             }
             return arr;
         },
