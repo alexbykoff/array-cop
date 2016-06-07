@@ -1,5 +1,6 @@
 var chai = require('chai');
-var arrayCop = require('./array-cop');
+require("blanket");
+var arrayCop = require('../src/array-cop');
 var assert = chai.assert;
 
 var arr = [1, 3, [3, [5, ]], 7, 8, 'pete', {}];

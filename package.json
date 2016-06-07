@@ -1,28 +1,35 @@
 {
-  "name": "array-cop",
-  "version": "0.0.1",
-  "description": "Handy array tools",
-  "main": "src/array-cop.js",
-  "scripts": {
-    "test": "mocha src/array-cop.test.js -w"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tomkallen/array-cop.git"
-  },
-  "keywords": [
-    "arrays",
-    "array",
-    "utils"
-  ],
-  "author": "Alex Bykoff <comradebykoff@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/tomkallen/array-cop/issues"
-  },
-  "homepage": "https://github.com/tomkallen/array-cop#readme",
-  "devDependencies": {
-    "chai": "3.5.0",
-    "mocha": "2.5.3"
-  }
+    "name": "array-cop",
+    "version": "0.0.1",
+    "description": "Handy array tools",
+    "main": "src/array-cop.js",
+    "scripts": {
+        "test": "mocha ./test/array-cop.test.js -w --require blanket -R html-cov > coverage.html"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/tomkallen/array-cop.git"
+    },
+    "keywords": [
+        "arrays",
+        "array",
+        "utils"
+    ],
+    "author": "Alex Bykoff <comradebykoff@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/tomkallen/array-cop/issues"
+    },
+    "homepage": "https://github.com/tomkallen/array-cop#readme",
+    "devDependencies": {
+        "blanket": "1.2.3",
+        "chai": "3.5.0",
+        "mocha": "2.5.3"
+    },
+    "config": {
+        "blanket": {
+            "pattern": "src/array-cop.js"
+        }
+    }
+
 }
