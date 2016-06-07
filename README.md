@@ -46,7 +46,7 @@ Flattens an array to a single-dimensional one. Goes as deep into subarrays as ne
 
 ###**...get rid of the duplicates:**  
 **`array_.dedup(arr, [force]);`**  
-Removes duplicates from an array. Items in nested arrays are not treated as duplicates to avoid mess. If you want to remove duplicates from the sub-arrays as well then `flatten()` first.  
+Removes duplicates from an array. Items in nested arrays are not treated as duplicates to avoid mess. If you want to flatten an array and remove duplicates from the sub-arrays as well then force method to do it for you by passing `true`.  
 `console.log(array_.dedup(arr));`  
 > [ 8,   1000,  [ 'Jack', 8, 'Bob', 'Alice', 5 ],   1,  [Function: x],  [Function: a],  2,  [ 2, 3, 4, [ 5, 4, 6 ] ],  7,  11,  [ 2 ],  { x: 1, y: 'test' } ]  
 
