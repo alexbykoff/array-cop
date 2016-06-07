@@ -25,7 +25,7 @@
             /**
              *    Removes duplicates from an array. Note: items in nested arrays are not
              *    considered to be duplicates. If you want to remove duplicates from
-             *    the sub-arrays as well then apply flatten() first.
+             *    the sub-arrays as well then flatten() first.
              */
 
             if (this.isValid(arr)) {
