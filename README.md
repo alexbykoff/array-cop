@@ -34,7 +34,7 @@ var arr = [8, 1000,["Jack", 8, 'Bob', 'Alice', 5], 1, function x() {return 1 / x
     y: "test"
 }];
 ```
-###**I want to...###
+###**I want to...**###
 ###**...flatten an array:**
 **`array_.flatten(arr);`**  
 Flattens an array to a single-dimensional one. Goes as deep into subarrays as needed.  
