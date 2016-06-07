@@ -2,7 +2,7 @@ languages:
   JavaScript: true
 exclude_paths:
 - "src/array-cop.min.js"
-# - "src/array-cop.test.js"
+- "test/array-cop.test.js"
 engines:
   # ... CONFIG CONTENT ...
   eslint:
