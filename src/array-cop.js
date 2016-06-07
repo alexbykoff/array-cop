@@ -58,56 +58,53 @@
              */
 
             if (this.isValid(arr)) {
-                arr = this.flatten(arr);
-                return arr.reduce(function(a, b) {
+                return this.flatten(arr).reduce(function(a, b) {
                     return typeof(b) === 'number' ? a += b : a;
                 }, 0);
             }
             return arr;
         },
-        meanAri: function(arr, prec) {
+        mean: function(arr, type, precision) {
             /**
-             *    Returns an arithmetic mean of Number items in an array. Method evaluates
+             *    Returns a mathematic mean of Number items in an array. Method evaluates
              *    all Number items, including nested ones.
-             *    Syntax: array_.avg(arr,[precison]) where [precision]
-             *    is the number of digits after a deciaml point. Optional,
+             *    Syntax: array_.avg(arr,type, precision) where
+             *    [type] - choose between 'ari'themetic, 'geo'metric or 'har'monic means
+             *    Optional, falls back to 'ari'
+             *    [precision] - number of digits after a deciaml point. Optional,
              *    falls back to 2 if no argument is provided.
              */
 
             if (this.isValid(arr)) {
                 arr = this.flatten(arr);
-                var sum = 0;
-                var num = 0;
-                for (var i in arr) {
-                    if (typeof(arr[i]) === 'number') {
-                        sum += arr[i];
-                        num++;
-                    }
-                }
-                return (sum / num).toFixed(prec || 2);
-            }
-            return arr;
-        },
-        meanGeo: function(arr, prec) {
-            /**
-             *    Returns an geometric mean of Number items in an array. Method evaluates
-             *    all Number items, including nested ones.
-             *    Syntax: array_.avg(arr,[precison]) where [precision]
-             *    is the number of digits after a deciaml point. Optional,
-             *    falls back to 2 if no argument is provided.
-             */
+                precision = precision || 2;
 
-            if (this.isValid(arr, prec)) {
-                arr = this.flatten(arr);
-                var mul = 1;
-                var num = 0;
-                for (var i in arr) {
-                    if (typeof(arr[i]) === 'number') {
-                        mul *= arr[i];
-                        num++;
-                    }
+                /*** Arguments fallback */
+                typeof(type) === 'string' ? type = type || 'ari': precision = type || 2;
+
+                var sum = 0,
+                    num = 0,
+                    mul = 1;
+                switch (type) {
+                    case 'ari':
+                    default:
+                        for (var i in arr) {
+                            if (typeof(arr[i]) === 'number') {
+                                sum += arr[i];
+                                num++;
+                            }
+                        }
+                        return (sum / num).toFixed(precision);
+
+                    case 'geo':
+                        for (var i in arr) {
+                            if (typeof(arr[i]) === 'number') {
+                                mul *= arr[i];
+                                num++;
+                            }
+                        }
+                        return Math.pow(mul, 1 / num).toFixed(precision);
                 }
-                return Math.pow(mul, 1 / num).toFixed(prec || 2);
             }
             return arr;
         },
