@@ -1,12 +1,16 @@
-// var expect = require('chai').expect;
-// var arrayCop = require('./array-cop');
-//
-// describe('array-cop', function() {
-//     it('Must not fail', function() {
-//     describe('flatten', function() {
-//         it('should return a flattened array', function() {
-//         expect(null).to.be.null;
-//             });
-//         });
-//     });
-// });
+var chai = require('chai');
+var arrayCop = require('./array-cop');
+var assert = chai.assert;
+
+var arr = [1,3,[3,[5,]],7,8,'pete', {}];
+
+describe('flatten', function() {
+    it('should return a flattened array', function() {
+        assert.deepEqual(arrayCop.flatten(arr), [1,3,3,5,7,8,'pete',{}] );
+        assert.deepEqual(arrayCop.flatten(["alice"]), ["alice"]);
+        assert.deepEqual(arrayCop.flatten(), undefined);
+    });
+    it('should return an object back', function() {
+        assert.deepEqual(arrayCop.flatten("not an array"), "not an array");
+    });
+});
