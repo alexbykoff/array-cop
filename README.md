@@ -28,7 +28,7 @@ It is just an utility tool that makes life easier.
 
 ----------
 
-##Documentation##
+##API##
 ```
 var arr = [8, 1000,["Jack", 8, 'Bob', 'Alice', 5], 1, function x() {return 1 / x}, function a() {}, 2, [2, 3, 4, [5, 4, 6]], 7, 11, 7, [2], {
     x: 1,
@@ -51,21 +51,21 @@ var arr = [8, 1000,["Jack", 8, 'Bob', 'Alice', 5], 1, function x() {return 1 / x
 > [ 8,   1000,  [ 'Jack', 8, 'Bob', 'Alice', 5 ],   1,  [Function: x],  [Function: a],  2,  [ 2, 3, 4, [ 5, 4, 6 ] ],  7,  11,  [ 2 ],  { x: 1, y: 'test' } ]  
 
 ###**Return a random array item**
-**`array_.rand(arr,[min],[max])`**
+**`array_.rand(arr,[min],[max])`**  
 **min, max** — optional parameters, set the range of items to choose from.
 
 **`console.log(array_.rand(arr,3,8));`**
 > [Function: x]
 
 ###**Sum of all items**
-**`array_.sum(arr);`**
+**`array_.sum(arr);`**  
 Flattens an array and takes only numeric values into a consideration
 
 `console.log(array_.sum(arr);`
 > 1075
 
 ###**Arithmetic mean**
-**`array_.meanAri(arr, [precision])`**
+**`array_.meanAri(arr, [precision])`**  
 **precision** — optional value, sets the number of digits after a decimal point. If omitted then falls back to 2
 Flattens an array and takes only numeric values into a consideration
 
