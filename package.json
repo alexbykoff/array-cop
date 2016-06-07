@@ -4,7 +4,7 @@
     "description": "Handy array tools",
     "main": "src/array-cop.js",
     "scripts": {
-        "test": "mocha ./test/array-cop.test.js -w --require blanket -R html-cov > coverage.html"
+        "test": "mocha ./test/array-cop.test.js"
     },
     "repository": {
         "type": "git",
