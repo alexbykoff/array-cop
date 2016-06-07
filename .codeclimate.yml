@@ -1,8 +1,17 @@
 languages:
-  Ruby: true
   JavaScript: true
-  PHP: true
-  Python: true
 exclude_paths:
 - "src/array-cop.min.js"
 # - "src/array-cop.test.js"
+engines:
+  # ... CONFIG CONTENT ...
+  eslint:
+    enabled: true
+    # ... CONFIG CONTENT ...
+    checks:
+      no-unused-expressions: [2, { allowShortCircuit: true, allowTernary: true }]
+      complexity:
+        enabled: false
+      Similar code:
+        enabled: false
+# ... CONFIG CONTENT ...

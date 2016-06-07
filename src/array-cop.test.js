@@ -2,11 +2,11 @@ var chai = require('chai');
 var arrayCop = require('./array-cop');
 var assert = chai.assert;
 
-var arr = [1,3,[3,[5,]],7,8,'pete', {}];
+var arr = [1, 3, [3, [5, ]], 7, 8, 'pete', {}];
 
 describe('flatten', function() {
     it('should return a flattened array', function() {
-        assert.deepEqual(arrayCop.flatten(arr), [1,3,3,5,7,8,'pete',{}] );
+        assert.deepEqual(arrayCop.flatten(arr), [1, 3, 3, 5, 7, 8, 'pete', {}]);
         assert.deepEqual(arrayCop.flatten(["alice"]), ["alice"]);
         assert.deepEqual(arrayCop.flatten(), undefined);
     });
