@@ -74,6 +74,13 @@ Flattens an array and takes only numeric values into a consideration.
 `console.log(array_.mean(a, 4));`  
 > 67.1875  
 
+###**...find a median:**
+**`array_.median(arr, [precision])`**  
+**precision** — optional value, sets the number of digits after a decimal point. If omitted then falls back to 2
+Flattens an array and takes only numeric values into a consideration.  
+`array_.median(arr, 1)`  
+> 5.0  
+
 ###**...get a frequency matrix:**  
 **`array_.freq(arr)`**  
 Returns an object `item: frequency`, where `item` is the value of an each array item and `frequency` is the number of times that item appears in an array. Flattens an array before evaluation.  

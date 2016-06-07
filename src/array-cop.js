@@ -108,24 +108,39 @@
             }
             return arr;
         },
-        // median: function(arr) {
-        //     arr = this.flatten(arr);
-        //     var newArr = [];
-        //     for (var i in arr) {
-        //         if (typeof(arr[i]) === 'number') {
-        //             newArr.push(arr[i]);
-        //         }
-        //     }
-        //     if (!newArr) {
-        //         return null;
-        //     }
-        //     newArr.sort(function(a, b) {
-        //         return a - b;
-        //     });
-        //
-        //     if (newArr.length % 2)
-        //
-        // },
+        median: function(arr, precision) {
+            /*
+             *    Returns a median of an array. Flattens an array, gets rid of
+             *    NaNs. Returns 0 if no Numbers items, value of an array if there
+             *    is only one Number item or returns an object back if it is not
+             *    an array.
+             *    [precision] is optional. Falls back to 2 if no parameter provided.
+             */
+
+            if (this.isValid(arr)) {
+                precision = precision || 2;
+                arr = this.flatten(arr);
+                var newArr = [];
+                for (var i in arr) {
+                    if (typeof(arr[i]) === 'number') {
+                        newArr.push(arr[i]);
+                    }
+                }
+                if (!newArr) {
+                    return 0;
+                } else if (newArr.length === 1) {
+                    return newArr[0];
+                }
+                newArr.sort(function(a, b) {
+                    return a - b;
+                });
+                var h = Math.floor(newArr.length / 2);
+                if (newArr.length % 2) {
+                    return newArr[h]
+                } else return ((newArr[h - 1] + newArr[h]) / 2).toFixed(precision);
+            }
+            return arr;
+        },
         freq: function(arr) {
             /**
              *    Returns an object `item: frequency`, where `item` is the value
@@ -145,7 +160,7 @@
                 }, {});
                 return frequencyMap;
             }
-
+            return arr;
         }
     }
 
