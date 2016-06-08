@@ -115,7 +115,7 @@ Returns an object `item: frequency`, where `item` is the value of an each array 
 **obj** — optional value, if set to true then method will return an object with items sorted by their type.  
 Service method. Result is an array console pretty print.  
 
-`array_breakdown(arr);`  
+`array_.breakdown(arr);`  
 >Numbers: 16  
 Strings: 3  
 Functions: 2  
@@ -126,7 +126,7 @@ Total items: 22
 
 *Note that by default you not need to console.log `breakdown()` to have it printed out.*
 
-`console.log(array_breakdown(arr, true));`  
+`console.log(array_.breakdown(arr, true));`  
 > { number_: [ 8, 1000, 8, 5, 1, 2, 2, 3, 4, 5, 4, 6, 7, 11, 7, 2 ],
   string_: [ 'Jack', 'Bob', 'Alice' ],
   function_: [ [Function: x], [Function: a] ],
