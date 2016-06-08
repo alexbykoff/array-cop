@@ -124,7 +124,7 @@ Undefined: 0
 Booleans: 0  
 Total items: 22  
 
-*Note that by default you not need to console.log `breakdown()` to have it printed out.*
+*Note that by default you do not need to console.log `breakdown()` to have it printed out*
 
 `console.log(array_.breakdown(arr, true));`  
 > { number_: [ 8, 1000, 8, 5, 1, 2, 2, 3, 4, 5, 4, 6, 7, 11, 7, 2 ],
