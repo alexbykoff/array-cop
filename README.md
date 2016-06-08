@@ -1,10 +1,8 @@
-#Array Cop
-is not your average cop  
+#Array Cop  
+[![GitHub version](https://badge.fury.io/gh/tomkallen%2Farray-cop.svg)](https://badge.fury.io/gh/tomkallen%2Farray-cop) [![Build Status](https://travis-ci.org/tomkallen/array-cop.svg?branch=master)](https://travis-ci.org/tomkallen/array-cop)
 
-[![Code Climate](https://codeclimate.com/github/tomkallen/array-cop/badges/gpa.svg)](https://codeclimate.com/github/tomkallen/array-cop) [![GitHub version](https://badge.fury.io/gh/tomkallen%2Farray-cop.svg)](https://badge.fury.io/gh/tomkallen%2Farray-cop) [![Build Status](https://travis-ci.org/tomkallen/array-cop.svg?branch=master)](https://travis-ci.org/tomkallen/array-cop)
-
-:cop: Arraycop is a zero-dependencies vanilla JS nano-library / npm module that deals with arrays.
-It is just an utility tool that makes life easier.
+:cop: Arraycop is a dependency-free vanilla JS nano-library / npm module that deals with arrays.
+It is just an utility tool that makes life easier and also does some maths for you.
 
 ##Current features:  
 :police_car:  
