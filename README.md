@@ -16,6 +16,7 @@ It is just an utility tool that makes life easier.
 - Calculate Geometric mean  
 - Find a median  
 - Convert to frequency matrix object  
+- Log a total array breakdown  
 
 ----------
 
