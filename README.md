@@ -55,7 +55,7 @@ Removes duplicates from an array. Items in nested arrays are not treated as dupl
 
 
 ###**...get a random array item:**
-**`array_.rand(arr,[min],[max])`**  
+**`array_.rand(arr,[min],[max]);`**  
 **min, max** — optional parameters, set the range of items to choose from.  
 Randomly picks and returns one item from an array.  
 **`console.log(array_.rand(arr,3,8));`**
@@ -68,9 +68,9 @@ Flattens an array and takes only numeric values into a consideration.
 > 1075
 
 ###**...calculate an average:**
-**`array_.mean(arr, [type], [precision])`**  
+**`array_.mean(arr, [type], [precision]);`**  
 **type** — optional, sets the type of mean: `'ari'`: arithmetic, `'geo'`: geometric. If omitted then calculates an arithmetic mean.  
-**precision** — optional value, sets the number of digits after a decimal point. If omitted then falls back to 2
+**precision** — optional value, sets the number of digits after a decimal point. If omitted then falls back to 2.  
 Flattens an array and takes only numeric values into a consideration.  
 `console.log(array_.mean(arr, 'geo', 3);`  
 > 67.188  
@@ -82,10 +82,10 @@ Flattens an array and takes only numeric values into a consideration.
 > 67.1875  
 
 ###**...find a median:**
-**`array_.median(arr, [precision])`**  
+**`array_.median(arr, [precision]);`**  
 **precision** — optional value, sets the number of digits after a decimal point. If omitted then falls back to 2
 Flattens an array and takes only numeric values into a consideration.  
-`array_.median(arr, 1)`  
+`array_.median(arr, 1);`  
 > 5.0  
 
 ###**...get a frequency matrix:**  
@@ -108,3 +108,27 @@ Returns an object `item: frequency`, where `item` is the value of an each array 
   'function x() {return 1 / x}': 1,
   'function a() {}': 1,
   '[object Object]': 1 }
+
+###**...get an array breakdown**
+**`array_.breakdown(arr, [obj]);`**  
+**obj** — optional value, if set to true then method will return an object with items sorted by their type.  
+Service method. Result is an array console pretty print.  
+
+`array_breakdown(arr);`  
+>Numbers: 16
+Strings: 3
+Functions: 2
+Objects: 1
+Undefined: 0
+Booleans: 0
+Total items: 22  
+
+Note that by default you not need to console.log `breakdown()` to have it printed out.
+
+`console.log(array_breakdown(arr, true));`  
+> { number_: [ 8, 1000, 8, 5, 1, 2, 2, 3, 4, 5, 4, 6, 7, 11, 7, 2 ],
+  string_: [ 'Jack', 'Bob', 'Alice' ],
+  function_: [ [Function: x], [Function: a] ],
+  object_: [ { x: 1, y: 'test' } ],
+  undefined_: [],
+  boolean_: [] }

@@ -158,6 +158,58 @@
                 return frequencyMap;
             }
             return arr;
+        },
+        breakdown: function(arr, obj) {
+            /*
+             *    Service method. Result is an array console pretty print.
+             *    if `obj` argument is set to `true` then method returns an object
+             *    with items sorted by their type.
+             */
+
+            if (this.isValid(arr)) {
+                arr = this.flatten(arr);
+                var total = {
+                    number_: [],
+                    string_: [],
+                    function_: [],
+                    object_: [],
+                    undefined_: [],
+                    boolean_: []
+                };
+                arr.forEach(function(value, index, arr) {
+                    switch (typeof(arr[index])) {
+                        case 'number':
+                            total.number_.push(arr[index]);
+                            break;
+                        case 'string':
+                            total.string_.push(arr[index]);
+                            break;
+                        case 'function':
+                            total.function_.push(arr[index]);
+                            break;
+                        case 'object':
+                            total.object_.push(arr[index]);
+                            break;
+                        case 'undefined':
+                            total.undefined_.push(arr[index]);
+                            break;
+                        case 'boolean':
+                            total.boolean_.push(arr[index]);
+                            break;
+                    }
+                });
+
+            };
+            return obj ?
+                total :
+                console.log(
+                    "Numbers: " + total.number_.length + "\n" +
+                    "Strings: " + total.string_.length + "\n" +
+                    "Functions: " + total.function_.length + "\n" +
+                    "Objects: " + total.object_.length + "\n" +
+                    "Undefined: " + total.undefined_.length + "\n" +
+                    "Booleans: " + total.boolean_.length + "\n" +
+                    "Total items: " + arr.length+"\n");
         }
     }
 

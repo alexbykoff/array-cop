@@ -9,7 +9,6 @@ engines:
     enabled: true
     # ... CONFIG CONTENT ...
     checks:
-      no-unused-expressions: [2, { allowShortCircuit: true, allowTernary: true }]
       complexity:
         enabled: false
       Similar code:
