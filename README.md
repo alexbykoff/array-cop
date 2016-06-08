@@ -19,10 +19,10 @@ It is just an utility tool that makes life easier and also does some maths for y
 
 ----------
 
-##Usage##
-###Browser###
+##Usage
+###Browser
 `<script src = "array-cop.min.js">`
-###npm (not published yet)###
+###npm
 `npm install --save array-cop`
 
 `var array_ = require('array-cop');`  
@@ -30,14 +30,14 @@ It is just an utility tool that makes life easier and also does some maths for y
 
 ----------
 
-##API##
+##API
 ```
 var arr = [8, 1000,["Jack", 8, 'Bob', 'Alice', 5], 1, function x() {return 1 / x}, function a() {}, 2, [2, 3, 4, [5, 4, 6]], 7, 11, 7, [2], {
     x: 1,
     y: "test"
 }];
 ```
-###**I want to...**###
+###**I want to...**
 ###**...flatten an array:**
 **`array_.flatten(arr);`**  
 Flattens an array to a single-dimensional one. Goes as deep into subarrays as needed.  
