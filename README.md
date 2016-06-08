@@ -5,16 +5,16 @@
 It is just an utility tool that makes life easier and also does some maths for you.
 
 ##Current features:  
-:police_car:  
-- Flatten nested arrays  
-- Remove all the duplicates  
-- Pick any random item in any range  
-- Calculate the sum of all Number items    
-- Calculate Arithmetic mean  
-- Calculate Geometric mean  
-- Find a median  
-- Convert to frequency matrix object  
-- Log an array breakdown  
+
+:police_car: Flatten nested arrays  
+:police_car: Remove all the duplicates  
+:police_car: Pick any random item in any range  
+:police_car: Calculate the sum of all Number items    
+:police_car: Calculate Arithmetic mean  
+:police_car: Calculate Geometric mean  
+:police_car: Find a median  
+:police_car: Convert to frequency matrix object  
+:police_car: Log an array breakdown  
 
 ----------
 
