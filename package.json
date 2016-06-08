@@ -1,7 +1,7 @@
 {
     "name": "array-cop",
-    "version": "0.0.1",
-    "description": "Handy array tools",
+    "version": "0.1.0",
+    "description": "An [array] utility tool that makes life easier and also does some maths for you.",
     "main": "src/array-cop.js",
     "scripts": {
         "test": "mocha ./test/array-cop.test.js"
@@ -13,7 +13,8 @@
     "keywords": [
         "arrays",
         "array",
-        "utils"
+        "utils",
+        "utility"
     ],
     "author": "Alex Bykoff <comradebykoff@gmail.com>",
     "license": "MIT",
@@ -22,7 +23,6 @@
     },
     "homepage": "https://github.com/tomkallen/array-cop#readme",
     "devDependencies": {
-        "blanket": "1.2.3",
         "chai": "3.5.0",
         "mocha": "2.5.3"
     },

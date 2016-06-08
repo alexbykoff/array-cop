@@ -1,5 +1,4 @@
 var chai = require('chai');
-require("blanket");
 var arrayCop = require('../src/array-cop');
 var assert = chai.assert;
 

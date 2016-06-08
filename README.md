@@ -2,19 +2,20 @@
 [![GitHub version](https://badge.fury.io/gh/tomkallen%2Farray-cop.svg)](https://badge.fury.io/gh/tomkallen%2Farray-cop) [![Build Status](https://travis-ci.org/tomkallen/array-cop.svg?branch=master)](https://travis-ci.org/tomkallen/array-cop)
 
 :cop: Arraycop is a dependency-free vanilla JS nano-library / npm module that deals with arrays.
-It is just an utility tool that makes life easier and also does some maths for you.
+It is just an utility tool that makes life easier and also does some maths for you. :police_car:  
 
 ##Current features:  
 
-:police_car: Flatten nested arrays  
-:police_car: Remove all the duplicates  
-:police_car: Pick any random item in any range  
-:police_car: Calculate the sum of all Number items    
-:police_car: Calculate Arithmetic mean  
-:police_car: Calculate Geometric mean  
-:police_car: Find a median  
-:police_car: Convert to frequency matrix object  
-:police_car: Log an array breakdown  
+ Flatten nested arrays  
+- Remove all the duplicates  
+- Pick any random item in any range  
+- Calculate the sum of all the Number items    
+- Calculate an Arithmetic mean  
+- Calculate a Geometric mean  
+- Find a median  
+- Convert to the frequency matrix object  
+- Log an array breakdown  
+- Remove all the empty items from the nested arrays  
 
 ----------
 
@@ -45,7 +46,8 @@ Flattens an array to a single-dimensional one. Goes as deep into subarrays as ne
 
 ###**...get rid of the duplicates:**  
 **`array_.dedup(arr, [force]);`**  
-Removes duplicates from an array. Items in nested arrays are not treated as duplicates to avoid mess. If you want to flatten an array and remove duplicates from the sub-arrays as well then force method to do it for you by passing `true`.  
+**force: Boolean** - Optional. Assign to `true` if you want to flatten an array and remove duplicates from the sub-arrays as well.  
+Removes duplicates from an array. Items in nested arrays are not treated as duplicates to avoid mess.     
 `console.log(array_.dedup(arr));`  
 > [ 8,   1000,  [ 'Jack', 8, 'Bob', 'Alice', 5 ],   1,  [Function: x],  [Function: a],  2,  [ 2, 3, 4, [ 5, 4, 6 ] ],  7,  11,  [ 2 ],  { x: 1, y: 'test' } ]  
 
@@ -55,7 +57,7 @@ Removes duplicates from an array. Items in nested arrays are not treated as dupl
 
 ###**...get a random array item:**
 **`array_.rand(arr,[min],[max]);`**  
-**min, max** — optional parameters, set the range of items to choose from.  
+**min, max: Number** — Optional argument, set the range of items to choose from.  
 Randomly picks and returns one item from an array.  
 `console.log(array_.rand(arr,3,8));`
 > [Function: x]
@@ -68,8 +70,8 @@ Flattens an array and takes only numeric values into a consideration.
 
 ###**...calculate an average:**
 **`array_.mean(arr, [type], [precision]);`**  
-**type** — optional, sets the type of mean: `'ari'`: arithmetic, `'geo'`: geometric. If omitted then calculates an arithmetic mean.  
-**precision** — optional value, sets the number of digits after a decimal point. If omitted then falls back to 2.  
+**type: String** — Optional, sets the type of mean: `'ari'`: arithmetic, `'geo'`: geometric. If omitted then calculates an arithmetic mean.  
+**precision: Number** — Optional argument, sets the number of digits after a decimal point. If omitted then falls back to 2.  
 Flattens an array and takes only numeric values into a consideration.  
 `console.log(array_.mean(arr, 'geo', 3));`  
 > 67.188  
@@ -82,7 +84,7 @@ Flattens an array and takes only numeric values into a consideration.
 
 ###**...find a median:**
 **`array_.median(arr, [precision]);`**  
-**precision** — optional value, sets the number of digits after a decimal point. If omitted then falls back to 2
+**precision: Number** — Optional argument, sets the number of digits after a decimal point. If omitted then falls back to 2
 Flattens an array and takes only numeric values into a consideration.  
 `console.log(array_.median(arr, 1));`  
 > 5.0  
@@ -108,9 +110,9 @@ Returns an object `item: frequency`, where `item` is the value of an each array 
   'function a() {}': 1,  
   '[object Object]': 1 }
 
-###**...get an array breakdown**
-**`array_.breakdown(arr, [obj]);`**  
-**obj** — optional value, if set to true then method will return an object with items sorted by their type.  
+###**...get an array breakdown:**
+**`array_.breakdown(arr, [toObject]);`**  
+**toObject: Boolean** — Optional argument, if set to true then method will return an object with items sorted by their type.  
 Service method. Result is an array console pretty print.  
 
 `array_.breakdown(arr);`  
@@ -130,4 +132,15 @@ Total items: 22
   function_: [ [Function: x], [Function: a] ],
   object_: [ { x: 1, y: 'test' } ],
   undefined_: [],
-  boolean_: [] }
+  boolean_: [] }  
+
+
+###**...destroy all the empty items in an array:**
+**`array_.cop(arr, [toFlatten]);`**  
+**toFlatten: Boolean** — Optional argument. Flattens before all the work.  
+Goes on patrol and removes all the empty items aka `undefined` and `null` from an array preserving the structure.  
+`console.log(array_.cop([1,2,,,,,3,4,[5,,,,,],6,,,,8,3,[[[],9]]]));`  
+>  [ 1, 2, 3, 4, [ 5 ], 6, 8, 3, [ [ [ ], 9 ] ] ]  
+
+`console.log(array_.cop([1,2,,,,,3,4,[5,,,,,],6,,,,8,3,[[[],9]]], true));`  
+> [ 1, 2, 3, 4, 5, 6, 8, 3, 9 ]

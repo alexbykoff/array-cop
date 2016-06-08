@@ -7,7 +7,7 @@
              *    of an argument.
              */
 
-            return (Array.isArray(arr)) ? true : console.log(typeof(arr) + " is not an Array");
+            return (Array.isArray(arr)) ? true : console.log(typeof(arr) + " is not an Array!");
         },
 
         flatten: function(arr) {
@@ -65,7 +65,7 @@
             /**
              *    Returns a mathematic mean of Number items in an array. Method evaluates
              *    all Number items, including nested ones.
-             *    Syntax: array_.avg(arr,type, precision) where
+             *    Syntax: array_.avg(arr, type, precision) where
              *    [type] - choose between 'ari'themetic, 'geo'metric or 'har'monic means
              *    Optional, falls back to 'ari'
              *    [precision] - number of digits after a deciaml point. Optional,
@@ -106,7 +106,7 @@
             return arr;
         },
         median: function(arr, precision) {
-            /*
+            /**
              *    Returns a median of an array. Flattens an array, gets rid of
              *    NaNs. Returns 0 if no Numbers items, value of an array if there
              *    is only one Number item or returns an object back if it is not
@@ -159,10 +159,10 @@
             }
             return arr;
         },
-        breakdown: function(arr, obj) {
-            /*
+        breakdown: function(arr, toObject) {
+            /**
              *    Service method. Result is an array console pretty print.
-             *    if `obj` argument is set to `true` then method returns an object
+             *    if `toObject` argument is set to `true` then method returns an object
              *    with items sorted by their type.
              */
 
@@ -200,7 +200,7 @@
                 });
 
             };
-            return obj ?
+            return toObject ?
                 total :
                 console.log(
                     "Numbers: " + total.number_.length + "\n" +
@@ -209,7 +209,23 @@
                     "Objects: " + total.object_.length + "\n" +
                     "Undefined: " + total.undefined_.length + "\n" +
                     "Booleans: " + total.boolean_.length + "\n" +
-                    "Total items: " + arr.length+"\n");
+                    "Total items: " + arr.length + "\n");
+        },
+        cop: function(arr, toFlatten) {
+            /**
+             *    Removes all the empty items from an array preserving the structure.
+             *    If you want an array to be flattened then pass `true` as a second parameter.
+             */
+
+            if (this.isValid(arr)) {
+                if (toFlatten) arr = this.flatten(arr);
+                var __ = this;
+                return arr.reduce(function(result, item) {
+                    result.push(Array.isArray(item) && !item.length ? item : __.cop(item));
+                    return result;
+                }, []);
+            }
+            return arr;
         }
     }
 
