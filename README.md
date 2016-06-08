@@ -16,7 +16,7 @@ It is just an utility tool that makes life easier.
 - Calculate Geometric mean  
 - Find a median  
 - Convert to frequency matrix object  
-- Log a total array breakdown  
+- Log an array breakdown  
 
 ----------
 
@@ -116,12 +116,12 @@ Returns an object `item: frequency`, where `item` is the value of an each array 
 Service method. Result is an array console pretty print.  
 
 `array_breakdown(arr);`  
->Numbers: 16
-Strings: 3
-Functions: 2
-Objects: 1
-Undefined: 0
-Booleans: 0
+>Numbers: 16  
+Strings: 3  
+Functions: 2  
+Objects: 1  
+Undefined: 0  
+Booleans: 0  
 Total items: 22  
 
 Note that by default you not need to console.log `breakdown()` to have it printed out.
