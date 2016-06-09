@@ -1,16 +1,23 @@
 (function(_) {
+
     var array_ = {
 
         flatten: function(arr) {
+
             var __ = this;
+
             return Array.isArray(arr) ? arr.reduce(function(f, i) {
+
                 return f.concat(Array.isArray(i) ? __.flatten(i) : i);
             }, []) : arr;
         },
 
         dedup: function(arr, force) {
+
             if (Array.isArray(arr)) {
-                if (force) arr = this.flatten(arr)
+
+                if (force) arr = this.flatten(arr);
+
                 return arr.filter(function(item, i) {
                     return arr.lastIndexOf(item) === i;
                 });
@@ -19,26 +26,36 @@
         },
 
         rand: function(arr, min, max) {
+
             return Array.isArray(arr) ? arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)] : arr;
         },
 
         sum: function(arr) {
+
             if (Array.isArray(arr)) {
+
                 return this.flatten(arr).reduce(function(a, b) {
+
                     return typeof(b) === 'number' ? a += b : a;
                 }, 0);
             }
             return arr;
         },
+
         mean: function(arr, type, precision) {
+
             if (Array.isArray(arr)) {
-                arr = this.flatten(arr);
+
                 precision = precision || 2;
+
+                arr = this.flatten(arr);
+
                 typeof(type) === 'string' ? type = type || 'ari': precision = type || 2;
 
                 var sum = 0,
                     num = 0,
                     mul = 1;
+
                 switch (type) {
                     case 'ari':
                     default:
@@ -49,6 +66,7 @@
                             }
                         }
                         return (sum / num).toFixed(precision);
+                        break;
 
                     case 'geo':
                         for (var i in arr) {
@@ -58,16 +76,38 @@
                             }
                         }
                         return Math.pow(mul, 1 / num).toFixed(precision);
+                        break;
+
+                    case 'har':
+                        var harArray = [];
+                        for (var i in arr) {
+                            if (typeof(arr[i]) === 'number') {
+                                harArray.push(arr[i]);
+                            }
+                        }
+                        var harDenominator = harArray.map(function(number) {
+                            return 1 / number
+                        }).reduce(function(a, b) {
+                            return a + b
+                        });
+                        return (harArray.length / harDenominator).toFixed(precision);
+
                 }
             }
             return arr;
         },
+
         median: function(arr, precision) {
+
             if (Array.isArray(arr)) {
+
                 precision = precision || 2;
+
                 arr = this.flatten(arr);
+
                 var newArr = [];
                 for (var i in arr) {
+
                     if (typeof(arr[i]) === 'number') {
                         newArr.push(arr[i]);
                     }
@@ -77,10 +117,13 @@
                 } else if (newArr.length === 1) {
                     return newArr[0];
                 }
+
                 newArr.sort(function(a, b) {
                     return a - b;
                 });
+
                 var h = Math.floor(newArr.length / 2);
+
                 if (newArr.length % 2) {
                     return newArr[h]
                 } else return ((newArr[h - 1] + newArr[h]) / 2).toFixed(precision);
@@ -89,8 +132,11 @@
         },
 
         freq: function(arr) {
+
             if (Array.isArray(arr)) {
+
                 arr = this.flatten(arr);
+
                 var frequencyMap = arr.reduce(function(obj, item) {
                     if (obj[item]) {
                         obj[item]++;
@@ -105,8 +151,11 @@
         },
 
         breakdown: function(arr, toObject) {
+
             if (Array.isArray(arr)) {
+
                 arr = this.flatten(arr);
+
                 var total = {
                     number_: [],
                     string_: [],
@@ -115,6 +164,7 @@
                     undefined_: [],
                     boolean_: []
                 };
+
                 arr.forEach(function(value, index, arr) {
                     switch (typeof(arr[index])) {
                         case 'number':
@@ -150,8 +200,11 @@
                     "Booleans: " + total.boolean_.length + "\n" +
                     "Total items: " + arr.length + "\n");
         },
+
         cop: function(arr, toFlatten) {
+
             if (Array.isArray(arr)) {
+
                 if (toFlatten) arr = this.flatten(arr);
                 var __ = this;
                 var result = [];
@@ -166,13 +219,19 @@
             }
             return arr;
         },
+
         keep: function(arr, type, logic) {
+
             if (Array.isArray(arr)) {
+
                 arr = this.flatten(arr);
+
                 type = type || "string";
                 type = type.toLowerCase();
                 logic = logic || 'all'
                 logic = logic.toLowerCase();
+
+                // Going switch() because of may be new logic later on
                 switch (logic) {
                     case 'all':
                     default:

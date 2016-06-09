@@ -1,17 +1,18 @@
 #Array Cop  
-[![GitHub version](https://badge.fury.io/gh/tomkallen%2Farray-cop.svg)](https://badge.fury.io/gh/tomkallen%2Farray-cop)  [![npm version](https://badge.fury.io/js/array-cop.svg)](https://badge.fury.io/js/array-cop)[![Build Status](https://travis-ci.org/tomkallen/array-cop.svg?branch=master)](https://travis-ci.org/tomkallen/array-cop)
+[![GitHub version](https://badge.fury.io/gh/tomkallen%2Farray-cop.svg)](https://badge.fury.io/gh/tomkallen%2Farray-cop)  [![npm version](https://badge.fury.io/js/array-cop.svg)](https://badge.fury.io/js/array-cop) [![Build Status](https://travis-ci.org/tomkallen/array-cop.svg?branch=master)](https://travis-ci.org/tomkallen/array-cop)
 
 :cop: Arraycop is a dependency-free vanilla JS nano-library / npm module that deals with arrays.
 It is just an utility tool that makes life easier and also does some maths for you. :police_car:  
 
 ##Current features:  
 
- Flatten nested arrays  
+- Flatten nested arrays  
 - Remove all the duplicates  
 - Pick any random item in any range  
 - Calculate the sum of all the Number items    
 - Calculate an Arithmetic mean  
 - Calculate a Geometric mean  
+- Calculate a Harmonic mean **(0.3.1)+**  
 - Find a median  
 - Convert to the frequency matrix object  
 - Log an array breakdown  
@@ -71,7 +72,7 @@ Flattens an array and takes only numeric values into a consideration.
 
 ###**...calculate an average:**
 **`array_.mean(arr, [type], [precision]);`**  
-**type: String** — Optional, sets the type of mean: `'ari'`: arithmetic, `'geo'`: geometric. If omitted then calculates an arithmetic mean.  
+**type: String** — Optional, sets the type of mean: `'ari'`: arithmetic, `'geo'`: geometric, `'har'`: harmonic. If omitted then calculates an arithmetic mean.  
 **precision: Number** — Optional argument, sets the number of digits after a decimal point. If omitted then falls back to 2.  
 Flattens an array and takes only numeric values into a consideration.  
 `console.log(array_.mean(arr, 'geo', 3));`  
@@ -125,7 +126,7 @@ Undefined: 0
 Booleans: 0  
 Total items: 22  
 
-*Note that by default you do not need to console.log `breakdown()` to have it printed out*
+*Note that by default you do not need to console.log  `breakdown()` to have it printed out*
 
 `console.log(array_.breakdown(arr, true));`  
 > { number_: [ 8, 1000, 8, 5, 1, 2, 2, 3, 4, 5, 4, 6, 7, 11, 7, 2 ],
