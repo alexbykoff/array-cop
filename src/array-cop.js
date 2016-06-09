@@ -1,34 +1,15 @@
 (function(_) {
     var array_ = {
-        isValid: function(arr) {
-            /**
-             *    Checks if an argument provided is a proper array.
-             *    If not then it returns an argument back and logs the type
-             *    of an argument.
-             */
-
-            return (Array.isArray(arr)) ? true : console.log(typeof(arr) + " is not an Array!");
-        },
 
         flatten: function(arr) {
-            /**
-             *    Flattens all the layers of an array, no matter how deeply nested they are.
-             */
-
             var __ = this;
-            return this.isValid(arr) ? arr.reduce(function(f, i) {
+            return Array.isArray(arr) ? arr.reduce(function(f, i) {
                 return f.concat(Array.isArray(i) ? __.flatten(i) : i);
             }, []) : arr;
         },
 
         dedup: function(arr, force) {
-            /**
-             *    Removes duplicates from an array. Note: items in nested arrays are not
-             *    considered to be duplicates. If you want to remove duplicates from
-             *    the sub-arrays as well then pass true as a second argument.
-             */
-
-            if (this.isValid(arr)) {
+            if (Array.isArray(arr)) {
                 if (force) arr = this.flatten(arr)
                 return arr.filter(function(item, i) {
                     return arr.lastIndexOf(item) === i;
@@ -38,23 +19,11 @@
         },
 
         rand: function(arr, min, max) {
-            /**
-             *    Picks a random item from an array in a range of min, max.
-             *    If no range is provided then array.length is taken
-             *    into a consideraton.
-             */
-
-            return this.isValid(arr) ? arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)] : arr;
+            return Array.isArray(arr) ? arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)] : arr;
         },
 
         sum: function(arr) {
-            /**
-             *    Returns the sum of all Number items in an array. If an array contains
-             *    NaN items they will be skipped. sum() grabs all Number items from
-             *    nested items as well.
-             */
-
-            if (this.isValid(arr)) {
+            if (Array.isArray(arr)) {
                 return this.flatten(arr).reduce(function(a, b) {
                     return typeof(b) === 'number' ? a += b : a;
                 }, 0);
@@ -62,21 +31,9 @@
             return arr;
         },
         mean: function(arr, type, precision) {
-            /**
-             *    Returns a mathematic mean of Number items in an array. Method evaluates
-             *    all Number items, including nested ones.
-             *    Syntax: array_.avg(arr, type, precision) where
-             *    [type] - choose between 'ari'themetic, 'geo'metric or 'har'monic means
-             *    Optional, falls back to 'ari'
-             *    [precision] - number of digits after a deciaml point. Optional,
-             *    falls back to 2 if no argument is provided.
-             */
-
-            if (this.isValid(arr)) {
+            if (Array.isArray(arr)) {
                 arr = this.flatten(arr);
                 precision = precision || 2;
-
-                /*** Arguments fallback */
                 typeof(type) === 'string' ? type = type || 'ari': precision = type || 2;
 
                 var sum = 0,
@@ -106,15 +63,7 @@
             return arr;
         },
         median: function(arr, precision) {
-            /**
-             *    Returns a median of an array. Flattens an array, gets rid of
-             *    NaNs. Returns 0 if no Numbers items, value of an array if there
-             *    is only one Number item or returns an object back if it is not
-             *    an array.
-             *    [precision] is optional. Falls back to 2 if no parameter provided.
-             */
-
-            if (this.isValid(arr)) {
+            if (Array.isArray(arr)) {
                 precision = precision || 2;
                 arr = this.flatten(arr);
                 var newArr = [];
@@ -138,14 +87,9 @@
             }
             return arr;
         },
-        freq: function(arr) {
-            /**
-             *    Returns an object `item: frequency`, where `item` is the value
-             *    of an each array item and `frequency` is the number of times
-             *    that item appears in an array. Flattens an array before evaluation.
-             */
 
-            if (this.isValid(arr)) {
+        freq: function(arr) {
+            if (Array.isArray(arr)) {
                 arr = this.flatten(arr);
                 var frequencyMap = arr.reduce(function(obj, item) {
                     if (obj[item]) {
@@ -159,14 +103,9 @@
             }
             return arr;
         },
-        breakdown: function(arr, toObject) {
-            /**
-             *    Service method. Result is an array console pretty print.
-             *    if `toObject` argument is set to `true` then method returns an object
-             *    with items sorted by their type.
-             */
 
-            if (this.isValid(arr)) {
+        breakdown: function(arr, toObject) {
+            if (Array.isArray(arr)) {
                 arr = this.flatten(arr);
                 var total = {
                     number_: [],
@@ -212,18 +151,41 @@
                     "Total items: " + arr.length + "\n");
         },
         cop: function(arr, toFlatten) {
-            /**
-             *    Removes all the empty items from an array preserving the structure.
-             *    If you want an array to be flattened then pass `true` as a second parameter.
-             */
-
-            if (this.isValid(arr)) {
+            if (Array.isArray(arr)) {
                 if (toFlatten) arr = this.flatten(arr);
                 var __ = this;
-                return arr.reduce(function(result, item) {
-                    result.push(Array.isArray(item) && !item.length ? item : __.cop(item));
-                    return result;
-                }, []);
+                var result = [];
+                arr.forEach(function(item) {
+                    if (Array.isArray(item) && item.length != 0) {
+                        result.push(__.cop(item));
+                    } else if (typeof item !== 'undefined' && typeof item !== 'null') {
+                        result.push(item);
+                    }
+                });
+                return result;
+            }
+            return arr;
+        },
+        keep: function(arr, type, logic) {
+            if (Array.isArray(arr)) {
+                arr = this.flatten(arr);
+                type = type || "string";
+                type = type.toLowerCase();
+                logic = logic || 'all'
+                logic = logic.toLowerCase();
+                switch (logic) {
+                    case 'all':
+                    default:
+                        return arr.filter(function(i) {
+                            return typeof(i) === type.toLowerCase()
+                        });
+                        break;
+                    case 'but':
+                        return arr.filter(function(i) {
+                            return typeof(i) !== type.toLowerCase()
+                        });
+                        break;
+                }
             }
             return arr;
         }
