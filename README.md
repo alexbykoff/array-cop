@@ -1,5 +1,5 @@
 #Array Cop  
-[![GitHub version](https://badge.fury.io/gh/tomkallen%2Farray-cop.svg)](https://badge.fury.io/gh/tomkallen%2Farray-cop) [![Build Status](https://travis-ci.org/tomkallen/array-cop.svg?branch=master)](https://travis-ci.org/tomkallen/array-cop)
+[![GitHub version](https://badge.fury.io/gh/tomkallen%2Farray-cop.svg)](https://badge.fury.io/gh/tomkallen%2Farray-cop)  [![npm version](https://badge.fury.io/js/array-cop.svg)](https://badge.fury.io/js/array-cop)[![Build Status](https://travis-ci.org/tomkallen/array-cop.svg?branch=master)](https://travis-ci.org/tomkallen/array-cop)
 
 :cop: Arraycop is a dependency-free vanilla JS nano-library / npm module that deals with arrays.
 It is just an utility tool that makes life easier and also does some maths for you. :police_car:  
@@ -16,6 +16,7 @@ It is just an utility tool that makes life easier and also does some maths for y
 - Convert to the frequency matrix object  
 - Log an array breakdown  
 - Remove all the empty items from the nested arrays  
+- Filter items in an array by type **(0.2.0)+**  
 
 ----------
 
@@ -23,7 +24,7 @@ It is just an utility tool that makes life easier and also does some maths for y
 ###Browser
 `<script src = "array-cop.min.js">`
 ###npm
-`npm install --save array-cop`
+`npm install array-cop`
 
 `var array_ = require('array-cop');`  
 
@@ -143,4 +144,27 @@ Goes on patrol and removes all the empty items aka `undefined` and `null` from a
 >  [ 1, 2, 3, 4, [ 5 ], 6, 8, 3, [ [ [ ], 9 ] ] ]  
 
 `console.log(array_.cop([1,2,,,,,3,4,[5,,,,,],6,,,,8,3,[[[],9]]], true));`  
-> [ 1, 2, 3, 4, 5, 6, 8, 3, 9 ]
+> [ 1, 2, 3, 4, 5, 6, 8, 3, 9 ]  
+
+###**...filter an array by item type or remove some types:**
+**`array_.keep(arr, [type], [filter]);`**  
+**type: String** — sets the type of an object to work with. Values are:  
+`'string', 'number', 'function', 'object', 'boolean', 'null', 'undefined'`  
+Default value is `'string'`  
+**filter: String** — sets the logic for the method.  
+`'all'` — keep all array items of `type`, remove the rest  
+`'but'` — keep all array items, but `type`  
+Default value is `'all'`  
+`console.log(array_.keep(arr, 'object', 'all'));`  
+> [ { x: 1, y: 'test' } ]  
+
+`console.log(array_.keep(arr));`  
+> [ 'Jack', 'Bob', 'Alice' ]  
+
+`console.log(array_.keep(arr, 'number', 'but'));`  
+> [ 'Jack',
+  'Bob',
+  'Alice',
+  [Function: x],
+  [Function: a],
+  { x: 1, y: 'test' } ]
