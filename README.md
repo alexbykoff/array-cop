@@ -17,7 +17,8 @@ It is just an utility tool that makes life easier and also does some maths for y
 - Convert to the frequency matrix object  
 - Log an array breakdown  
 - Remove all the empty items from the nested arrays  
-- Filter items in an array by type **(0.2.0)+**  
+- Filter items in an array by type  
+- Get rid of all non-alphanumeric values **(0.4.0)+**  
 
 ----------
 
@@ -168,4 +169,18 @@ Default value is `'all'`
   'Alice',
   [Function: x],
   [Function: a],
-  { x: 1, y: 'test' } ]
+  { x: 1, y: 'test' } ]  
+
+###**...remove non alphanumerics from the String items:**
+**`array_.alpha(arr);`**  
+**`array_.alphaNum(arr);`**  
+`alpha()` keeps letters only, `alphaNum()` saves digits as well.  
+Method ignores all non-String items to keep them safe. Multidimensional structure is preserved.  
+
+`console.log(array_.alpha(["Clinton 2022", ["__jazzy cat.69", "'s t r\ni n g'"],[["catlady+01"], true]]));`  
+> [ 'Clinton', [ 'jazzycat', 'string' ], [ [ 'catlady' ], true ] ]  
+
+`console.log(array_.alphaNum(["Clinton 2022", ["__jazzy cat.69", "'s t r\ni n g'"],[["catlady+01"], true]]));`  
+>[ 'Clinton2022',
+  [ 'jazzycat69', 'string' ],
+  [ [ 'catlady01' ], true ] ]

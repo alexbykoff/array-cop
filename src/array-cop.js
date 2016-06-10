@@ -166,7 +166,7 @@
                 };
 
                 arr.forEach(function(value, index, arr) {
-                    switch (typeof(arr[index])) {
+                    switch (typeof arr[index]) {
                         case 'number':
                             total.number_.push(arr[index]);
                             break;
@@ -247,6 +247,28 @@
                 }
             }
             return arr;
+        },
+        alpha: function(arr) {
+            return Array.isArray(arr) ? this.regExpFilter(arr, /[^a-z]/gi) : arr;
+        },
+        alphaNum: function(arr) {
+            return Array.isArray(arr) ? this.regExpFilter(arr, /[^a-z0-9]/gi) : arr;
+        },
+
+        regExpFilter: function(arr, expression) {
+            var __ = this;
+            var result = [];
+            arr.forEach(function(item) {
+                if (Array.isArray(item) && item.length != 0) {
+                    result.push(__.regExpFilter(item, expression));
+                } else if (typeof item === 'string') {
+                    item = item.replace(expression, '');
+                    result.push(item);
+                } else {
+                    result.push(item)
+                }
+            });
+            return result;
         }
     }
 
