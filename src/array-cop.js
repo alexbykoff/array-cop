@@ -1,23 +1,19 @@
 (function(_) {
-
     var array_ = {
-
+        // Flattens an array to a single-dimensional one
         flatten: function(arr) {
-
             var __ = this;
-
             return Array.isArray(arr) ? arr.reduce(function(f, i) {
-
                 return f.concat(Array.isArray(i) ? __.flatten(i) : i);
             }, []) : arr;
         },
-
+        /*
+         * Removes duplicates from an array. Items in nested arrays are not
+         * treated as duplicates to avoid mess.
+        */
         dedup: function(arr, force) {
-
             if (Array.isArray(arr)) {
-
                 if (force) arr = this.flatten(arr);
-
                 return arr.filter(function(item, i) {
                     return arr.lastIndexOf(item) === i;
                 });
