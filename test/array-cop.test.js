@@ -14,3 +14,10 @@ describe('flatten', function() {
         assert.deepEqual(arrayCop.flatten("not an array"), "not an array");
     });
 });
+
+var srcArray = [1, 3, 3, 'Some string', 'Some string', 5, 7, 8, 'pete', {}];
+describe('dedup', function() {
+  it('should removes duplicates from an array', function() {
+    assert.deepEqual(arrayCop.dedup(srcArray), [1, 3, 'Some string', 5, 7, 8, 'pete', {}]);
+  });
+});
