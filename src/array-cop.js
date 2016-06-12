@@ -1,18 +1,24 @@
 (function(_) {
     var array_ = {
-        // Flattens an array to a single-dimensional one
         flatten: function(arr) {
+            /** Flattens an array to a single-dimensional one
+             */
+
             var __ = this;
+
             return Array.isArray(arr) ? arr.reduce(function(f, i) {
                 return f.concat(Array.isArray(i) ? __.flatten(i) : i);
             }, []) : arr;
         },
-        /*
-         * Removes duplicates from an array. Items in nested arrays are not
-         * treated as duplicates to avoid mess.
-        */
+
         dedup: function(arr, force) {
+            /**
+             * Removes duplicates from an array. Items in nested arrays are not
+             * treated as duplicates(if `force` is not set to `true`) to avoid mess.
+             */
+
             if (Array.isArray(arr)) {
+
                 if (force) arr = this.flatten(arr);
                 return arr.filter(function(item, i) {
                     return arr.lastIndexOf(item) === i;
@@ -20,12 +26,18 @@
             }
             return arr;
         },
-        // Randomly picks and returns one item from an array
+
         rand: function(arr, min, max) {
+            /** Randomly picks and returns one item from an array or from a
+             * given range
+             */
+
             return Array.isArray(arr) ? arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)] : arr;
         },
-        // Flattens an array and takes only numeric values into a consideration
+
         sum: function(arr) {
+            /** Flattens an array and takes only numeric values into a consideration */
+
             if (Array.isArray(arr)) {
                 return this.flatten(arr).reduce(function(a, b) {
                     return typeof(b) === 'number' ? a += b : a;
@@ -86,7 +98,7 @@
 
                 }
             }
-            return arr;
+            throw new Error("Not an array!");
         },
 
         median: function(arr, precision) {
@@ -120,7 +132,7 @@
                     return newArr[h]
                 } else return ((newArr[h - 1] + newArr[h]) / 2).toFixed(precision);
             }
-            return arr;
+            throw new Error("Not an array!");
         },
 
         freq: function(arr) {
@@ -139,7 +151,7 @@
                 }, {});
                 return frequencyMap;
             }
-            return arr;
+            throw new Error("Not an array!");
         },
 
         breakdown: function(arr, toObject) {
@@ -185,17 +197,19 @@
                     }
                 });
 
+
+                return toObject ?
+                    total :
+                    console.log(
+                        "Numbers: " + total.number_.length + "\n" +
+                        "Strings: " + total.string_.length + "\n" +
+                        "Functions: " + total.function_.length + "\n" +
+                        "Objects: " + total.object_.length + "\n" +
+                        "Undefined: " + total.undefined_.length + "\n" +
+                        "Booleans: " + total.boolean_.length + "\n" +
+                        "Total items: " + arr.length + "\n");
             };
-            return toObject ?
-                total :
-                console.log(
-                    "Numbers: " + total.number_.length + "\n" +
-                    "Strings: " + total.string_.length + "\n" +
-                    "Functions: " + total.function_.length + "\n" +
-                    "Objects: " + total.object_.length + "\n" +
-                    "Undefined: " + total.undefined_.length + "\n" +
-                    "Booleans: " + total.boolean_.length + "\n" +
-                    "Total items: " + arr.length + "\n");
+            throw new Error("Not an array!");
         },
 
         cop: function(arr, toFlatten) {
@@ -217,7 +231,7 @@
                 });
                 return result;
             }
-            return arr;
+            throw new Error("Not an array!");
         },
 
         keep: function(arr, type, logic) {
@@ -248,7 +262,7 @@
                         break;
                 }
             }
-            return arr;
+            throw new Error("Not an array!");
         },
         alpha: function(arr) {
 
