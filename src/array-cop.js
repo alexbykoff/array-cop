@@ -170,18 +170,23 @@
                         case 'number':
                             total.number_.push(arr[index]);
                             break;
+
                         case 'string':
                             total.string_.push(arr[index]);
                             break;
+
                         case 'function':
                             total.function_.push(arr[index]);
                             break;
+
                         case 'object':
                             total.object_.push(arr[index]);
                             break;
+
                         case 'undefined':
                             total.undefined_.push(arr[index]);
                             break;
+
                         case 'boolean':
                             total.boolean_.push(arr[index]);
                             break;
@@ -206,9 +211,12 @@
             if (Array.isArray(arr)) {
 
                 if (toFlatten) arr = this.flatten(arr);
+
                 var __ = this;
                 var result = [];
+
                 arr.forEach(function(item) {
+
                     if (Array.isArray(item) && item.length != 0) {
                         result.push(__.cop(item));
                     } else if (typeof item !== 'undefined' && typeof item !== 'null') {
@@ -233,12 +241,14 @@
 
                 // Going switch() because of may be new logic later on
                 switch (logic) {
+
                     case 'all':
                     default:
                         return arr.filter(function(i) {
                             return typeof(i) === type.toLowerCase()
                         });
                         break;
+
                     case 'but':
                         return arr.filter(function(i) {
                             return typeof(i) !== type.toLowerCase()
@@ -249,16 +259,21 @@
             return arr;
         },
         alpha: function(arr) {
+
             return Array.isArray(arr) ? this.regExpFilter(arr, /[^a-z]/gi) : arr;
         },
         alphaNum: function(arr) {
+
             return Array.isArray(arr) ? this.regExpFilter(arr, /[^a-z0-9]/gi) : arr;
         },
 
         regExpFilter: function(arr, expression) {
+
             var __ = this;
             var result = [];
+
             arr.forEach(function(item) {
+
                 if (Array.isArray(item) && item.length != 0) {
                     result.push(__.regExpFilter(item, expression));
                 } else if (typeof item === 'string') {

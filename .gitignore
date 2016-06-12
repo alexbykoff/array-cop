@@ -1,2 +1,4 @@
 node_modules
 ftest.*
+test/array-cop.test.min.js
+coverage
