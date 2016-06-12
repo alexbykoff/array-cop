@@ -1,41 +1,33 @@
 (function(_) {
-
     var array_ = {
-
+        // Flattens an array to a single-dimensional one
         flatten: function(arr) {
-
             var __ = this;
-
             return Array.isArray(arr) ? arr.reduce(function(f, i) {
-
                 return f.concat(Array.isArray(i) ? __.flatten(i) : i);
             }, []) : arr;
         },
-
+        /*
+         * Removes duplicates from an array. Items in nested arrays are not
+         * treated as duplicates to avoid mess.
+        */
         dedup: function(arr, force) {
-
             if (Array.isArray(arr)) {
-
                 if (force) arr = this.flatten(arr);
-
                 return arr.filter(function(item, i) {
                     return arr.lastIndexOf(item) === i;
                 });
             }
             return arr;
         },
-
+        // Randomly picks and returns one item from an array
         rand: function(arr, min, max) {
-
             return Array.isArray(arr) ? arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)] : arr;
         },
-
+        // Flattens an array and takes only numeric values into a consideration
         sum: function(arr) {
-
             if (Array.isArray(arr)) {
-
                 return this.flatten(arr).reduce(function(a, b) {
-
                     return typeof(b) === 'number' ? a += b : a;
                 }, 0);
             }
