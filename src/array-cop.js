@@ -20,18 +20,14 @@
             }
             return arr;
         },
-
+        // Randomly picks and returns one item from an array
         rand: function(arr, min, max) {
-
             return Array.isArray(arr) ? arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)] : arr;
         },
-
+        // Flattens an array and takes only numeric values into a consideration
         sum: function(arr) {
-
             if (Array.isArray(arr)) {
-
                 return this.flatten(arr).reduce(function(a, b) {
-
                     return typeof(b) === 'number' ? a += b : a;
                 }, 0);
             }
