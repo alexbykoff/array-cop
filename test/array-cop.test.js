@@ -80,4 +80,42 @@ describe('cop', function() {
             ]
         ]], true), [1, 2, 3, 4, 5, 6, 8, 3, 9]);
     });
-})
+});
+
+describe('mean', function() {
+
+   it('should throw an error if argument is not an array', function() {
+       expect(function() {
+           arrayCop.mean(new String)
+        }).to.throw('Not an array!');
+   });
+
+   it('should return 0 for empty array', function() {
+       assert.deepEqual(arrayCop.mean([]), 0);
+   });
+
+   it('should return ariphmetic mean for array by default', function() {
+       assert.deepEqual(arrayCop.mean([1,2,3]), '2.00');
+   });
+
+   it('should return ariphmetic mean for array', function() {
+       assert.deepEqual(arrayCop.mean([1,2,3, new String, [1,2,3]], 'ari'), '2.00');
+   });
+
+   it('should return ariphmetic mean for array with .000 precision', function() {
+       assert.deepEqual(arrayCop.mean([1,2,3], 3), '2.000');
+   });
+
+   it('should return geometric mean for flatterned array', function() {
+       assert.deepEqual(arrayCop.mean([1,2,3, new String, new Object, [1,2,3]],'geo'), '1.82');
+   });
+
+   it('should return geometric mean for flatterned array with .00000 precision', function() {
+       assert.deepEqual(arrayCop.mean([1,2,3, new String, new Object, [1,2,3]],'geo', 5), '1.81712');
+   });
+
+   it('should return harmonic mean for array with .000 precision', function() {
+       assert.deepEqual(arrayCop.mean([1,2,3], 'har', 3), '1.636');
+   });
+
+});

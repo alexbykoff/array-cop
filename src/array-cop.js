@@ -47,19 +47,30 @@
         },
 
         mean: function(arr, type, precision) {
-
+            /** Return mean of the array(arr) items. Flattens an array and takes only numeric
+            * values into a consideration.
+            *
+            * type: type of mean -  'ari': arithmetic, 'geo':  geometric, 'har': harmonic.
+            * If omitted then calculates an arithmetic mean.
+            *
+            * precision: Number — Optional argument, sets the number of digits after a decimal * point. If omitted then falls back to 2.
+            */
             if (Array.isArray(arr)) {
 
-                precision = precision || 2;
+                var mean = 0,
+                    sum = 0,
+                    num = 0,
+                    mul = 1,
+                    precision = precision || 2, // Default precision value
+                    arr = this.flatten(arr);
 
-                arr = this.flatten(arr);
+                if (!arr.length) {
+                    return mean;
+                }
 
                 typeof(type) === 'string' ? type = type || 'ari': precision = type || 2;
 
-                var sum = 0,
-                    num = 0,
-                    mul = 1;
-
+                // Main arithmetic logic
                 switch (type) {
                     case 'ari':
                     default:
@@ -69,7 +80,7 @@
                                 num++;
                             }
                         }
-                        return (sum / num).toFixed(precision);
+                        mean = (sum / num).toFixed(precision);
                         break;
 
                     case 'geo':
@@ -79,7 +90,7 @@
                                 num++;
                             }
                         }
-                        return Math.pow(mul, 1 / num).toFixed(precision);
+                        mean =  Math.pow(mul, 1 / num).toFixed(precision);
                         break;
 
                     case 'har':
@@ -94,9 +105,9 @@
                         }).reduce(function(a, b) {
                             return a + b
                         });
-                        return (harArray.length / harDenominator).toFixed(precision);
-
+                        mean = (harArray.length / harDenominator).toFixed(precision);
                 }
+                return mean;
             }
             throw new Error("Not an array!");
         },
