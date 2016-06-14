@@ -1,8 +1,7 @@
 (function(_) {
     var array_ = {
         flatten: function(arr) {
-            /** Flattens an array to a single-dimensional one
-             */
+            /** Flattens an array to a single-dimensional one */
 
             var __ = this;
 
@@ -36,7 +35,7 @@
         },
 
         sum: function(arr) {
-            /** Flattens an array and takes only numeric values into a consideration */
+            /** Returns a sum of all the items. Flattens an array and takes only numeric values into a consideration */
 
             if (Array.isArray(arr)) {
                 return this.flatten(arr).reduce(function(a, b) {
@@ -48,13 +47,13 @@
 
         mean: function(arr, type, precision) {
             /** Return mean of the array(arr) items. Flattens an array and takes only numeric
-            * values into a consideration.
-            *
-            * type: type of mean -  'ari': arithmetic, 'geo':  geometric, 'har': harmonic.
-            * If omitted then calculates an arithmetic mean.
-            *
-            * precision: Number — Optional argument, sets the number of digits after a decimal * point. If omitted then falls back to 2.
-            */
+             * values into a consideration.
+             *
+             * type: type of mean -  'ari': arithmetic, 'geo':  geometric, 'har': harmonic.
+             * If omitted then calculates an arithmetic mean.
+             *
+             * precision: Number — Optional argument, sets the number of digits after a decimal * point. If omitted then falls back to 2.
+             */
             if (Array.isArray(arr)) {
 
                 var mean = 0,
@@ -80,7 +79,7 @@
                                 num++;
                             }
                         }
-                        mean = (sum / num).toFixed(precision);
+                        mean = (sum / num);
                         break;
 
                     case 'geo':
@@ -90,7 +89,7 @@
                                 num++;
                             }
                         }
-                        mean =  Math.pow(mul, 1 / num).toFixed(precision);
+                        mean = Math.pow(mul, 1 / num);
                         break;
 
                     case 'har':
@@ -105,9 +104,9 @@
                         }).reduce(function(a, b) {
                             return a + b
                         });
-                        mean = (harArray.length / harDenominator).toFixed(precision);
+                        mean = (harArray.length / harDenominator);
                 }
-                return mean;
+                return mean.toFixed(precision);
             }
             throw new Error("Not an array!");
         },
@@ -137,11 +136,13 @@
                     return a - b;
                 });
 
-                var h = Math.floor(newArr.length / 2);
+                var medianItem = Math.floor(newArr.length / 2);
 
                 if (newArr.length % 2) {
-                    return newArr[h]
-                } else return ((newArr[h - 1] + newArr[h]) / 2).toFixed(precision);
+                    // If number of Number items is odd then middle item is the median
+                    return newArr[medianItem]
+                        // Otherwise calculate and average of two items in the middle
+                } else return ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(precision);
             }
             throw new Error("Not an array!");
         },
@@ -152,6 +153,8 @@
 
                 arr = this.flatten(arr);
 
+                // Generates an object where value in key-value pair is the number of times
+                // such an item appears in an array
                 var frequencyMap = arr.reduce(function(obj, item) {
                     if (obj[item]) {
                         obj[item]++;
@@ -250,11 +253,8 @@
             if (Array.isArray(arr)) {
 
                 arr = this.flatten(arr);
-
                 type = type || "string";
-                type = type.toLowerCase();
                 logic = logic || 'all'
-                logic = logic.toLowerCase();
 
                 // Going switch() because of may be new logic later on
                 switch (logic) {

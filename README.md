@@ -18,7 +18,7 @@ It is just an utility tool that makes life easier and also does some maths for y
 - Log an array breakdown  
 - Remove all the empty items from the nested arrays  
 - Filter items in an array by type  
-- Get rid of all non-alphanumeric values **(0.4.0)+**  
+- Get rid of all non-alphanumeric characters **(0.4.0)+**  
 
 ----------
 
