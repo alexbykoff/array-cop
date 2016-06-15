@@ -18,7 +18,9 @@
 
             if (Array.isArray(arr)) {
 
-                if (force) arr = this.flatten(arr);
+                if (force) {
+                    arr = this.flatten(arr);
+                }
                 return arr.filter(function(item, i) {
                     return arr.lastIndexOf(item) === i;
                 });
@@ -64,7 +66,7 @@
                     sum = 0,
                     num = 0,
                     mul = 1,
-                    i =0;
+                    i = 0;
 
 
 
@@ -72,11 +74,11 @@
                     return mean;
                 }
 
-                typeof(type) === 'string' ? type = type || 'ari': precision = Math.abs(type) || precision;
+                typeof(type) === "string" ? type = type || "ari": precision = Math.abs(type) || precision;
 
                 // Main arithmetic logic
                 switch (type) {
-                    case 'ari':
+                    case "ari":
                     default:
                         for (var i in arr) {
                             if (typeof(arr[i]) === "number") {
@@ -87,7 +89,7 @@
                         mean = (sum / num);
                         break;
 
-                    case 'geo':
+                    case "geo":
                         for (i in arr) {
                             if (typeof(arr[i]) === "number") {
                                 mul *= arr[i];
@@ -97,7 +99,7 @@
                         mean = Math.pow(mul, 1 / num);
                         break;
 
-                    case 'har':
+                    case "har":
                         var harArray = [];
                         for (i in arr) {
                             if (typeof(arr[i]) === "number") {
@@ -105,9 +107,9 @@
                             }
                         }
                         var harDenominator = harArray.map(function(number) {
-                            return 1 / number
+                            return 1 / number;
                         }).reduce(function(a, b) {
-                            return a + b
+                            return a + b;
                         });
                         mean = (harArray.length / harDenominator);
                 }
@@ -154,9 +156,11 @@
 
                 if (newArr.length % 2) {
                     // If number of Number items is odd then middle item is the median
-                    return newArr[medianItem]
-                        // Otherwise calculate and average of two items in the middle
-                } else return precision > 0 ? ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision)) : (newArr[medianItem - 1] + newArr[medianItem]) / 2;
+                    return newArr[medianItem];
+                    // Otherwise calculate and average of two items in the middle
+                } else {
+                    return precision > 0 ? ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision)) : (newArr[medianItem - 1] + newArr[medianItem]) / 2;
+                }
             }
             throw new Error("Not an array!");
         },
@@ -203,27 +207,27 @@
 
                 arr.forEach(function(value, index, arr) {
                     switch (typeof arr[index]) {
-                        case 'number':
+                        case "number":
                             total.number_.push(arr[index]);
                             break;
 
-                        case 'string':
+                        case "string":
                             total.string_.push(arr[index]);
                             break;
 
-                        case 'function':
+                        case "function":
                             total.function_.push(arr[index]);
                             break;
 
-                        case 'object':
+                        case "object":
                             total.object_.push(arr[index]);
                             break;
 
-                        case 'undefined':
+                        case "undefined":
                             total.undefined_.push(arr[index]);
                             break;
 
-                        case 'boolean':
+                        case "boolean":
                             total.boolean_.push(arr[index]);
                             break;
                     }
@@ -248,7 +252,9 @@
 
             if (Array.isArray(arr)) {
 
-                if (toFlatten) arr = this.flatten(arr);
+                if (toFlatten) {
+                    arr = this.flatten(arr);
+                }
 
                 var __ = this;
                 var result = [];
@@ -272,19 +278,19 @@
 
                 arr = this.flatten(arr);
                 type = type || "string";
-                logic = logic || 'all'
+                logic = logic || "all"
 
                 // Going switch() because of may be new logic later on
                 switch (logic) {
 
-                    case 'all':
+                    case "all":
                     default:
                         return arr.filter(function(i) {
                             return typeof(i) === type.toLowerCase()
                         });
                         break;
 
-                    case 'but':
+                    case "but":
                         return arr.filter(function(i) {
                             return typeof(i) !== type.toLowerCase()
                         });
@@ -315,7 +321,7 @@
                     item = item.replace(expression, '');
                     result.push(item);
                 } else {
-                    result.push(item)
+                    result.push(item);
                 }
             });
             return result;
@@ -333,11 +339,16 @@
         },
 
         index: function(arr, element) {
-            if (!element) throw new Error("Element not passed as argument");
-            if (Array.isArray(arr)) {
-                var index = arr.indexOf(element);
 
+            if (!element) {
+                throw new Error("Element not passed as argument");
+            }
+
+            if (Array.isArray(arr)) {
+
+                var index = arr.indexOf(element);
                 var result = [];
+
                 while (index >= 0) {
                     result.push(index);
                     index = arr.indexOf(element, index + 1);
@@ -345,7 +356,6 @@
                 return result.length ? result : -1;
             }
             throw new Error("Not an array!");
-
         }
     }
 
