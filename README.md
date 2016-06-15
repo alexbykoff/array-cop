@@ -21,7 +21,7 @@ It is just an utility tool that makes life easier and also does some maths for y
 - Get rid of all non-alphanumeric characters **(0.4.0)+**  
 - Convert an object into an array **(0.5.0)+**  
 
-##since version 0.5.0 minified js is not provided anymore. Use normal version in your browser and minify/concat during your usual production routine.  
+###since version 0.5.0 minified js is not provided anymore. Use normal version in your browser and minify/concat during your usual production routine.  
 
 ----------
 
@@ -190,7 +190,7 @@ Method ignores all non-String items to keep them safe. Multidimensional structur
 
 ###**...convert an object into an array**
 **`array_.arrify(object)`**  
-Coverts an object (associative array) into an `Array` where object keys are array items.  
+Converts an object (associative array) into an `array` where object keys are array items.  
 Argument provided should be an `object`. Will throw an error if not an object type.  
 `console.log(array_.arrify({name: 'Jack', id: 12345}));`  
 > ['Jack', 12345]  
