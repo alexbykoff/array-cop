@@ -301,6 +301,17 @@
                 }
             });
             return result;
+        },
+
+        arrify: function(obj) {
+
+            if (typeof obj === 'object') {
+
+                return Object.keys(obj).map(function(key) {
+                    return obj[key];
+                });
+            }
+            throw new Error("Not an object!");
         }
     }
 

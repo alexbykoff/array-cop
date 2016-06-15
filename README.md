@@ -1,7 +1,7 @@
 #Array Cop  
 [![GitHub version](https://badge.fury.io/gh/tomkallen%2Farray-cop.svg)](https://badge.fury.io/gh/tomkallen%2Farray-cop)  [![npm version](https://badge.fury.io/js/array-cop.svg)](https://badge.fury.io/js/array-cop) [![Build Status](https://travis-ci.org/tomkallen/array-cop.svg?branch=master)](https://travis-ci.org/tomkallen/array-cop)
 
-:cop: Arraycop is a dependency-free vanilla JS nano-library / npm module that deals with arrays.
+:cop: Array Cop is a dependency-free vanilla JS nano-library / npm module that deals with arrays.
 It is just an utility tool that makes life easier and also does some maths for you. :police_car:  
 
 ##Current features:  
@@ -19,12 +19,15 @@ It is just an utility tool that makes life easier and also does some maths for y
 - Remove all the empty items from the nested arrays  
 - Filter items in an array by type  
 - Get rid of all non-alphanumeric characters **(0.4.0)+**  
+- Convert an object into an array **(0.5.0)+**  
+
+##since version 0.5.0 minified js is not provided anymore. Use normal version in your browser and minify/concat during your usual production routine.  
 
 ----------
 
 ##Usage
 ###Browser
-`<script src = "array-cop.min.js">`
+`<script src = "array-cop.js">`
 ###npm
 `npm install array-cop`
 
@@ -184,3 +187,13 @@ Method ignores all non-String items to keep them safe. Multidimensional structur
 >[ 'Clinton2022',
   [ 'jazzycat69', 'string' ],
   [ [ 'catlady01' ], true ] ]
+
+###**...convert an object into an array**
+**`array_.arrify(object)`**  
+Coverts an object (associative array) into an `Array` where object keys are array items.  
+Argument provided should be an `object`. Will throw an error if not an object type.  
+`console.log(array_.arrify({name: 'Jack', id: 12345}));`  
+> ['Jack', 12345]  
+
+`console.log(array_.arrify({name: 'Jack', id: 12345, record: [12, 23, 102]}));`  
+> ['Jack', 12345, [12, 23, 102]]  
