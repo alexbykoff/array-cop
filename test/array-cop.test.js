@@ -129,7 +129,7 @@ describe('mean() - Calculate and return Mean values', function() {
 });
 
 // ARRIFY
-describe('arrify - Converts object to an array that consists of values of the given object', function() {
+describe('arrify() - Converts object to an array that consists of values of the given object', function() {
 
     it('should convert to an array and return it', function() {
         assert.deepEqual(arrayCop.arrify({
@@ -147,4 +147,23 @@ describe('arrify - Converts object to an array that consists of values of the gi
     it('should treat Array as an object', function(){
         assert.isArray(arrayCop.arrify(new Array));
     });
+});
+
+// MDEIAN
+describe('median() - return median element of the numeric items in array', function() {
+
+    it('should throw error if argument isn\'t aray', function() {
+        expect(function() {
+            arrayCop.median(new Object)
+        }).to.throw('Not an array!');
+    });
+
+    it('should return median with default precision', function() {
+        assert.deepEqual(arrayCop.median([[100, -50, 3], new String, 3]), '3.00');
+    });
+
+    it('should return median with precision = 0', function() {
+        assert.equal(arrayCop.median([[100, -50, 3], new String, 3], 0), 3);
+    });
+
 });
