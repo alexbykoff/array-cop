@@ -41,7 +41,7 @@
 
             if (Array.isArray(arr)) {
                 return this.flatten(arr).reduce(function(a, b) {
-                    return typeof(b) === 'number' ? a += b : a;
+                    return typeof(b) === "number" ? a += b : a;
                 }, 0);
             }
             return arr;
@@ -230,6 +230,9 @@
                         case "boolean":
                             total.boolean_.push(arr[index]);
                             break;
+
+                        default:
+                            break;
                     }
                 });
 
@@ -244,7 +247,7 @@
                         "Undefined: " + total.undefined_.length + "\n" +
                         "Booleans: " + total.boolean_.length + "\n" +
                         "Total items: " + arr.length + "\n");
-            };
+            }
             throw new Error("Not an array!");
         },
 
@@ -263,7 +266,7 @@
 
                     if (Array.isArray(item) && item.length != 0) {
                         result.push(__.cop(item));
-                    } else if (typeof item !== "undefined" && typeof item !== "null") {
+                    } else if (typeof item !== "undefined") {
                         result.push(item);
                     }
                 });
@@ -286,15 +289,13 @@
                     case "all":
                     default:
                         return arr.filter(function(i) {
-                            return typeof(i) === type.toLowerCase()
+                            return typeof(i) === type.toLowerCase();
                         });
-                        break;
 
                     case "but":
                         return arr.filter(function(i) {
-                            return typeof(i) !== type.toLowerCase()
+                            return typeof(i) !== type.toLowerCase();
                         });
-                        break;
                 }
             }
             throw new Error("Not an array!");
@@ -318,7 +319,7 @@
                 if (Array.isArray(item) && item.length != 0) {
                     result.push(__.regExpFilter(item, expression));
                 } else if (typeof item === "string") {
-                    item = item.replace(expression, '');
+                    item = item.replace(expression, "");
                     result.push(item);
                 } else {
                     result.push(item);
