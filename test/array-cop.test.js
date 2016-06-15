@@ -149,7 +149,7 @@ describe('arrify() - Converts object to an array that consists of values of the 
     });
 });
 
-// MDEIAN
+// MEDIAN
 describe('median() - return median element of the numeric items in array', function() {
 
     it('should throw error if argument isn\'t aray', function() {
@@ -162,8 +162,62 @@ describe('median() - return median element of the numeric items in array', funct
         assert.deepEqual(arrayCop.median([[100, -50, 3], new String, 3]), '3.00');
     });
 
-    it('should return median with precision = 0', function() {
+    it('should return median with zero precision (integer)', function() {
         assert.deepEqual(arrayCop.median([[100, -50, 3], new String, 3], 0), 3);
     });
 
+    it('should return median for array with 1 element with zero precision (integer)',
+        function() {
+            assert.deepEqual(arrayCop.median([[-50], new String], 0), -50);
+    });
+
+    it('should return median for array with negative precision',
+        function() {
+            assert.deepEqual(arrayCop.median([[-50,130,20], new String], 0), 20);
+    });
+
 });
+
+//FREQ
+describe('freq() - Returns an object array_item: item_frequency', function() {
+
+    it('should throw error if argument isn\'t aray', function() {
+        expect(function() {
+            arrayCop.freq(new Object)
+        }).to.throw('Not an array!');
+    });
+
+    it('should return empty object for the empty src array', function() {
+        assert.deepEqual(arrayCop.freq([]), {});
+    });
+
+    it('should return frequency matrix object with 2 empty string elements', function() {
+        assert.deepEqual(arrayCop.freq([ new String,[new String] ]), {
+            "":2
+        });
+    });
+
+    // testing objects
+    var object1 = { key: 'value'},
+        object2 = object1;
+    // ToDo: Compare objects?
+    it('should return frequency matrix object with 2 object element', function() {
+        assert.deepEqual(arrayCop.freq([object1, object2]), {
+            '[object Object]': 2
+        });
+    });
+
+    it('should return frequency matrix object for the array', function() {
+        assert.deepEqual(arrayCop.freq([0,[1,2,'Sample string'],[2, 'Sample string'], 1]),
+        {
+            '1': 2,
+            '2': 2,
+            'Sample string': 2,
+            '0': 1
+        } );
+    });
+
+
+});
+
+
