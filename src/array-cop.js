@@ -1,7 +1,10 @@
 (function(_) {
     var array_ = {
+
+        /**
+         * Flattens an array to a single-dimensional one
+         */
         flatten: function(arr) {
-            /** Flattens an array to a single-dimensional one */
 
             var __ = this;
 
@@ -10,11 +13,11 @@
             }, []) : arr;
         },
 
+        /**
+         * Removes duplicates from an array. Items in nested arrays are not
+         * treated as duplicates(if `force` is not set to `true`) to avoid mess.
+         */
         dedup: function(arr, force) {
-            /**
-             * Removes duplicates from an array. Items in nested arrays are not
-             * treated as duplicates(if `force` is not set to `true`) to avoid mess.
-             */
 
             if (Array.isArray(arr)) {
 
@@ -28,10 +31,10 @@
             return arr;
         },
 
+        /**
+         * Randomly picks and returns one item from an array or from a given range
+         */
         rand: function(arr, min, max) {
-            /** Randomly picks and returns one item from an array or from a
-             * given range
-             */
 
             return Array.isArray(arr) ? arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)] : arr;
         },
@@ -47,16 +50,18 @@
             return arr;
         },
 
+        /**
+         * Returns Mean of an array(arr). Flattens an array and takes only numeric
+         * values into a consideration.
+         *
+         * type: type of mean -  'ari': arithmetic, 'geo':  geometric, 'har': harmonic.
+         * If omitted then calculates an arithmetic mean.
+         *
+         * precision: Number — Optional argument, sets the number of digits after a decimal
+         * point. If omitted then falls back to 2.
+         */
         mean: function(arr, type, precision) {
-            /** Returns Mean of an array(arr). Flattens an array and takes only numeric
-             * values into a consideration.
-             *
-             * type: type of mean -  'ari': arithmetic, 'geo':  geometric, 'har': harmonic.
-             * If omitted then calculates an arithmetic mean.
-             *
-             * precision: Number — Optional argument, sets the number of digits after a decimal
-             * point. If omitted then falls back to 2.
-             */
+
             if (Array.isArray(arr)) {
 
                 isNaN(precision) && (precision = 2);
@@ -115,12 +120,13 @@
             throw new Error("Not an array!");
         },
 
+        /**
+         * Returns median for numeric values. Flattens an array before calculations.
+         *
+         * precision: Number — optional argument, sets the number of digits after a decimal
+         * point. If omitted then falls back to 2
+         */
         median: function(arr, precision) {
-            /* Returns median for numeric values. Flattens an array before proceed.
-             *
-             * precision: Number — Optional argument, sets the number of digits after a decimal
-             * point. If omitted then falls back to 2
-             */
 
             if (Array.isArray(arr)) {
 
@@ -154,7 +160,8 @@
                 if (newArr.length % 2) {
                     // If number of Number items is odd then middle item is the median
                     return newArr[medianItem];
-                    // Otherwise calculate and average of two items in the middle
+
+                    // Otherwise calculate an average of two items in the middle
                 } else {
                     return precision > 0 ? ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision)) : (newArr[medianItem - 1] + newArr[medianItem]) / 2;
                 }
@@ -162,11 +169,12 @@
             throw new Error("Not an array!");
         },
 
+        /**
+         * Returns an Object: frequency, where item is the value of an each array item
+         * and frequency is the number of times that item appears in an array.
+         * Flattens an array before evaluation.
+         */
         freq: function(arr) {
-            /* Returns an object item: frequency, where item is the value of an each array item
-             * and frequency is the number of times that item appears in an array.
-             * Flattens an array before evaluation.
-             */
 
             if (Array.isArray(arr)) {
 
@@ -232,7 +240,6 @@
                             break;
                     }
                 });
-
 
                 return toObject ?
                     total :
@@ -358,7 +365,7 @@
     };
 
     /**
-     *    npm / <script> compatibility
+     * npm / <script> compatibility
      */
 
     if (typeof module !== "undefined" && module.exports) {
