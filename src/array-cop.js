@@ -46,13 +46,14 @@
         },
 
         mean: function(arr, type, precision) {
-            /** Return mean of the array(arr) items. Flattens an array and takes only numeric
+            /** Returns Mean of an array(arr). Flattens an array and takes only numeric
              * values into a consideration.
              *
              * type: type of mean -  'ari': arithmetic, 'geo':  geometric, 'har': harmonic.
              * If omitted then calculates an arithmetic mean.
              *
-             * precision: Number — Optional argument, sets the number of digits after a decimal * point. If omitted then falls back to 2.
+             * precision: Number — Optional argument, sets the number of digits after a decimal
+             * point. If omitted then falls back to 2.
              */
             if (Array.isArray(arr)) {
 
@@ -69,7 +70,7 @@
                     return mean;
                 }
 
-                typeof(type) === 'string' ? type = type || 'ari': precision = type || 2;
+                typeof(type) === 'string' ? type = type || 'ari': precision = Math.abs(type) || precision;
 
                 // Main arithmetic logic
                 switch (type) {

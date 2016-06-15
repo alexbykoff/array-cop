@@ -41,7 +41,7 @@ describe('rand() - Returns a random item', function() {
 });
 
 // SUM
-describe('sum() - Returns a sum of all Number items', function() {
+describe('sum() - Returns a sum of all the Number items', function() {
 
     it('should return sum of all element with type number', function() {
         assert.deepEqual(arrayCop.sum(srcArray), 27);
@@ -90,7 +90,7 @@ describe('cop() - Removes all the empty items', function() {
 });
 
 // MEAN
-describe('mean() - Calculate and return Mean values', function() {
+describe('mean() - Calculates and returns Mean values', function() {
 
     it('should throw an error if argument is not an array', function() {
         expect(function() {
@@ -98,31 +98,31 @@ describe('mean() - Calculate and return Mean values', function() {
         }).to.throw('Not an array!');
     });
 
-    it('should return 0 for empty array', function() {
+    it('should return 0 for an empty array', function() {
         assert.deepEqual(arrayCop.mean([]), 0);
     });
 
-    it('should return ariphmetic mean for array by default', function() {
+    it('should return ariphmetic mean of an array by default', function() {
         assert.deepEqual(arrayCop.mean([1, 2, 3]), '2.00');
     });
 
-    it('should return ariphmetic mean for array', function() {
+    it('should return ariphmetic mean of an array', function() {
         assert.deepEqual(arrayCop.mean([1, 2, 3, new String, [1, 2, 3]], 'ari'), '2.00');
     });
 
-    it('should return ariphmetic mean for array with .000 precision', function() {
+    it('should return ariphmetic mean of an array with .000 precision', function() {
         assert.deepEqual(arrayCop.mean([1, 2, 3], 3), '2.000');
     });
 
-    it('should return geometric mean for flatterned array', function() {
+    it('should return geometric mean of aflattened array', function() {
         assert.deepEqual(arrayCop.mean([1, 2, 3, new String, new Object, [1, 2, 3]], 'geo'), '1.82');
     });
 
-    it('should return geometric mean for flatterned array with .00000 precision', function() {
+    it('should return geometric mean of a flattened array with .00000 precision', function() {
         assert.deepEqual(arrayCop.mean([1, 2, 3, new String, new Object, [1, 2, 3]], 'geo', 5), '1.81712');
     });
 
-    it('should return harmonic mean for array with .000 precision', function() {
+    it('should return harmonic mean of an array with .000 precision', function() {
         assert.deepEqual(arrayCop.mean([1, 2, 3], 'har', 3), '1.636');
     });
 
@@ -149,8 +149,8 @@ describe('arrify() - Converts object to an array that consists of values of the 
     });
 });
 
-// MDEIAN
-describe('median() - return median element of the numeric items in array', function() {
+// MEDIAN
+describe('median() - Returns median element of the numeric items in array', function() {
 
     it('should throw error if argument isn\'t aray', function() {
         expect(function() {
