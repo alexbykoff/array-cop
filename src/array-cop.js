@@ -133,7 +133,7 @@
                 // Push Number values into temp array
                 for (var i in arr) {
 
-                    if (typeof(arr[i]) === 'number') {
+                    if (typeof(arr[i]) === "number") {
                         newArr.push(arr[i]);
                     }
                 }
@@ -180,7 +180,7 @@
                     } else {
                         obj[item] = 1;
                     }
-                    return obj
+                    return obj;
                 }, {});
                 return frequencyMap;
             }
@@ -278,7 +278,7 @@
 
                 arr = this.flatten(arr);
                 type = type || "string";
-                logic = logic || "all"
+                logic = logic || "all";
 
                 // Going switch() because of may be new logic later on
                 switch (logic) {
@@ -355,7 +355,7 @@
             }
             throw new Error("Not an array!");
         }
-    }
+    };
 
     /**
      *    npm / <script> compatibility
