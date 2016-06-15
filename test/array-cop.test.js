@@ -167,3 +167,43 @@ describe('median() - Returns median element of the numeric items in array', func
     });
 
 });
+
+//FREQ
+describe('freq() - Returns an object array_item: item_frequency', function() {
+
+    it('should throw error if argument isn\'t aray', function() {
+        expect(function() {
+            arrayCop.freq(new Object)
+        }).to.throw('Not an array!');
+    });
+
+    it('should return empty object for the empty src array', function() {
+        assert.deepEqual(arrayCop.freq([]), {});
+    });
+
+    it('should return frequency matrix object with 2 empty string elements', function() {
+        assert.deepEqual(arrayCop.freq([ new String,[new String] ]), {
+            "":2
+        });
+    });
+
+    // testing objects
+    var object1 = { key: 'value'},
+        object2 = object1;
+    // ToDo: Compare objects?
+    it('should return frequency matrix object with 2 object element', function() {
+        assert.deepEqual(arrayCop.freq([object1, object2]), {
+            '[object Object]': 2
+        });
+    });
+
+    it('should return frequency matrix object for the array', function() {
+        assert.deepEqual(arrayCop.freq([0,[1,2,'Sample string'],[2, 'Sample string'], 1]),
+        {
+            '1': 2,
+            '2': 2,
+            'Sample string': 2,
+            '0': 1
+        } );
+    });
+

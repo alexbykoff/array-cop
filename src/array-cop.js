@@ -160,6 +160,10 @@
         },
 
         freq: function(arr) {
+            /* Returns an object item: frequency, where item is the value of an each array item
+             * and frequency is the number of times that item appears in an array.
+             * Flattens an array before evaluation.
+             */
 
             if (Array.isArray(arr)) {
 
