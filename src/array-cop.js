@@ -65,10 +65,7 @@
                 var mean = 0,
                     sum = 0,
                     num = 0,
-                    mul = 1,
-                    i = 0;
-
-
+                    mul = 1;
 
                 if (!arr.length) {
                     return mean;
@@ -90,9 +87,9 @@
                         break;
 
                     case "geo":
-                        for (i in arr) {
-                            if (typeof(arr[i]) === "number") {
-                                mul *= arr[i];
+                        for (var j in arr) {
+                            if (typeof(arr[j]) === "number") {
+                                mul *= arr[j];
                                 num++;
                             }
                         }
@@ -101,9 +98,9 @@
 
                     case "har":
                         var harArray = [];
-                        for (i in arr) {
-                            if (typeof(arr[i]) === "number") {
-                                harArray.push(arr[i]);
+                        for (var k in arr) {
+                            if (typeof(arr[k]) === "number") {
+                                harArray.push(arr[k]);
                             }
                         }
                         var harDenominator = harArray.map(function(number) {
@@ -264,7 +261,7 @@
 
                 arr.forEach(function(item) {
 
-                    if (Array.isArray(item) && item.length != 0) {
+                    if (Array.isArray(item) && item.length !== 0) {
                         result.push(__.cop(item));
                     } else if (typeof item !== "undefined") {
                         result.push(item);
