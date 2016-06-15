@@ -57,13 +57,15 @@
              */
             if (Array.isArray(arr)) {
 
-                if (isNaN(precision)) precision = 2;
+                isNaN(precision) && (precision = 2);
 
+                arr = this.flatten(arr);
                 var mean = 0,
                     sum = 0,
                     num = 0,
                     mul = 1,
-                    arr = this.flatten(arr);
+                    i =0;
+
 
 
                 if (!arr.length) {
@@ -77,7 +79,7 @@
                     case 'ari':
                     default:
                         for (var i in arr) {
-                            if (typeof(arr[i]) === 'number') {
+                            if (typeof(arr[i]) === "number") {
                                 sum += arr[i];
                                 num++;
                             }
@@ -86,8 +88,8 @@
                         break;
 
                     case 'geo':
-                        for (var i in arr) {
-                            if (typeof(arr[i]) === 'number') {
+                        for (i in arr) {
+                            if (typeof(arr[i]) === "number") {
                                 mul *= arr[i];
                                 num++;
                             }
@@ -97,8 +99,8 @@
 
                     case 'har':
                         var harArray = [];
-                        for (var i in arr) {
-                            if (typeof(arr[i]) === 'number') {
+                        for (i in arr) {
+                            if (typeof(arr[i]) === "number") {
                                 harArray.push(arr[i]);
                             }
                         }
@@ -123,7 +125,7 @@
 
             if (Array.isArray(arr)) {
 
-                if (isNaN(precision)) precision = 2;
+                isNaN(precision) && (precision = 2);
 
                 arr = this.flatten(arr);
 
@@ -255,7 +257,7 @@
 
                     if (Array.isArray(item) && item.length != 0) {
                         result.push(__.cop(item));
-                    } else if (typeof item !== 'undefined' && typeof item !== 'null') {
+                    } else if (typeof item !== "undefined" && typeof item !== "null") {
                         result.push(item);
                     }
                 });
@@ -309,7 +311,7 @@
 
                 if (Array.isArray(item) && item.length != 0) {
                     result.push(__.regExpFilter(item, expression));
-                } else if (typeof item === 'string') {
+                } else if (typeof item === "string") {
                     item = item.replace(expression, '');
                     result.push(item);
                 } else {
@@ -321,7 +323,7 @@
 
         arrify: function(obj) {
 
-            if (typeof obj === 'object') {
+            if (typeof obj === "object") {
 
                 return Object.keys(obj).map(function(key) {
                     return obj[key];
@@ -351,7 +353,7 @@
      *    npm / <script> compatibility
      */
 
-    if (typeof module !== 'undefined' && module.exports) {
+    if (typeof module !== "undefined" && module.exports) {
         module.exports = array_;
     } else {
         _.array_ = array_;
