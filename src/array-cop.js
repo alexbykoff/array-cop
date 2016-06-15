@@ -313,7 +313,7 @@
 
             arr.forEach(function(item) {
 
-                if (Array.isArray(item) && item.length != 0) {
+                if (Array.isArray(item) && item.length !== 0) {
                     result.push(__.regExpFilter(item, expression));
                 } else if (typeof item === "string") {
                     item = item.replace(expression, "");
