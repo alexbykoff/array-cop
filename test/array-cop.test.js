@@ -206,4 +206,6 @@ describe('freq() - Returns an object array_item: item_frequency', function() {
             '0': 1
         } );
     });
+    
+});
 
