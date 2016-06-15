@@ -115,7 +115,7 @@
 
             if (Array.isArray(arr)) {
 
-                precision = precision || 2;
+                if (isNaN(precision)) precision = 0;
 
                 arr = this.flatten(arr);
 
@@ -142,7 +142,7 @@
                     // If number of Number items is odd then middle item is the median
                     return newArr[medianItem]
                         // Otherwise calculate and average of two items in the middle
-                } else return ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(precision);
+                } else return ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision));
             }
             throw new Error("Not an array!");
         },
@@ -312,6 +312,22 @@
                 });
             }
             throw new Error("Not an object!");
+        },
+
+        index: function(arr, element) {
+            if (!element) throw new Error("Element not passed as argument");
+            if (Array.isArray(arr)) {
+                var index = arr.indexOf(element);
+
+                var result = [];
+                while (index >= 0) {
+                    result.push(index);
+                    index = arr.indexOf(element, index + 1);
+                }
+                return result.length ? result :  -1;
+            }
+            throw new Error("Not an array!");
+
         }
     }
 

@@ -12,14 +12,15 @@ It is just an utility tool that makes life easier and also does some maths for y
 - Calculate the sum of all the Number items    
 - Calculate an Arithmetic mean  
 - Calculate a Geometric mean  
-- Calculate a Harmonic mean **(0.3.1)+**  
+- Calculate a Harmonic mean  
 - Find a median  
 - Convert to the frequency matrix object  
 - Log an array breakdown  
 - Remove all the empty items from the nested arrays  
 - Filter items in an array by type  
-- Get rid of all non-alphanumeric characters **(0.4.0)+**  
 - Convert an object into an array **(0.5.0)+**  
+- Get rid of all non-alphanumeric characters **(0.4.2)+**  
+- Get an array of indexes of an element **(0.6.0)+**  
 
 ###since version 0.5.0 minified js is not provided anymore. Use normal version in your browser and minify/concat during your usual production routine.  
 
@@ -197,3 +198,15 @@ Argument provided should be an `object`. Will throw an error if not an object ty
 
 `console.log(array_.arrify({name: 'Jack', id: 12345, record: [12, 23, 102]}));`  
 > ['Jack', 12345, [12, 23, 102]]  
+
+###**...get an array of indexes of a given element:**
+**`array_.index(arr, element)`**  
+Return an `array` of index values.  
+**element** - mandatory. An element to look for in an array. If element does not exist then `-1` is returned.  
+```
+var arr = ['Humpty','Dumpty', 'Sat', 'On', 'A', null, 'Humpty', 'Dumpty'];
+var elem = "Humpty";
+var indexList = array_.index(arr, elem);
+console.log(indexList);
+```  
+> [ 0, 6 ]
