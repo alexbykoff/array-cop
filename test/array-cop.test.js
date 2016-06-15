@@ -163,7 +163,7 @@ describe('median() - return median element of the numeric items in array', funct
     });
 
     it('should return median with precision = 0', function() {
-        assert.equal(arrayCop.median([[100, -50, 3], new String, 3], 0), 3);
+        assert.deepEqual(arrayCop.median([[100, -50, 3], new String, 3], 0), 3);
     });
 
 });

@@ -56,12 +56,14 @@
              */
             if (Array.isArray(arr)) {
 
+                if (isNaN(precision)) precision = 2;
+
                 var mean = 0,
                     sum = 0,
                     num = 0,
                     mul = 1,
-                    precision = precision || 2, // Default precision value
                     arr = this.flatten(arr);
+
 
                 if (!arr.length) {
                     return mean;
@@ -106,17 +108,17 @@
                         });
                         mean = (harArray.length / harDenominator);
                 }
-                return mean.toFixed(precision);
+                return precision > 0 ? mean.toFixed(precision) : mean;
             }
             throw new Error("Not an array!");
         },
 
         median: function(arr, precision) {
             /* Returns median for numeric values. Flattens an array before proceed.
-            *
-            * precision: Number — Optional argument, sets the number of digits after a decimal
-            * point. If omitted then falls back to 2
-            */
+             *
+             * precision: Number — Optional argument, sets the number of digits after a decimal
+             * point. If omitted then falls back to 2
+             */
 
             if (Array.isArray(arr)) {
 
@@ -151,7 +153,7 @@
                     // If number of Number items is odd then middle item is the median
                     return newArr[medianItem]
                         // Otherwise calculate and average of two items in the middle
-                } else return ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision));
+                } else return precision > 0 ? ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision)) : (newArr[medianItem - 1] + newArr[medianItem]) / 2;
             }
             throw new Error("Not an array!");
         },
@@ -333,7 +335,7 @@
                     result.push(index);
                     index = arr.indexOf(element, index + 1);
                 }
-                return result.length ? result :  -1;
+                return result.length ? result : -1;
             }
             throw new Error("Not an array!");
 
