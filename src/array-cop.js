@@ -112,20 +112,30 @@
         },
 
         median: function(arr, precision) {
+            /* Returns median for numeric values. Flattens an array before proceed.
+            *
+            * precision: Number — Optional argument, sets the number of digits after a decimal
+            * point. If omitted then falls back to 2
+            */
 
             if (Array.isArray(arr)) {
 
                 precision = precision || 2;
+                console.log('precision: ', precision);
 
                 arr = this.flatten(arr);
 
                 var newArr = [];
+
+                // Push Number values into temp array
                 for (var i in arr) {
 
                     if (typeof(arr[i]) === 'number') {
                         newArr.push(arr[i]);
                     }
                 }
+
+                // Return 0 for empty array, or 1st element for array with 1 item
                 if (!newArr) {
                     return 0;
                 } else if (newArr.length === 1) {
