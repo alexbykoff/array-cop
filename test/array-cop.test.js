@@ -168,7 +168,7 @@ describe('median() - Returns median element of the numeric items in array', func
 
 });
 
-//FREQ
+// FREQ
 describe('freq() - Returns an object array_item: item_frequency', function() {
 
     it('should throw error if argument isn\'t aray', function() {
@@ -206,6 +206,27 @@ describe('freq() - Returns an object array_item: item_frequency', function() {
             '0': 1
         } );
     });
-    
+
 });
 
+// BREAKDOWN
+describe('breakdown() - array console pretty print, or object with items sorted by type', function() {
+
+  it('should throw error if argument isn\'t aray', function() {
+      expect(function() {
+          arrayCop.breakdown(new Object, true)
+      }).to.throw('Not an array!');
+    });
+
+  it('should return object with items sorted by type', function() {
+    assert.deepEqual(arrayCop.breakdown([null, undefined, "String", new Object, false], true), {
+      number_: [],
+      string_: ["String"],
+      function_: [],
+      object_: [null, {}],
+      undefined_: [undefined],
+      boolean_: [false]
+    });
+  });
+
+});

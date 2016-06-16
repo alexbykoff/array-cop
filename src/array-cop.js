@@ -195,6 +195,13 @@
             throw new Error("Not an array!");
         },
 
+        /* Service method.
+        * Result: array console pretty print, or object with items sorted by type
+        *
+        * **toObject: Boolean** — Optional argument, if set to true then method
+        * will return an object with items sorted by their type.
+        * Service method. Result is an array console pretty print.
+        */
         breakdown: function(arr, toObject) {
 
             if (Array.isArray(arr)) {
@@ -255,7 +262,11 @@
             throw new Error("Not an array!");
         },
 
+        /* Goes on patrol and removes all the empty items aka
+        * `undefined` and `null` from an array preserving the structure.
+        */
         cop: function(arr, toFlatten) {
+
 
             if (Array.isArray(arr)) {
 
