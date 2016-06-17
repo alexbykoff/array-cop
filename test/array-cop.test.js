@@ -298,7 +298,6 @@ describe('freq() - Returns an object array_item: item_frequency', function() {
             '0': 1
         } );
     });
-<<<<<<< HEAD
 
 });
 
@@ -322,7 +321,4 @@ describe('breakdown() - array console pretty print, or object with items sorted 
     });
   });
 
-=======
-
->>>>>>> tests/refactoring
 });
