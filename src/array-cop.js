@@ -8,6 +8,9 @@
 
             var __ = this;
 
+            // TODO:
+            // ? throw error if !Array.isArray(arr)
+
             return Array.isArray(arr) ? arr.reduce(function(f, i) {
                 return f.concat(Array.isArray(i) ? __.flatten(i) : i);
             }, []) : arr;
@@ -18,6 +21,9 @@
          * treated as duplicates(if `force` is not set to `true`) to avoid mess.
          */
         dedup: function(arr, force) {
+
+            // TODO:
+            // ? throw error if !Array.isArray(arr)
 
             if (Array.isArray(arr)) {
 
@@ -36,11 +42,18 @@
          */
         rand: function(arr, min, max) {
 
+          // TODO:
+          // ? throw error if !Array.isArray(arr)
+          // ? flattens array before proceed
+
             return Array.isArray(arr) ? arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)] : arr;
         },
 
+        /** Returns a sum of all the items. Flattens an array and takes
+         * only numeric values into a consideration
+         */
         sum: function(arr) {
-            /** Returns a sum of all the items. Flattens an array and takes only numeric values into a consideration */
+
 
             if (Array.isArray(arr)) {
                 return this.flatten(arr).reduce(function(a, b) {
