@@ -7,37 +7,129 @@ var arr = [1, 3, [3, [5, ]], 7, 8, 'pete', {}];
 var srcArray = [1, 3, 3, 'Some string', 'Some string', 5, 7, 8, 'pete', {}];
 
 // FLATTEN
-describe('flatten() - Flattens an array', function() {
+describe('#flatten() - Flattens an array', function() {
 
-    it('should return a flattened array', function() {
+  it('should return a flattened array', function() {
 
-        assert.deepEqual(arrayCop.flatten(arr), [1, 3, 3, 5, 7, 8, 'pete', {}]);
-        assert.deepEqual(arrayCop.flatten(["alice"]), ["alice"]);
-        assert.deepEqual(arrayCop.flatten(), undefined);
+    var testCases = [
+      {
+        input: [1, 3, [3, [5, ]], 7, 8, 'pete', {}],
+        expected: [1, 3, 3, 5, 7, 8, 'pete', {}]
+      },
+      {
+        input: ["john", [new Object, 1, 2,["array", undefined] ], "string"],
+        expected: ["john", {}, 1, 2, "array", undefined, "string"]
+      },
+      {
+        input: [],
+        expected: []
+      },
+      {
+        expected: undefined
+      },
+      {
+        input: "not an Array, just string",
+        // TODO
+        // ? throw error if !Array.isArray(arr)
+        expected: "not an Array, just string"
+      }
+    ];
+
+    testCases.forEach(function(tst) {
+      var actual = arrayCop.flatten(tst.input);
+      assert.deepEqual(actual, tst.expected);
     });
 
-    it('should return an object back', function() {
-
-        assert.deepEqual(arrayCop.flatten("not an array"), "not an array");
-    });
+  });
 
 });
 
 // DEDUP
-describe('dedup() - Removes duplicates', function() {
+describe('#dedup() - Removes duplicates', function() {
 
-    it('should removes duplicates from an array', function() {
-        assert.deepEqual(arrayCop.dedup(srcArray), [1, 3, 'Some string', 5, 7, 8, 'pete', {}]);
+  it('should removes duplicates from an array', function() {
+
+    var testCases = [
+      {
+        input: [1, 3, [3, [5, ], 7], 7, 8, 'pete', {}],
+        expected: [1, 3, [3, [5, ], 7], 7, 8, 'pete', {}]
+      },
+      {
+        input: [34, 40, "john", [new Object, 1, 2,["array", undefined] ], "string", 40, "string"],
+        expected: [34, "john", [new Object, 1, 2,["array", undefined] ], 40, "string"]
+      },
+      {
+        input: [],
+        expected: []
+      },
+      {
+        expected: undefined
+      },
+      {
+        input: "not an Array, just string",
+        // TODO
+        // ? throw error if !Array.isArray(arr)
+        expected: "not an Array, just string"
+      }
+    ];
+
+    testCases.forEach(function(tst) {
+      var actual = arrayCop.dedup(tst.input);
+      assert.deepEqual(actual, tst.expected);
     });
+
+  });
+
+  it('should removes duplicates from an array including nested arrays', function() {
+
+    var testCases = [
+      {
+        input: [1, 3, [3, [5, ], 7], 7, 8, 'pete', {}],
+        flag: true,
+        expected: [1, 3, 5, 7, 8, 'pete', {}]
+      },
+      {
+        input: [34, 40, "john", [new Object, 34, 2,["array", undefined] ], "string", 40, "string"],
+        flag: true,
+        expected: ["john", new Object, 34, 2, "array", undefined, 40, "string"]
+      }
+    ];
+
+    testCases.forEach(function(tst) {
+      var actual = arrayCop.dedup(tst.input, tst.flag);
+      assert.deepEqual(actual, tst.expected);
+    });
+
+  });
 
 })
 
 // RAND
-describe('rand() - Returns a random item', function() {
+describe('#rand() - Returns a random item', function() {
 
-    it('should return 2nd element', function() {
-        assert.deepEqual(arrayCop.rand(srcArray, 1, 2), 3);
+  it('should return random element according to parameters', function() {
+    var testCases = [
+      {
+        inputArray: [1, 2, 3],
+        inputMin: 2,
+        inputMax: 3,
+        expected: 3
+      },
+      {
+        inputArray: 1,
+        // TODO
+        // ? throw error if !Array.isArray(arr)
+        expected: 1
+      }
+    ]
+
+    testCases.forEach(function(tst) {
+      var actual = arrayCop.rand(tst.inputArray, tst.inputMin, tst.inputMax);
+      assert.deepEqual(actual, tst.expected);
     });
+
+  });
+
 });
 
 // SUM
@@ -206,6 +298,7 @@ describe('freq() - Returns an object array_item: item_frequency', function() {
             '0': 1
         } );
     });
+<<<<<<< HEAD
 
 });
 
@@ -229,4 +322,7 @@ describe('breakdown() - array console pretty print, or object with items sorted 
     });
   });
 
+=======
+
+>>>>>>> tests/refactoring
 });
