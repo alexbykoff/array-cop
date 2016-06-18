@@ -158,7 +158,7 @@
                 }
 
                 // Return 0 for empty array, or 1st element for array with 1 item
-                if (!newArr) {
+                if (!newArr || newArr.length === 0) {
                     return 0;
                 } else if (newArr.length === 1) {
                     return newArr[0];
