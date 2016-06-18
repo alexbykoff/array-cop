@@ -176,7 +176,7 @@
 
                     // Otherwise calculate an average of two items in the middle
                 } else {
-                    return precision > 0 ? ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision)) : (newArr[medianItem - 1] + newArr[medianItem]) / 2;
+                    return precision ? ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision)) :  (newArr[medianItem - 1] + newArr[medianItem]) / 2;
                 }
             }
             throw new Error("Not an array!");
