@@ -133,26 +133,35 @@ describe('#rand() - Returns a random item', function() {
 });
 
 // SUM
-describe('sum() - Returns a sum of all the Number items', function() {
+describe('#sum() - Returns a sum of all the Number items', function() {
 
     it('should return sum of all element with type number', function() {
-        assert.deepEqual(arrayCop.sum(srcArray), 27);
-        assert.deepEqual(arrayCop.sum([2, 3, [5, 7, undefined], 'String']), 17);
+      var testCases = [
+        {
+          input: [2, 3, [5, 7, undefined], 'String'],
+          expected: 17
+        },
+        {
+          input: [],
+          expected: 0
+        },
+        {
+          input: [new String, new Object, undefined, null],
+          expected: 0
+        }
+      ];
+
+      testCases.forEach(function(tst) {
+        var actual = arrayCop.sum(tst.input);
+        assert.deepEqual(actual, tst.expected);
+      });
+
     });
 
-    it('should return 0 for empty array', function() {
-        assert.deepEqual(arrayCop.sum([]), 0);
-    });
-
-    it('should return 0 for array without numbers', function() {
-        assert.deepEqual(arrayCop.sum(['String', {
-            objKey: 'objVal'
-        }, undefined]), 0);
-    });
 });
 
 // COP
-describe('cop() - Removes all the empty items', function() {
+describe('#cop() - Removes all the empty items', function() {
 
     it('should throw an error if argument is not an array', function() {
         expect(function() {
@@ -161,107 +170,191 @@ describe('cop() - Removes all the empty items', function() {
     });
 
     it('should get of all the empty items while preserving the structure', function() {
-        assert.deepEqual(arrayCop.cop([1, 2, , , , , 3, 4, [5, , , , , ], 6, , , , 8, 3, [
-            [
-                [], 9
-            ]
-        ]]), [1, 2, 3, 4, [5], 6, 8, 3, [
-            [
-                [], 9
-            ]
-        ]]);
+      var testCases = [
+        {
+          input: [1, 2, , , , , 3, 4, [5, , , , , ], 6, , , , 8, 3, [
+              [
+                  [], 9
+              ]
+          ]],
+          expected: [1, 2, 3, 4, [5], 6, 8, 3, [
+              [
+                  [], 9
+              ]
+          ]]
+        },
+        {
+          input:  [1, 2, , , , , 3, 4, [5, , , , , ], 6, , , , 8, 3, [
+              [
+                  [], 9
+              ]
+          ]],
+          inputFlag: true,
+          expected: [1, 2, 3, 4, 5, 6, 8, 3, 9]
+        }
+      ];
+
+      testCases.forEach(function(tst) {
+        var actual = arrayCop.cop(tst.input, tst.inputFlag);
+        assert.deepEqual(actual, tst.expected);
+      });
+
     });
 
-    it('should get of all the empty items while preserving the structure', function() {
-        assert.deepEqual(arrayCop.cop([1, 2, , , , , 3, 4, [5, , , , , ], 6, , , , 8, 3, [
-            [
-                [], 9
-            ]
-        ]], true), [1, 2, 3, 4, 5, 6, 8, 3, 9]);
-    });
 });
 
 // MEAN
-describe('mean() - Calculates and returns Mean values', function() {
+describe('#mean() - Calculates and returns Mean values', function() {
 
-    it('should throw an error if argument is not an array', function() {
-        expect(function() {
-            arrayCop.mean(new String)
-        }).to.throw('Not an array!');
-    });
+  var testCases = [
+    {
+      description: "should return 0 for an empty array",
+      input: [],
+      expected: 0
+    },
+    {
+      description:"should return ariphmetic mean of an array by default",
+      input: [1, 2, 3],
+      expected: '2.00'
+    },
+    {
+      description: "should return ariphmetic mean of an array",
+      input: [1, 2, 3, new String, [1, 2, 3]],
+      inputType: "ari",
+      expected: '2.00'
+    },
+    {
+      description: "should return ariphmetic mean of an array with custom precision",
+      input: [1, 2, 3, new String, [1, 2, 3]],
+      inputType: "ari",
+      inputPrecision: 3,
+      expected: '2.000'
+    },
+    {
+      description: 'should return geometric mean of aflattened array',
+      input: [1, 2, 3, new String, new Object, [1, 2, 3]],
+      inputType: "geo",
+      expected: "1.82"
+    },
+    {
+      description: 'should return geomteric mean of an array with .00000 precision',
+      input: [1, 2, 3, new String, new Object, [1, 2, 3]],
+      inputType: "geo",
+      inputPrecision: 5,
+      expected: '1.81712'
+    },
+    {
+      description: 'should return harmonic mean of an array with .000 precision',
+      input: [1, 2, 3],
+      inputType: "har",
+      inputPrecision: 3,
+      expected: '1.636'
+    }
+  ];
 
-    it('should return 0 for an empty array', function() {
-        assert.deepEqual(arrayCop.mean([]), 0);
-    });
+  it('should throw an error if argument is not an array', function() {
+      expect(function() {
+          arrayCop.mean(new String)
+      }).to.throw('Not an array!');
+  });
 
-    it('should return ariphmetic mean of an array by default', function() {
-        assert.deepEqual(arrayCop.mean([1, 2, 3]), '2.00');
+  testCases.forEach(function(tst) {
+    it(tst.description, function() {
+      var actual = arrayCop.mean(tst.input, tst.inputType, tst.inputPrecision);
+      assert.deepEqual(actual, tst.expected);
     });
-
-    it('should return ariphmetic mean of an array', function() {
-        assert.deepEqual(arrayCop.mean([1, 2, 3, new String, [1, 2, 3]], 'ari'), '2.00');
-    });
-
-    it('should return ariphmetic mean of an array with .000 precision', function() {
-        assert.deepEqual(arrayCop.mean([1, 2, 3], 3), '2.000');
-    });
-
-    it('should return geometric mean of aflattened array', function() {
-        assert.deepEqual(arrayCop.mean([1, 2, 3, new String, new Object, [1, 2, 3]], 'geo'), '1.82');
-    });
-
-    it('should return geometric mean of a flattened array with .00000 precision', function() {
-        assert.deepEqual(arrayCop.mean([1, 2, 3, new String, new Object, [1, 2, 3]], 'geo', 5), '1.81712');
-    });
-
-    it('should return harmonic mean of an array with .000 precision', function() {
-        assert.deepEqual(arrayCop.mean([1, 2, 3], 'har', 3), '1.636');
-    });
+  });
 
 });
 
 // ARRIFY
-describe('arrify() - Converts object to an array that consists of values of the given object', function() {
+describe('#arrify() - Converts object to an array that consists of values of the given object', function() {
 
-    it('should convert to an array and return it', function() {
-        assert.deepEqual(arrayCop.arrify({
-            user: 'Jack',
-            id: 17633
-        }), ['Jack', 17633]);
-    });
+  var testCases = [
+    {
+      description: 'should convert to an array and return it',
+      input: {
+        user: 'Jack',
+        id: 17633
+      },
+      expected: ['Jack', 17633]
+    },
+    {
+      description: 'should treat Array as an object',
+      input: new Array,
+      expected: []
+    },
+    {
+      description: 'should return empty array for the new Object',
+      input: new Object,
+      expected: []
+    }
+  ];
 
-    it('should throw an error when argument provided is not an object', function(){
-        expect(function() {
-            arrayCop.arrify(new Function)
-        }).to.throw('Not an object!');
-    });
+  it('should throw an error when argument provided is not an object', function(){
+      expect(function() {
+          arrayCop.arrify(new Function)
+      }).to.throw('Not an object!');
+  });
 
-    it('should treat Array as an object', function(){
-        assert.isArray(arrayCop.arrify(new Array));
+  testCases.forEach(function(tst) {
+    it(tst.description, function() {
+      var actual = arrayCop.arrify(tst.input);
+      assert.deepEqual(actual, tst.expected);
     });
+  });
+
 });
 
 // MEDIAN
-describe('median() - Returns median element of the numeric items in array', function() {
+describe('#median() - Returns median element of the numeric items in array', function() {
+  var testCases = [
+    {
+      description: 'should return 0 for empty array',
+      input: [],
+      expected: 0
+    },
+    {
+      description: 'should return one element for array with 1 element',
+      input: [235],
+      expected: 235
+    },
+    {
+      description: 'should return median with default precision',
+      input: [[100, -50, 3], new String, 3],
+      expected: '3.00'
+    },
+    {
+      description: 'should return median with precision = 0',
+      input: [[100, -50, 3], new String, 3],
+      inputPrecision: 0,
+      expected: 3
+    },
+    {
+      description: 'should return median with negative precision',
+      input: [[100, -50, 3], new String, 3],
+      inputPrecision: -3,
+      expected: '3.000'
+    }
+  ];
 
-    it('should throw error if argument isn\'t aray', function() {
-        expect(function() {
-            arrayCop.median(new Object)
-        }).to.throw('Not an array!');
-    });
+  it('should throw error if argument isn\'t aray', function() {
+      expect(function() {
+          arrayCop.median(new Object)
+      }).to.throw('Not an array!');
+  });
 
-    it('should return median with default precision', function() {
-        assert.deepEqual(arrayCop.median([[100, -50, 3], new String, 3]), '3.00');
-    });
-
-    it('should return median with precision = 0', function() {
-        assert.deepEqual(arrayCop.median([[100, -50, 3], new String, 3], 0), 3);
-    });
+  testCases.forEach(function(tst) {
+    it(tst.description, function() {
+      var actual = arrayCop.median(tst.input, tst.inputPrecision);
+      assert.deepEqual(actual, tst.expected);
+    })
+  })
 
 });
 
 // FREQ
-describe('freq() - Returns an object array_item: item_frequency', function() {
+describe('#freq() - Returns an object array_item: item_frequency', function() {
 
     it('should throw error if argument isn\'t aray', function() {
         expect(function() {
