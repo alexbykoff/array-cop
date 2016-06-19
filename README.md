@@ -146,7 +146,7 @@ Total items: 22
 ###**...destroy all the empty items in an array:**
 **`array_.cop(arr, [toFlatten]);`**  
 **toFlatten: Boolean** — Optional argument. Flattens before all the work.  
-Goes on patrol and removes all the empty items aka `undefined` and `null` from an array preserving the structure.  
+Goes on patrol and removes all the `undefined`s from an array preserving the structure.  
 `console.log(array_.cop([1,2,,,,,3,4,[5,,,,,],6,,,,8,3,[[[],9]]]));`  
 >  [ 1, 2, 3, 4, [ 5 ], 6, 8, 3, [ [ [ ], 9 ] ] ]  
 
