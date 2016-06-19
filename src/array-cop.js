@@ -385,7 +385,9 @@
                         result.push(i);
                     }
                 }
-                if (result.length === 0) return -1;
+                if (result.length === 0) {
+                    return -1;
+                }
                 return result;
             }
             throw new Error("Not an array!");
