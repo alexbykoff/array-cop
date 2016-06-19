@@ -419,7 +419,7 @@ describe('#breakdown() - array console pretty print, or object with items sorted
 
   var testCasesReturn = [
     {
-      descrition: 'should return object with items sorted by type',
+      description: 'should return object with items sorted by type',
       input: [null, undefined, "String", new Object, false],
       inputFlag: true,
       expected: {
@@ -432,7 +432,7 @@ describe('#breakdown() - array console pretty print, or object with items sorted
       }
     },
     {
-      descrition: 'should return object with items sorted by type',
+      description: 'should return object with items sorted by type',
       input: [null, undefined, "String", new Object, false, 23, 23.35, '45.61', 45.61],
       inputFlag: true,
       expected: {
@@ -455,7 +455,7 @@ describe('#breakdown() - array console pretty print, or object with items sorted
   // Testing return values
   testCasesReturn.forEach(function(tst) {
     var actual = arrayCop.breakdown(tst.input, tst.inputFlag);
-    it(tst.descrition, function() {
+    it(tst.description, function() {
       assert.deepEqual(actual, tst.expected);
     });
   });
@@ -487,15 +487,15 @@ describe('#cop - removes all the empty items aka `undefined` and `null` from an 
   var testCases = [
     {
       description: 'should flatten & removes all "empty" elements',
-      input: [1, , , , , 2, 'String', '', [null, 2, 3] ],
+      input: [1, , , , , 2, "String", "", [2, 3] ],
       inputFlag: true,
-      expected: [1, 2,'String', [null, 2, 3] ]
+      expected: [1, 2, "String", "", 2, 3 ]
     },
     {
       description: 'should removes all "empty" elements  preserving structure',
-      input: [1, , , , , 2, 'String', '', [null, 2, 3] ],
+      input: [1, , , , , 2, "String", "", [2, 3] ],
       inputFlag: false,
-      expected: [1, 2,'String', [null, 2, 3] ]
+      expected: [1, 2, "String", "", [2, 3] ]
     }
   ];
 
@@ -542,7 +542,7 @@ describe('#index - Return an `array` of index values. ', function() {
       expected: -1
     },
     {
-      description: 'should return \'-1\' string if index out of range',
+      description: 'should return -1 string if index out of range',
       inputArray: [1, , 'String', , , 2, 'String', '', [null, 2]],
       inputElement: 25,
       expected: -1
