@@ -42,9 +42,9 @@
          */
         rand: function(arr, min, max) {
 
-          // TODO:
-          // ? throw error if !Array.isArray(arr)
-          // ? flattens array before proceed
+            // TODO:
+            // ? throw error if !Array.isArray(arr)
+            // ? flattens array before proceed
 
             return Array.isArray(arr) ? arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)] : arr;
         },
@@ -176,7 +176,7 @@
 
                     // Otherwise calculate an average of two items in the middle
                 } else {
-                    return precision ? ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision)) :  (newArr[medianItem - 1] + newArr[medianItem]) / 2;
+                    return precision ? ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision)) : (newArr[medianItem - 1] + newArr[medianItem]) / 2;
                 }
             }
             throw new Error("Not an array!");
@@ -209,12 +209,12 @@
         },
 
         /* Service method.
-        * Result: array console pretty print, or object with items sorted by type
-        *
-        * **toObject: Boolean** — Optional argument, if set to true then method
-        * will return an object with items sorted by their type.
-        * Service method. Result is an array console pretty print.
-        */
+         * Result: array console pretty print, or object with items sorted by type
+         *
+         * **toObject: Boolean** — Optional argument, if set to true then method
+         * will return an object with items sorted by their type.
+         * Service method. Result is an array console pretty print.
+         */
         breakdown: function(arr, toObject) {
 
             if (Array.isArray(arr)) {
@@ -276,8 +276,8 @@
         },
 
         /* Goes on patrol and removes all the empty items aka
-        * `undefined` and `null` from an array preserving the structure.
-        */
+         * `undefined` and `null` from an array preserving the structure.
+         */
         cop: function(arr, toFlatten) {
 
 
@@ -367,22 +367,26 @@
             throw new Error("Not an object!");
         },
 
-        index: function(arr, element) {
+        index: function(arr, element, preserveStructure) {
 
             if (!element) {
                 throw new Error("Element not passed as argument");
             }
 
+
             if (Array.isArray(arr)) {
 
-                var index = arr.indexOf(element);
-                var result = [];
-
-                while (index >= 0) {
-                    result.push(index);
-                    index = arr.indexOf(element, index + 1);
+                if (!preserveStructure) {
+                    arr = this.flatten(arr);
                 }
-                return result.length ? result : -1;
+                var result = [];
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i] === element) {
+                        result.push(i);
+                    }
+                }
+                if (result.length === 0) return -1;
+                return result;
             }
             throw new Error("Not an array!");
         }
