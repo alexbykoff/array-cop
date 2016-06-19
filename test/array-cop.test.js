@@ -419,7 +419,7 @@ describe('#breakdown() - array console pretty print, or object with items sorted
 
   var testCasesReturn = [
     {
-      descrition: 'should return object with items sorted by type',
+      description: 'should return object with items sorted by type',
       input: [null, undefined, "String", new Object, false],
       inputFlag: true,
       expected: {
@@ -432,7 +432,7 @@ describe('#breakdown() - array console pretty print, or object with items sorted
       }
     },
     {
-      descrition: 'should return object with items sorted by type',
+      description: 'should return object with items sorted by type',
       input: [null, undefined, "String", new Object, false, 23, 23.35, '45.61', 45.61],
       inputFlag: true,
       expected: {
@@ -455,7 +455,7 @@ describe('#breakdown() - array console pretty print, or object with items sorted
   // Testing return values
   testCasesReturn.forEach(function(tst) {
     var actual = arrayCop.breakdown(tst.input, tst.inputFlag);
-    it(tst.descrition, function() {
+    it(tst.description, function() {
       assert.deepEqual(actual, tst.expected);
     });
   });
@@ -486,23 +486,86 @@ describe('#breakdown() - array console pretty print, or object with items sorted
 describe('#cop - removes all the empty items aka `undefined` and `null` from an array preserving the structure', function() {
   var testCases = [
     {
-      description: 'should removes all "empty" elements preserving structure',
-      input: [1, , , , , 2, 'String', '', [null, 2] ],
+      description: 'should flatten & removes all "empty" elements',
+      input: [1, , , , , 2, "String", "", [2, 3] ],
       inputFlag: true,
-      expected: [1, 2,'String','',[2] ]
+      expected: [1, 2, "String", "", 2, 3 ]
     },
     {
-      description: 'should flattens array & removes all "empty" elements',
-      input: [1, , , , , 2, 'String', '', [null, 2]],
+      description: 'should removes all "empty" elements  preserving structure',
+      input: [1, , , , , 2, "String", "", [2, 3] ],
       inputFlag: false,
-      expected: [1, 2,'String', 2]
+      expected: [1, 2, "String", "", [2, 3] ]
     }
   ];
+
+  it('should throw an error if argument isn\'t array', function() {
+      expect(function() {
+          arrayCop.cop(new String);
+      }).to.throw('Not an array!');
+  });
 
   testCases.forEach(function(tst) {
     var actual = arrayCop.cop(tst.input, tst.inputFlag);
     it(tst.description, function() {
-      assert(actual, tst.expected);
+      assert.deepEqual(actual, tst.expected);
+    });
+  });
+
+});
+
+// INDEX
+describe('#index - Return an `array` of index values. ', function() {
+  var testCases = [
+    {
+      description: 'should should return indexes: [4, 8] with preserving structure',
+      inputArray: [1, "String", , , 2, "String",  "", ["Str", 2], 2 ],
+      inputElement: 2,
+      preserveFlag: true,
+      expected: [4, 8]
+    },
+    {
+      description: 'should should return indexes: [1, 3, 6] for flattened array',
+      inputArray: [1, "String", , , 2, "String",  "", [345, "String", 2], 2 ],
+      inputElement: "String",
+      expected: [1, 3, 6]
+    },
+    {
+      description: 'should return indexes: [2, 6] for flattened array',
+      inputArray: [1, ,"String", , , 2, "String", "", ["Str", 2]],
+      inputElement: 2,
+      expected: [2, 6]
+    },
+    {
+      description: 'should return -1 if index passed not a number',
+      inputArray: [1, , "String", , , 2, "String",  "", ["Str", 2]],
+      inputElement: true,
+      expected: -1
+    },
+    {
+      description: 'should return -1 string if index out of range',
+      inputArray: [1, , "String", , , 2, "String",  "", ["Str", 2]],
+      inputElement: 25,
+      expected: -1
+    }
+  ];
+
+  it('should throw an error if argument index not passed', function() {
+      expect(function() {
+          arrayCop.index([1, , "String", , , 2, "String", '', ["Str", 2]]);
+      }).to.throw('Element not passed as argument');
+  });
+
+  it('should throw an error if argument isn\'t array', function() {
+      expect(function() {
+          arrayCop.index(new String, 2);
+      }).to.throw('Not an array!');
+  });
+
+  testCases.forEach(function(tst) {
+    var actual = arrayCop.index(tst.inputArray, tst.inputElement, tst.preserveFlag);
+    it(tst.description, function() {
+      assert.deepEqual(actual, tst.expected);
     });
   });
 
