@@ -2,9 +2,10 @@ var chai = require('chai');
 var arrayCop = require('../src/array-cop');
 var assert = chai.assert;
 var expect = chai.expect;
+require('mocha-sinon');
 
-var arr = [1, 3, [3, [5, ]], 7, 8, 'pete', {}];
-var srcArray = [1, 3, 3, 'Some string', 'Some string', 5, 7, 8, 'pete', {}];
+// var arr = [1, 3, [3, [5, ]], 7, 8, 'pete', {}];
+// var srcArray = [1, 3, 3, 'Some string', 'Some string', 5, 7, 8, 'pete', {}];
 
 // FLATTEN
 describe('#flatten() - Flattens an array', function() {
@@ -356,46 +357,94 @@ describe('#median() - Returns median element of the numeric items in array', fun
 // FREQ
 describe('#freq() - Returns an object array_item: item_frequency', function() {
 
-    it('should throw error if argument isn\'t aray', function() {
-        expect(function() {
-            arrayCop.freq(new Object)
-        }).to.throw('Not an array!');
-    });
+  var testCases = [
+    {
+      description: 'should return empty object for the empty src array',
+      input: [],
+      expected: {}
+    },
 
-    it('should return empty object for the empty src array', function() {
-        assert.deepEqual(arrayCop.freq([]), {});
-    });
+    {
+      description: 'should return frequency matrix object with 2 empty string elements',
+      input: [ new String, [new String] ],
+      expected: {
+        "": 2
+      }
+    },
 
-    it('should return frequency matrix object with 2 empty string elements', function() {
-        assert.deepEqual(arrayCop.freq([ new String,[new String] ]), {
-            "":2
-        });
-    });
-
-    // testing objects
-    var object1 = { key: 'value'},
-        object2 = object1;
-    // ToDo: Compare objects?
-    it('should return frequency matrix object with 2 object element', function() {
-        assert.deepEqual(arrayCop.freq([object1, object2]), {
-            '[object Object]': 2
-        });
-    });
-
-    it('should return frequency matrix object for the array', function() {
-        assert.deepEqual(arrayCop.freq([0,[1,2,'Sample string'],[2, 'Sample string'], 1]),
+    {
+      description: 'should return frequency matrix object with 2 object element',
+      input: [
         {
-            '1': 2,
-            '2': 2,
-            'Sample string': 2,
-            '0': 1
-        } );
+          obj1Key: "value"
+        },
+        {
+          obj2Key: "value"
+        }
+      ],
+      expected: {
+        '[object Object]': 2
+      }
+    },
+
+    {
+      description: 'should return frequency matrix object for the array',
+      input: [0,[1,2,'Sample string'],[2, 'Sample string'], 1],
+      expected: {
+          '1': 2,
+          '2': 2,
+          'Sample string': 2,
+          '0': 1
+      }
+    }
+  ];
+
+  it('should throw error if argument isn\'t aray', function() {
+      expect(function() {
+          arrayCop.freq(new Object)
+      }).to.throw('Not an array!');
+  });
+
+  testCases.forEach(function(tst) {
+    it(tst.description, function() {
+      var actual = arrayCop.freq(tst.input);
+      assert.deepEqual(actual, tst.expected);
     });
+  });
 
 });
 
 // BREAKDOWN
-describe('breakdown() - array console pretty print, or object with items sorted by type', function() {
+describe('#breakdown() - array console pretty print, or object with items sorted by type', function() {
+
+  var testCasesReturn = [
+    {
+      descrition: 'should return object with items sorted by type',
+      input: [null, undefined, "String", new Object, false],
+      inputFlag: true,
+      expected: {
+        number_: [],
+        string_: ["String"],
+        function_: [],
+        object_: [null, {}],
+        undefined_: [undefined],
+        boolean_: [false]
+      }
+    },
+    {
+      descrition: 'should return object with items sorted by type',
+      input: [null, undefined, "String", new Object, false, 23, 23.35, '45.61', 45.61],
+      inputFlag: true,
+      expected: {
+        number_: [23, 23.35, 45.61],
+        string_: ["String", "45.61"],
+        function_: [],
+        object_: [null, {}],
+        undefined_: [undefined],
+        boolean_: [false]
+      }
+    }
+  ];
 
   it('should throw error if argument isn\'t aray', function() {
       expect(function() {
@@ -403,14 +452,57 @@ describe('breakdown() - array console pretty print, or object with items sorted 
       }).to.throw('Not an array!');
     });
 
-  it('should return object with items sorted by type', function() {
-    assert.deepEqual(arrayCop.breakdown([null, undefined, "String", new Object, false], true), {
-      number_: [],
-      string_: ["String"],
-      function_: [],
-      object_: [null, {}],
-      undefined_: [undefined],
-      boolean_: [false]
+  // Testing return values
+  testCasesReturn.forEach(function(tst) {
+    var actual = arrayCop.breakdown(tst.input, tst.inputFlag);
+    it(tst.descrition, function() {
+      assert.deepEqual(actual, tst.expected);
+    });
+  });
+
+  // TODO
+  // Refactoring
+  // Testing console output with helper function & mocha-sinon
+  beforeEach(function() {
+    this.sinon.stub(console, 'log');
+  });
+
+  it('should console.log() output', function() {
+    arrayCop.breakdown([null, undefined, "String", new Object, false, 23, 23.35, '45.61', 45.61], false);
+    expect( console.log.calledOnce ).to.be.true;
+    expect( console.log.calledWith(
+      "Numbers: 3\n" +
+      "Strings: 2\n" +
+      "Functions: 0\n" +
+      "Objects: 2\n" +
+      "Undefined: 1\n" +
+      "Booleans: 1\n" +
+      "Total items: 9\n") ).to.be.true;
+  });
+
+});
+
+// COP
+describe('#cop - removes all the empty items aka `undefined` and `null` from an array preserving the structure', function() {
+  var testCases = [
+    {
+      description: 'should removes all "empty" elements preserving structure',
+      input: [1, , , , , 2, 'String', '', [null, 2] ],
+      inputFlag: true,
+      expected: [1, 2,'String','',[2] ]
+    },
+    {
+      description: 'should flattens array & removes all "empty" elements',
+      input: [1, , , , , 2, 'String', '', [null, 2]],
+      inputFlag: false,
+      expected: [1, 2,'String', 2]
+    }
+  ];
+
+  testCases.forEach(function(tst) {
+    var actual = arrayCop.cop(tst.input, tst.inputFlag);
+    it(tst.description, function() {
+      assert(actual, tst.expected);
     });
   });
 
