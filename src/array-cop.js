@@ -367,6 +367,11 @@
             throw new Error("Not an object!");
         },
 
+        /* Return an `array` of index values.
+        *
+        * @param element - mandatory. An element to look for in an array.
+        * If element does not exist then `-1` is returned.
+        */
         index: function(arr, element) {
 
             if (!element) {
