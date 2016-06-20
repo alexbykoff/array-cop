@@ -11,9 +11,15 @@
             // TODO:
             // ? throw error if !Array.isArray(arr)
 
-            return Array.isArray(arr) ? arr.reduce(function(f, i) {
+            return Array.isArray(arr)
+
+            ?
+            arr.reduce(function(f, i) {
                 return f.concat(Array.isArray(i) ? __.flatten(i) : i);
-            }, []) : arr;
+            }, [])
+
+            :
+            arr;
         },
 
         /**
@@ -42,11 +48,12 @@
          */
         rand: function(arr, min, max) {
 
-            // TODO:
-            // ? throw error if !Array.isArray(arr)
-            // ? flattens array before proceed
+            if (!Array.isArray(arr)) {
+                throw new Error("Not an array!");
+            }
 
-            return Array.isArray(arr) ? arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)] : arr;
+            return arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)];
+
         },
 
         /** Returns a sum of all the items. Flattens an array and takes
@@ -54,13 +61,16 @@
          */
         sum: function(arr) {
 
+            if (!Array.isArray(arr)) {
 
-            if (Array.isArray(arr)) {
-                return this.flatten(arr).reduce(function(a, b) {
-                    return typeof(b) === "number" ? a += b : a;
-                }, 0);
+                throw new Error("Not an array!");
             }
-            return arr;
+
+            return this.flatten(arr).reduce(function(a, b) {
+
+                return typeof(b) === "number" ? a += b : a;
+            }, 0);
+
         },
 
         /**
@@ -75,62 +85,64 @@
          */
         mean: function(arr, type, precision) {
 
-            if (Array.isArray(arr)) {
+            if (!Array.isArray(arr)) {
 
-                isNaN(precision) && (precision = 2);
-
-                arr = this.flatten(arr);
-                var mean = 0,
-                    sum = 0,
-                    num = 0,
-                    mul = 1;
-
-                if (!arr.length) {
-                    return mean;
-                }
-
-                typeof(type) === "string" ? type = type || "ari": precision = Math.abs(type) || precision;
-
-                // Main arithmetic logic
-                switch (type) {
-                    case "ari":
-                    default:
-                        for (var i in arr) {
-                            if (typeof(arr[i]) === "number") {
-                                sum += arr[i];
-                                num++;
-                            }
-                        }
-                        mean = (sum / num);
-                        break;
-
-                    case "geo":
-                        for (var j in arr) {
-                            if (typeof(arr[j]) === "number") {
-                                mul *= arr[j];
-                                num++;
-                            }
-                        }
-                        mean = Math.pow(mul, 1 / num);
-                        break;
-
-                    case "har":
-                        var harArray = [];
-                        for (var k in arr) {
-                            if (typeof(arr[k]) === "number") {
-                                harArray.push(arr[k]);
-                            }
-                        }
-                        var harDenominator = harArray.map(function(number) {
-                            return 1 / number;
-                        }).reduce(function(a, b) {
-                            return a + b;
-                        });
-                        mean = (harArray.length / harDenominator);
-                }
-                return precision > 0 ? mean.toFixed(precision) : mean;
+                throw new Error("Not an array!");
             }
-            throw new Error("Not an array!");
+
+            isNaN(precision) && (precision = 2);
+
+            arr = this.flatten(arr);
+            var mean = 0,
+                sum = 0,
+                num = 0,
+                mul = 1;
+
+            if (!arr.length) {
+                return mean;
+            }
+
+            typeof(type) === "string" ? type = type || "ari": precision = Math.abs(type) || precision;
+
+            // Main arithmetic logic
+            switch (type) {
+                case "ari":
+                default:
+                    for (var i in arr) {
+                        if (typeof(arr[i]) === "number") {
+                            sum += arr[i];
+                            num++;
+                        }
+                    }
+                    mean = (sum / num);
+                    break;
+
+                case "geo":
+                    for (var j in arr) {
+                        if (typeof(arr[j]) === "number") {
+                            mul *= arr[j];
+                            num++;
+                        }
+                    }
+                    mean = Math.pow(mul, 1 / num);
+                    break;
+
+                case "har":
+                    var harArray = [];
+                    for (var k in arr) {
+                        if (typeof(arr[k]) === "number") {
+                            harArray.push(arr[k]);
+                        }
+                    }
+                    var harDenominator = harArray.map(function(number) {
+                        return 1 / number;
+                    }).reduce(function(a, b) {
+                        return a + b;
+                    });
+                    mean = (harArray.length / harDenominator);
+            }
+
+            return precision > 0 ? mean.toFixed(precision) : mean;
         },
 
         /**
@@ -141,45 +153,47 @@
          */
         median: function(arr, precision) {
 
-            if (Array.isArray(arr)) {
+            if (!Array.isArray(arr)) {
 
-                isNaN(precision) && (precision = 2);
+                throw new Error("Not an array!");
+            }
 
-                arr = this.flatten(arr);
+            isNaN(precision) && (precision = 2);
 
-                var newArr = [];
+            arr = this.flatten(arr);
 
-                // Push Number values into temp array
-                for (var i in arr) {
+            var newArr = [];
 
-                    if (typeof(arr[i]) === "number") {
-                        newArr.push(arr[i]);
-                    }
-                }
+            // Push Number values into temp array
+            for (var i in arr) {
 
-                // Return 0 for empty array, or 1st element for array with 1 item
-                if (!newArr || newArr.length === 0) {
-                    return 0;
-                } else if (newArr.length === 1) {
-                    return newArr[0];
-                }
-
-                newArr.sort(function(a, b) {
-                    return a - b;
-                });
-
-                var medianItem = Math.floor(newArr.length / 2);
-
-                if (newArr.length % 2) {
-                    // If number of Number items is odd then middle item is the median
-                    return newArr[medianItem];
-
-                    // Otherwise calculate an average of two items in the middle
-                } else {
-                    return precision ? ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision)) : (newArr[medianItem - 1] + newArr[medianItem]) / 2;
+                if (typeof(arr[i]) === "number") {
+                    newArr.push(arr[i]);
                 }
             }
-            throw new Error("Not an array!");
+
+            // Return 0 for empty array, or 1st element for array with 1 item
+            if (!newArr || newArr.length === 0) {
+                return 0;
+            } else if (newArr.length === 1) {
+                return newArr[0];
+            }
+
+            newArr.sort(function(a, b) {
+                return a - b;
+            });
+
+            var medianItem = Math.floor(newArr.length / 2);
+
+            if (newArr.length % 2) {
+                // If number of Number items is odd then middle item is the median
+                return newArr[medianItem];
+
+                // Otherwise calculate an average of two items in the middle
+            } else {
+                return precision ? ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision)) : (newArr[medianItem - 1] + newArr[medianItem]) / 2;
+            }
+
         },
 
         /**
@@ -189,23 +203,22 @@
          */
         freq: function(arr) {
 
-            if (Array.isArray(arr)) {
+            if (!Array.isArray(arr)) {
 
-                arr = this.flatten(arr);
-
-                // Generates an object where value in key-value pair is the number of times
-                // such an item appears in an array
-                var frequencyMap = arr.reduce(function(obj, item) {
-                    if (obj[item]) {
-                        obj[item]++;
-                    } else {
-                        obj[item] = 1;
-                    }
-                    return obj;
-                }, {});
-                return frequencyMap;
+                throw new Error("Not an array!");
             }
-            throw new Error("Not an array!");
+
+            arr = this.flatten(arr);
+
+            var frequencyMap = arr.reduce(function(obj, item) {
+                if (obj[item]) {
+                    obj[item]++;
+                } else {
+                    obj[item] = 1;
+                }
+                return obj;
+            }, {});
+            return frequencyMap;
         },
 
         /* Service method.
@@ -217,37 +230,39 @@
          */
         breakdown: function(arr, toObject) {
 
-            if (Array.isArray(arr)) {
+            if (!Array.isArray(arr)) {
 
-                arr = this.flatten(arr);
-
-                var total = {
-                    number_: [],
-                    string_: [],
-                    function_: [],
-                    object_: [],
-                    undefined_: [],
-                    boolean_: []
-                };
-
-                arr.forEach(function(value, index, arr) {
-
-                    var key_ = typeof arr[index] + "_";
-                    total[key_].push(arr[index]);
-                });
-
-                return toObject ?
-                    total :
-                    console.log(
-                        "Numbers: " + total.number_.length + "\n" +
-                        "Strings: " + total.string_.length + "\n" +
-                        "Functions: " + total.function_.length + "\n" +
-                        "Objects: " + total.object_.length + "\n" +
-                        "Undefined: " + total.undefined_.length + "\n" +
-                        "Booleans: " + total.boolean_.length + "\n" +
-                        "Total items: " + arr.length + "\n");
+                throw new Error("Not an array!");
             }
-            throw new Error("Not an array!");
+
+            arr = this.flatten(arr);
+
+            var total = {
+                number_: [],
+                string_: [],
+                function_: [],
+                object_: [],
+                undefined_: [],
+                boolean_: []
+            };
+
+            arr.forEach(function(value, index, arr) {
+
+                var key_ = typeof arr[index] + "_";
+                total[key_].push(arr[index]);
+            });
+
+            return toObject ?
+                total :
+                console.log(
+                    "Numbers: " + total.number_.length + "\n" +
+                    "Strings: " + total.string_.length + "\n" +
+                    "Functions: " + total.function_.length + "\n" +
+                    "Objects: " + total.object_.length + "\n" +
+                    "Undefined: " + total.undefined_.length + "\n" +
+                    "Booleans: " + total.boolean_.length + "\n" +
+                    "Total items: " + arr.length + "\n");
+
         },
 
         /* Goes on patrol and removes all the empty items aka
@@ -255,54 +270,57 @@
          */
         cop: function(arr, toFlatten) {
 
+            if (!Array.isArray(arr)) {
 
-            if (Array.isArray(arr)) {
-
-                if (toFlatten) {
-                    arr = this.flatten(arr);
-                }
-
-                var __ = this;
-                var result = [];
-
-                arr.forEach(function(item) {
-
-                    if (Array.isArray(item) && item.length !== 0) {
-                        result.push(__.cop(item));
-                    } else if (typeof item !== "undefined") {
-                        result.push(item);
-                    }
-                });
-                return result;
+                throw new Error("Not an array!");
             }
-            throw new Error("Not an array!");
+
+            if (toFlatten) {
+                arr = this.flatten(arr);
+            }
+
+            var __ = this;
+            var result = [];
+
+            arr.forEach(function(item) {
+
+                if (Array.isArray(item) && item.length !== 0) {
+                    result.push(__.cop(item));
+                } else if (typeof item !== "undefined") {
+                    result.push(item);
+                }
+            });
+            return result;
+
         },
 
         keep: function(arr, type, logic) {
 
-            if (Array.isArray(arr)) {
+            if (!Array.isArray(arr)) {
 
-                arr = this.flatten(arr);
-                type = type || "string";
-                logic = logic || "all";
-
-                // Going switch() because of may be new logic later on
-                switch (logic) {
-
-                    case "all":
-                    default:
-                        return arr.filter(function(i) {
-                            return typeof(i) === type.toLowerCase();
-                        });
-
-                    case "but":
-                        return arr.filter(function(i) {
-                            return typeof(i) !== type.toLowerCase();
-                        });
-                }
+                throw new Error("Not an array!");
             }
-            throw new Error("Not an array!");
+
+            arr = this.flatten(arr);
+            type = type || "string";
+            logic = logic || "all";
+
+            // Going switch() because of may be new logic later on
+            switch (logic) {
+
+                case "all":
+                default:
+                    return arr.filter(function(i) {
+                        return typeof(i) === type.toLowerCase();
+                    });
+
+                case "but":
+                    return arr.filter(function(i) {
+                        return typeof(i) !== type.toLowerCase();
+                    });
+            }
         },
+
         alpha: function(arr) {
 
             return Array.isArray(arr) ? this.regExpFilter(arr, /[^a-z]/gi) : arr;
@@ -357,12 +375,12 @@
 
                 var result = [];
 
-                arr.forEach(function(v, i){
+                arr.forEach(function(v, i) {
 
                     element === v && result.push(i);
                 });
 
-                return result.length? result: -1;
+                return result.length ? result : -1;
             }
             throw new Error("Not an array!");
         }
