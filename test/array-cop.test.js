@@ -48,7 +48,7 @@ describe('#flatten() - Flattens an array', function() {
 // DEDUP
 describe('#dedup() - Removes duplicates', function() {
 
-  it('should removes duplicates from an array', function() {
+  it('should remove duplicates from an array', function() {
 
     var testCases = [
       {
@@ -81,7 +81,7 @@ describe('#dedup() - Removes duplicates', function() {
 
   });
 
-  it('should removes duplicates from an array including nested arrays', function() {
+  it('should remove duplicates from an array including all the nested arrays', function() {
 
     var testCases = [
       {
@@ -106,9 +106,9 @@ describe('#dedup() - Removes duplicates', function() {
 })
 
 // RAND
-describe('#rand() - Returns a random item', function() {
+describe('#rand() - Returns a random item from an Array', function() {
 
-  it('should return random element according to parameters', function() {
+  it('should return a random element according to parameters provided', function() {
     var testCases = [
       {
         inputArray: [1, 2, 3],
@@ -136,7 +136,7 @@ describe('#rand() - Returns a random item', function() {
 // SUM
 describe('#sum() - Returns a sum of all the Number items', function() {
 
-    it('should return sum of all element with type number', function() {
+    it('should return a sum of all the elements with type: Number', function() {
       var testCases = [
         {
           input: [2, 3, [5, 7, undefined], 'String'],
@@ -164,13 +164,13 @@ describe('#sum() - Returns a sum of all the Number items', function() {
 // COP
 describe('#cop() - Removes all the empty items', function() {
 
-    it('should throw an error if argument is not an array', function() {
+    it('should throw an error if argument is not an Array', function() {
         expect(function() {
             arrayCop.cop(0)
         }).to.throw('Not an array!');
     });
 
-    it('should get of all the empty items while preserving the structure', function() {
+    it('should get of all the empty items while preserving the structure of an array', function() {
       var testCases = [
         {
           input: [1, 2, , , , , 3, 4, [5, , , , , ], 6, , , , 8, 3, [
@@ -214,38 +214,38 @@ describe('#mean() - Calculates and returns Mean values', function() {
       expected: 0
     },
     {
-      description:"should return ariphmetic mean of an array by default",
+      description:"should return an ariphmetic mean of an array by default",
       input: [1, 2, 3],
       expected: '2.00'
     },
     {
-      description: "should return ariphmetic mean of an array",
+      description: "should return an ariphmetic mean of an array",
       input: [1, 2, 3, new String, [1, 2, 3]],
       inputType: "ari",
       expected: '2.00'
     },
     {
-      description: "should return ariphmetic mean of an array with custom precision",
+      description: "should return an ariphmetic mean of an array with custom precision",
       input: [1, 2, 3, new String, [1, 2, 3]],
       inputType: "ari",
       inputPrecision: 3,
       expected: '2.000'
     },
     {
-      description: 'should return geometric mean of aflattened array',
+      description: 'should return a geometric mean of an array',
       input: [1, 2, 3, new String, new Object, [1, 2, 3]],
       inputType: "geo",
       expected: "1.82"
     },
     {
-      description: 'should return geomteric mean of an array with .00000 precision',
+      description: 'should return a geomteric mean of an array with .00000 precision',
       input: [1, 2, 3, new String, new Object, [1, 2, 3]],
       inputType: "geo",
       inputPrecision: 5,
       expected: '1.81712'
     },
     {
-      description: 'should return harmonic mean of an array with .000 precision',
+      description: 'should return a harmonic mean of an array with .000 precision',
       input: [1, 2, 3],
       inputType: "har",
       inputPrecision: 3,
@@ -253,7 +253,7 @@ describe('#mean() - Calculates and returns Mean values', function() {
     }
   ];
 
-  it('should throw an error if argument is not an array', function() {
+  it('should throw an error if argument is not an Array', function() {
       expect(function() {
           arrayCop.mean(new String)
       }).to.throw('Not an array!');
@@ -269,7 +269,7 @@ describe('#mean() - Calculates and returns Mean values', function() {
 });
 
 // ARRIFY
-describe('#arrify() - Converts object to an array that consists of values of the given object', function() {
+describe('#arrify() - Converts an Object into an array that consists of values of the given object', function() {
 
   var testCases = [
     {
@@ -292,7 +292,7 @@ describe('#arrify() - Converts object to an array that consists of values of the
     }
   ];
 
-  it('should throw an error when argument provided is not an object', function(){
+  it('should throw an error when argument provided is not an Object', function(){
       expect(function() {
           arrayCop.arrify(new Function)
       }).to.throw('Not an object!');
@@ -308,7 +308,7 @@ describe('#arrify() - Converts object to an array that consists of values of the
 });
 
 // MEDIAN
-describe('#median() - Returns median element of the numeric items in array', function() {
+describe('#median() - Returns a median of the numeric items in array', function() {
   var testCases = [
     {
       description: 'should return 0 for empty array',
@@ -321,18 +321,18 @@ describe('#median() - Returns median element of the numeric items in array', fun
       expected: 235
     },
     {
-      description: 'should return median with default precision',
+      description: 'should return a median with a default precision',
       input: [[100, -50, 3], new String, 3],
       expected: '3.00'
     },
     {
-      description: 'should return median with precision = 0',
+      description: 'should return a median with precision = 0',
       input: [[100, -50, 3], new String, 3],
       inputPrecision: 0,
       expected: 3
     },
     {
-      description: 'should return median with negative precision',
+      description: 'should return a median with a negative precision',
       input: [[100, -50, 3], new String, 3],
       inputPrecision: -3,
       expected: '3.000'
@@ -359,13 +359,13 @@ describe('#freq() - Returns an object array_item: item_frequency', function() {
 
   var testCases = [
     {
-      description: 'should return empty object for the empty src array',
+      description: 'should return an empty object for the empty src array',
       input: [],
       expected: {}
     },
 
     {
-      description: 'should return frequency matrix object with 2 empty string elements',
+      description: 'should return a frequency matrix object with 2 empty string elements',
       input: [ new String, [new String] ],
       expected: {
         "": 2
@@ -399,7 +399,7 @@ describe('#freq() - Returns an object array_item: item_frequency', function() {
     }
   ];
 
-  it('should throw error if argument isn\'t aray', function() {
+  it('should throw error if argument isn\'t an Array', function() {
       expect(function() {
           arrayCop.freq(new Object)
       }).to.throw('Not an array!');
@@ -446,7 +446,7 @@ describe('#breakdown() - array console pretty print, or object with items sorted
     }
   ];
 
-  it('should throw error if argument isn\'t aray', function() {
+  it('should throw an error if argument isn\'t an Array', function() {
       expect(function() {
           arrayCop.breakdown(new Object, true)
       }).to.throw('Not an array!');
@@ -486,20 +486,20 @@ describe('#breakdown() - array console pretty print, or object with items sorted
 describe('#cop - removes all the empty items aka `undefined` and `null` from an array preserving the structure', function() {
   var testCases = [
     {
-      description: 'should flatten & removes all "empty" elements',
+      description: 'should flatten & remove all the "empty" elements',
       input: [1, , , , , 2, "String", "", [2, 3] ],
       inputFlag: true,
       expected: [1, 2, "String", "", 2, 3 ]
     },
     {
-      description: 'should removes all "empty" elements  preserving structure',
+      description: 'should remove all the "empty" elements while preserving structure',
       input: [1, , , , , 2, "String", "", [2, 3] ],
       inputFlag: false,
       expected: [1, 2, "String", "", [2, 3] ]
     }
   ];
 
-  it('should throw an error if argument isn\'t array', function() {
+  it('should throw an error if argument isn\'t an Array', function() {
       expect(function() {
           arrayCop.cop(new String);
       }).to.throw('Not an array!');
@@ -515,48 +515,48 @@ describe('#cop - removes all the empty items aka `undefined` and `null` from an 
 });
 
 // INDEX
-describe('#index - Return an `array` of index values. ', function() {
+describe('#index - Returns an `array` of index values. ', function() {
   var testCases = [
     {
-      description: 'should should return indexes: [4, 8] with preserving structure',
+      description: 'should return indexes: [4, 8] with preserved structure',
       inputArray: [1, "String", , , 2, "String",  "", ["Str", 2], 2 ],
       inputElement: 2,
       preserveFlag: true,
       expected: [4, 8]
     },
     {
-      description: 'should should return indexes: [1, 3, 6] for flattened array',
+      description: 'should return indexes: [1, 3, 6] for flattened array',
       inputArray: [1, "String", , , 2, "String",  "", [345, "String", 2], 2 ],
       inputElement: "String",
       expected: [1, 3, 6]
     },
     {
-      description: 'should return indexes: [2, 6] for flattened array',
+      description: 'should return indexes: [2, 6] for the flattened array',
       inputArray: [1, ,"String", , , 2, "String", "", ["Str", 2]],
       inputElement: 2,
       expected: [2, 6]
     },
     {
-      description: 'should return -1 if index passed not a number',
+      description: 'should return -1 if index passed is not a Number',
       inputArray: [1, , "String", , , 2, "String",  "", ["Str", 2]],
       inputElement: true,
       expected: -1
     },
     {
-      description: 'should return -1 string if index out of range',
+      description: 'should return -1 string if index is out of range',
       inputArray: [1, , "String", , , 2, "String",  "", ["Str", 2]],
       inputElement: 25,
       expected: -1
     }
   ];
 
-  it('should throw an error if argument index not passed', function() {
+  it('should throw an error if argument `index` is not provided', function() {
       expect(function() {
           arrayCop.index([1, , "String", , , 2, "String", '', ["Str", 2]]);
       }).to.throw('Element not passed as argument');
   });
 
-  it('should throw an error if argument isn\'t array', function() {
+  it('should throw an error if argument isn\'t an Array', function() {
       expect(function() {
           arrayCop.index(new String, 2);
       }).to.throw('Not an array!');
