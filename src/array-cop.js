@@ -231,34 +231,9 @@
                 };
 
                 arr.forEach(function(value, index, arr) {
-                    switch (typeof arr[index]) {
-                        case "number":
-                            total.number_.push(arr[index]);
-                            break;
 
-                        case "string":
-                            total.string_.push(arr[index]);
-                            break;
-
-                        case "function":
-                            total.function_.push(arr[index]);
-                            break;
-
-                        case "object":
-                            total.object_.push(arr[index]);
-                            break;
-
-                        case "undefined":
-                            total.undefined_.push(arr[index]);
-                            break;
-
-                        case "boolean":
-                            total.boolean_.push(arr[index]);
-                            break;
-
-                        default:
-                            break;
-                    }
+                    var key_ = typeof arr[index] + "_";
+                    total[key_].push(arr[index]);
                 });
 
                 return toObject ?
@@ -373,16 +348,20 @@
                 throw new Error("Element not passed as argument");
             }
 
-
             if (Array.isArray(arr)) {
 
                 if (!preserveStructure) {
+
                     arr = this.flatten(arr);
                 }
+
                 var result = [];
+
                 arr.forEach(function(v, i){
+
                     element === v && result.push(i);
                 });
+
                 return result.length? result: -1;
             }
             throw new Error("Not an array!");
