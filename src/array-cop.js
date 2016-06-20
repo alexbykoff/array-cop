@@ -380,15 +380,10 @@
                     arr = this.flatten(arr);
                 }
                 var result = [];
-                for (var i = 0; i < arr.length; i++) {
-                    if (arr[i] === element) {
-                        result.push(i);
-                    }
-                }
-                if (result.length === 0) {
-                    return -1;
-                }
-                return result;
+                arr.forEach(function(v, i){
+                    element === v && result.push(i);
+                });
+                return result.length? result: -1;
             }
             throw new Error("Not an array!");
         }
