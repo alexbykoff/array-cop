@@ -4,8 +4,36 @@ var assert = chai.assert;
 var expect = chai.expect;
 require('mocha-sinon');
 
-// var arr = [1, 3, [3, [5, ]], 7, 8, 'pete', {}];
-// var srcArray = [1, 3, 3, 'Some string', 'Some string', 5, 7, 8, 'pete', {}];
+// CHECK
+describe('#check - help method. Return Boolean for Array and throw error if not.', function() {
+
+  var testCases = [
+    {
+      description: 'it should return True for empty Array',
+      input: [],
+      expected: true
+    },
+    {
+      description: 'it should return True for Array',
+      input: ["StringValue", 2, 3, 7, , ],
+      expected: true
+    }
+  ];
+
+  it('should throw error if argument isn\'t aray', function() {
+      expect(function() {
+          arrayCop.check(new Object)
+      }).to.throw('Not an array!');
+  });
+
+  testCases.forEach(function(tst) {
+      it(tst.description, function() {
+          var actual = arrayCop.check(tst.input);
+          assert.deepEqual(actual, tst.expected);
+      });
+  });
+
+});
 
 // FLATTEN
 describe('#flatten() - Flattens an array', function() {
@@ -438,7 +466,7 @@ describe('#breakdown() - array console pretty print, or object with items sorted
 });
 
 // COP
-describe('#cop - removes all the empty items aka `undefined` and `null` from an array preserving the structure', function() {
+describe('#cop() - removes all the empty items aka `undefined` and `null` from an array preserving the structure', function() {
     var testCases = [{
         description: 'should flatten & remove all the "empty" elements',
         input: [1, , , , , 2, "String", "", [2, 3]],
@@ -467,7 +495,7 @@ describe('#cop - removes all the empty items aka `undefined` and `null` from an 
 });
 
 // INDEX
-describe('#index - Returns an `array` of index values. ', function() {
+describe('#index() - Returns an `array` of index values. ', function() {
     var testCases = [{
         description: 'should return indexes: [4, 8] with preserved structure',
         inputArray: [1, "String", , , 2, "String", "", ["Str", 2], 2],
@@ -514,5 +542,102 @@ describe('#index - Returns an `array` of index values. ', function() {
             assert.deepEqual(actual, tst.expected);
         });
     });
+
+});
+
+// KEEP
+describe('#keep() - filter an array by item type or remove some types', function() {
+
+  var testCases = [
+    {
+      description: 'it should return Array with Strings',
+      inputArray: [1, 2, 3, "Str1", "Str2"],
+      // inputType: "string",
+      inputLogic: "all",
+      expected: ["Str1", "Str2"]
+    },
+    {
+      description: 'it should remove Number elements from Array',
+      inputArray: [1, 2, 3, "Str1", "Str2"],
+      inputType: "number",
+      inputLogic: "but",
+      expected: ["Str1", "Str2"]
+    },
+  ];
+
+  it('should throw error if argument isn\'t aray', function() {
+      expect(function() {
+          arrayCop.keep(new Object)
+      }).to.throw('Not an array!');
+  });
+
+  testCases.forEach(function(tst) {
+      it(tst.description, function() {
+          var actual = arrayCop.keep(tst.inputArray, tst.inputType, tst.inputLogic);
+          assert.deepEqual(actual, tst.expected);
+      });
+  });
+
+});
+
+// ALPHA
+describe('#alpha() - remove non alphanumerics from the String items.', function() {
+
+  var testCases = [
+    {
+      description: 'it should remove all non alphanumeric symbols from String items',
+      input: [1, 2, 3, "Str1StrN3-w", "JackD4ani1el's"],
+      expected: [1, 2, 3,"StrStrNw", "JackDaniels"]
+    },
+    {
+      description: 'it should remove all non alphanumeric symbols from String items',
+      input: [1, 2, 3, "123", "#010", [5, 6, "S0meL0ngStr1ng"]],
+      expected: [1, 2, 3, "", "", [5, 6,"SmeLngStrng"]]
+    },
+  ];
+
+  it('should throw error if argument isn\'t aray', function() {
+      expect(function() {
+          arrayCop.alpha(new Object)
+      }).to.throw('Not an array!');
+  });
+
+  testCases.forEach(function(tst) {
+      it(tst.description, function() {
+          var actual = arrayCop.alpha(tst.input);
+          assert.deepEqual(actual, tst.expected);
+      });
+  });
+
+});
+
+// ALPHANUM
+describe('#alphaNum() - Remove non alphanumerics from the String items but saving digits as well.', function() {
+
+  var testCases = [
+    {
+      description: 'it should remove all non alphanumeric symbols from String items with saving digits',
+      input: [1, 2, 3, "Str1StrN3-w", "JackD4ani1el's"],
+      expected: [1, 2, 3,"Str1StrN3w", "JackD4ani1els"]
+    },
+    {
+      description: 'it should remove all non alphanumeric symbols from String items with saving digits',
+      input: [1, 2, 3, "123", "#010", [5, 6, "S0meL0ngStr1ng!#0&^"]],
+      expected: [1, 2, 3, "123", "010", [5, 6,"S0meL0ngStr1ng0"]]
+    },
+  ];
+
+  it('should throw error if argument isn\'t aray', function() {
+      expect(function() {
+          arrayCop.alphaNum(new Object)
+      }).to.throw('Not an array!');
+  });
+
+  testCases.forEach(function(tst) {
+      it(tst.description, function() {
+          var actual = arrayCop.alphaNum(tst.input);
+          assert.deepEqual(actual, tst.expected);
+      });
+  });
 
 });

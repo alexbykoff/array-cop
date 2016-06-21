@@ -228,6 +228,17 @@
             return result;
         },
 
+        /* Filter an array by item type or remove some types
+        * type: — sets the type of an object to work with.
+        *  Values are:
+        * 'string' [default], 'number', 'function', 'object', 'boolean', 'null', 'undefined'`
+        *
+        * logic: sets the logic for the method.
+        * Values are:
+        * all: [default] keep all array items of `type`, remove the rest
+        * but: keep all array items, but `type`
+        *
+        */
         keep: function(arr, type, logic) {
             this.check(arr);
             arr = this.flatten(arr);
@@ -250,9 +261,12 @@
             }
         },
 
+        /* Remove non alphanumerics from the String items */
         alpha: function(arr) {
             return this.check(arr) ? this.regExpFilter(arr, /[^a-z]/gi) : arr;
         },
+
+        /* Remove non alphanumerics from the String items but saving digits as well */
         alphaNum: function(arr) {
             return this.check(arr) ? this.regExpFilter(arr, /[^a-z0-9]/gi) : arr;
         },
