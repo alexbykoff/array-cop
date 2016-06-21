@@ -1,6 +1,14 @@
 (function(_) {
     var array_ = {
 
+        check: function(arr) {
+            if (!Array.isArray(arr)) {
+
+                throw new Error("Not an array!");
+            }
+            return true;
+        },
+
         /**
          * Flattens an array to a single-dimensional one
          */
@@ -8,18 +16,11 @@
 
             var __ = this;
 
-            // TODO:
-            // ? throw error if !Array.isArray(arr)
+            __.check(arr);
 
-            return Array.isArray(arr)
-
-            ?
-            arr.reduce(function(f, i) {
+            return arr.reduce(function(f, i) {
                 return f.concat(Array.isArray(i) ? __.flatten(i) : i);
-            }, [])
-
-            :
-            arr;
+            }, []);
         },
 
         /**
@@ -28,19 +29,15 @@
          */
         dedup: function(arr, force) {
 
-            // TODO:
-            // ? throw error if !Array.isArray(arr)
+            this.check(arr);
 
-            if (Array.isArray(arr)) {
-
-                if (force) {
-                    arr = this.flatten(arr);
-                }
-                return arr.filter(function(item, i) {
-                    return arr.lastIndexOf(item) === i;
-                });
+            if (force) {
+                arr = this.flatten(arr);
             }
-            return arr;
+            return arr.filter(function(item, i) {
+                return arr.lastIndexOf(item) === i;
+            });
+
         },
 
         /**
@@ -48,9 +45,7 @@
          */
         rand: function(arr, min, max) {
 
-            if (!Array.isArray(arr)) {
-                throw new Error("Not an array!");
-            }
+            this.check(arr);
 
             return arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)];
 
@@ -61,10 +56,7 @@
          */
         sum: function(arr) {
 
-            if (!Array.isArray(arr)) {
-
-                throw new Error("Not an array!");
-            }
+        this.check(arr);
 
             return this.flatten(arr).reduce(function(a, b) {
 
@@ -85,10 +77,7 @@
          */
         mean: function(arr, type, precision) {
 
-            if (!Array.isArray(arr)) {
-
-                throw new Error("Not an array!");
-            }
+            this.check(arr);
 
             isNaN(precision) && (precision = 2);
 
@@ -153,10 +142,7 @@
          */
         median: function(arr, precision) {
 
-            if (!Array.isArray(arr)) {
-
-                throw new Error("Not an array!");
-            }
+        this.check(arr);
 
             isNaN(precision) && (precision = 2);
 
@@ -203,10 +189,7 @@
          */
         freq: function(arr) {
 
-            if (!Array.isArray(arr)) {
-
-                throw new Error("Not an array!");
-            }
+        this.check(arr);
 
             arr = this.flatten(arr);
 
@@ -230,10 +213,7 @@
          */
         breakdown: function(arr, toObject) {
 
-            if (!Array.isArray(arr)) {
-
-                throw new Error("Not an array!");
-            }
+        this.check(arr);
 
             arr = this.flatten(arr);
 
@@ -270,10 +250,7 @@
          */
         cop: function(arr, toFlatten) {
 
-            if (!Array.isArray(arr)) {
-
-                throw new Error("Not an array!");
-            }
+        this.check(arr);
 
             if (toFlatten) {
                 arr = this.flatten(arr);
@@ -296,10 +273,7 @@
 
         keep: function(arr, type, logic) {
 
-            if (!Array.isArray(arr)) {
-
-                throw new Error("Not an array!");
-            }
+        this.check(arr);
 
             arr = this.flatten(arr);
             type = type || "string";
@@ -323,11 +297,11 @@
 
         alpha: function(arr) {
 
-            return Array.isArray(arr) ? this.regExpFilter(arr, /[^a-z]/gi) : arr;
+            return this.check(arr) ? this.regExpFilter(arr, /[^a-z]/gi) : arr;
         },
         alphaNum: function(arr) {
 
-            return Array.isArray(arr) ? this.regExpFilter(arr, /[^a-z0-9]/gi) : arr;
+            return this.check(arr) ? this.regExpFilter(arr, /[^a-z0-9]/gi) : arr;
         },
 
         regExpFilter: function(arr, expression) {
@@ -366,7 +340,7 @@
                 throw new Error("Element not passed as argument");
             }
 
-            if (Array.isArray(arr)) {
+        this.check(arr);
 
                 if (!preserveStructure) {
 
@@ -381,8 +355,7 @@
                 });
 
                 return result.length ? result : -1;
-            }
-            throw new Error("Not an array!");
+
         }
     };
 
