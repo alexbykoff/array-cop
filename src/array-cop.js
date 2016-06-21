@@ -2,22 +2,17 @@
     var array_ = {
 
         check: function(arr) {
-            if (!Array.isArray(arr)) {
-
-                throw new Error("Not an array!");
-            }
-            return true;
+            return Array.isArray(arr) || (function() {
+                throw new Error("Not an array!")
+            }());
         },
 
         /**
          * Flattens an array to a single-dimensional one
          */
         flatten: function(arr) {
-
             var __ = this;
-
             __.check(arr);
-
             return arr.reduce(function(f, i) {
                 return f.concat(Array.isArray(i) ? __.flatten(i) : i);
             }, []);
@@ -28,41 +23,29 @@
          * treated as duplicates(if `force` is not set to `true`) to avoid mess.
          */
         dedup: function(arr, force) {
-
             this.check(arr);
-
-            if (force) {
-                arr = this.flatten(arr);
-            }
+            arr = force ? this.flatten(arr) : arr;
             return arr.filter(function(item, i) {
                 return arr.lastIndexOf(item) === i;
             });
-
         },
 
         /**
          * Randomly picks and returns one item from an array or from a given range
          */
         rand: function(arr, min, max) {
-
             this.check(arr);
-
             return arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)];
-
         },
 
         /** Returns a sum of all the items. Flattens an array and takes
          * only numeric values into a consideration
          */
         sum: function(arr) {
-
-        this.check(arr);
-
+            this.check(arr);
             return this.flatten(arr).reduce(function(a, b) {
-
                 return typeof(b) === "number" ? a += b : a;
             }, 0);
-
         },
 
         /**
@@ -76,11 +59,8 @@
          * point. If omitted then falls back to 2.
          */
         mean: function(arr, type, precision) {
-
             this.check(arr);
-
             isNaN(precision) && (precision = 2);
-
             arr = this.flatten(arr);
             var mean = 0,
                 sum = 0,
@@ -130,7 +110,6 @@
                     });
                     mean = (harArray.length / harDenominator);
             }
-
             return precision > 0 ? mean.toFixed(precision) : mean;
         },
 
@@ -141,18 +120,13 @@
          * point. If omitted then falls back to 2
          */
         median: function(arr, precision) {
-
-        this.check(arr);
-
+            this.check(arr);
             isNaN(precision) && (precision = 2);
-
             arr = this.flatten(arr);
-
             var newArr = [];
 
             // Push Number values into temp array
             for (var i in arr) {
-
                 if (typeof(arr[i]) === "number") {
                     newArr.push(arr[i]);
                 }
@@ -172,14 +146,10 @@
             var medianItem = Math.floor(newArr.length / 2);
 
             if (newArr.length % 2) {
-                // If number of Number items is odd then middle item is the median
                 return newArr[medianItem];
-
-                // Otherwise calculate an average of two items in the middle
             } else {
                 return precision ? ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision)) : (newArr[medianItem - 1] + newArr[medianItem]) / 2;
             }
-
         },
 
         /**
@@ -188,11 +158,8 @@
          * Flattens an array before evaluation.
          */
         freq: function(arr) {
-
-        this.check(arr);
-
+            this.check(arr);
             arr = this.flatten(arr);
-
             var frequencyMap = arr.reduce(function(obj, item) {
                 if (obj[item]) {
                     obj[item]++;
@@ -212,9 +179,7 @@
          * Service method. Result is an array console pretty print.
          */
         breakdown: function(arr, toObject) {
-
-        this.check(arr);
-
+            this.check(arr);
             arr = this.flatten(arr);
 
             var total = {
@@ -227,7 +192,6 @@
             };
 
             arr.forEach(function(value, index, arr) {
-
                 var key_ = typeof arr[index] + "_";
                 total[key_].push(arr[index]);
             });
@@ -249,18 +213,12 @@
          * `undefined` and `null` from an array preserving the structure.
          */
         cop: function(arr, toFlatten) {
-
-        this.check(arr);
-
-            if (toFlatten) {
-                arr = this.flatten(arr);
-            }
-
+            this.check(arr);
+            arr = toFlatten ? this.flatten(arr) : arr;
             var __ = this;
             var result = [];
 
             arr.forEach(function(item) {
-
                 if (Array.isArray(item) && item.length !== 0) {
                     result.push(__.cop(item));
                 } else if (typeof item !== "undefined") {
@@ -268,13 +226,10 @@
                 }
             });
             return result;
-
         },
 
         keep: function(arr, type, logic) {
-
-        this.check(arr);
-
+            this.check(arr);
             arr = this.flatten(arr);
             type = type || "string";
             logic = logic || "all";
@@ -296,21 +251,17 @@
         },
 
         alpha: function(arr) {
-
             return this.check(arr) ? this.regExpFilter(arr, /[^a-z]/gi) : arr;
         },
         alphaNum: function(arr) {
-
             return this.check(arr) ? this.regExpFilter(arr, /[^a-z0-9]/gi) : arr;
         },
 
         regExpFilter: function(arr, expression) {
-
             var __ = this;
             var result = [];
 
             arr.forEach(function(item) {
-
                 if (Array.isArray(item) && item.length !== 0) {
                     result.push(__.regExpFilter(item, expression));
                 } else if (typeof item === "string") {
@@ -340,22 +291,14 @@
                 throw new Error("Element not passed as argument");
             }
 
-        this.check(arr);
+            this.check(arr);
+            arr = preserveStructure ? arr : this.flatten(arr);
+            var result = [];
 
-                if (!preserveStructure) {
-
-                    arr = this.flatten(arr);
-                }
-
-                var result = [];
-
-                arr.forEach(function(v, i) {
-
-                    element === v && result.push(i);
-                });
-
-                return result.length ? result : -1;
-
+            arr.forEach(function(v, i) {
+                element === v && result.push(i);
+            });
+            return result.length ? result : -1;
         }
     };
 
