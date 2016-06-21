@@ -21,14 +21,10 @@ describe('#flatten() - Flattens an array', function() {
         }, {
             input: [],
             expected: []
-        }, {
-            expected: undefined
-        }, {
-            input: "not an Array, just string",
-            // TODO
-            // ? throw error if !Array.isArray(arr)
-            expected: "not an Array, just string"
         }];
+// TODO: check for Error throw
+
+
 
         testCases.forEach(function(tst) {
             var actual = arrayCop.flatten(tst.input);
@@ -53,14 +49,15 @@ describe('#dedup() - Removes duplicates', function() {
         }, {
             input: [],
             expected: []
-        }, {
-            expected: undefined
-        }, {
-            input: "not an Array, just string",
-            // TODO
-            // ? throw error if !Array.isArray(arr)
-            expected: "not an Array, just string"
-        }];
+        }
+        //
+        // }, {
+        //     input: "not an Array, just string",
+        //     // TODO
+        //     // ? throw error if !Array.isArray(arr)
+        //     expected: "not an Array, just string"
+        // }
+    ];
 
         testCases.forEach(function(tst) {
             var actual = arrayCop.dedup(tst.input);
