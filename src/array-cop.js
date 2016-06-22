@@ -37,7 +37,7 @@
          */
         rand: function(arr, min, max) {
             min < 0 ? min = 0 : min = min;
-            max < 0 || max < min ? max = min : max = max
+            max < 0 || max < min ? max = min : max = max;
             return this.check(arr) ?
                 arr[Math.floor(Math.random() * (max - min)) + min] :
                 null;
