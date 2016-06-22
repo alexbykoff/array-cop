@@ -120,19 +120,21 @@ describe('#rand() - Returns a random item from an Array', function() {
 
     it('should return a random element according to parameters provided', function() {
         var testCases = [{
-                inputArray: [1, 2, 3],
-                inputMin: 2,
-                inputMax: 3,
-                expected: 3
-            },
-            {
-                inputArray: [1, 2, 3],
-                inputMin: 0,
-                inputMax: 0,
-                expected: 1
-            }
-
-        ]
+            inputArray: [1, 2, 3],
+            inputMin: 2,
+            inputMax: 3,
+            expected: 3
+        }, {
+            inputArray: [1, 2, 3],
+            inputMin: 0,
+            inputMax: 0,
+            expected: 1
+        }, {
+            inputArray: ["element-1", "El2", 3],
+            inputMin: 0,
+            inputMax: 0,
+            expected: "element-1"
+        }];
 
         testCases.forEach(function(tst) {
             var actual = arrayCop.rand(tst.inputArray, tst.inputMin, tst.inputMax);
