@@ -12,10 +12,9 @@
          */
         flatten: function(arr) {
             var __ = this;
-            __.check(arr);
-            return arr.reduce(function(f, i) {
+            return this.check(arr) ? arr.reduce(function(f, i) {
                 return f.concat(Array.isArray(i) ? __.flatten(i) : i);
-            }, []);
+            }, []) : null;
         },
 
         /**
@@ -23,29 +22,36 @@
          * treated as duplicates(if `force` is not set to `true`) to avoid mess.
          */
         dedup: function(arr, force) {
-            this.check(arr);
-            arr = force ? this.flatten(arr) : arr;
-            return arr.filter(function(item, i) {
-                return arr.lastIndexOf(item) === i;
-            });
+            arr = force ?
+                this.flatten(arr) :
+                arr;
+            return this.check(arr) ?
+                arr.filter(function(item, i) {
+                    return arr.lastIndexOf(item) === i;
+                }) :
+                null;
         },
 
         /**
          * Randomly picks and returns one item from an array or from a given range
          */
         rand: function(arr, min, max) {
-            this.check(arr);
-            return arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)];
+            min < 0 ? min = 0 : min = min;
+            max < 0 || max < min ? max = min : max = max
+            return this.check(arr) ?
+                arr[Math.floor(Math.random() * (max - min)) + min] :
+                null;
         },
 
         /** Returns a sum of all the items. Flattens an array and takes
          * only numeric values into a consideration
          */
         sum: function(arr) {
-            this.check(arr);
-            return this.flatten(arr).reduce(function(a, b) {
-                return typeof(b) === "number" ? a += b : a;
-            }, 0);
+            return this.check(arr) ?
+                this.flatten(arr).reduce(function(a, b) {
+                    return typeof(b) === "number" ? a += b : a;
+                }, 0) :
+                null;
         },
 
         /**
@@ -133,7 +139,7 @@
             }
 
             // Return 0 for empty array, or 1st element for array with 1 item
-            if (!newArr || newArr.length === 0) {
+            if (!newArr || !newArr.length) {
                 return 0;
             } else if (newArr.length === 1) {
                 return newArr[0];
@@ -145,11 +151,11 @@
 
             var medianItem = Math.floor(newArr.length / 2);
 
-            if (newArr.length % 2) {
-                return newArr[medianItem];
-            } else {
-                return precision ? ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision)) : (newArr[medianItem - 1] + newArr[medianItem]) / 2;
-            }
+            return newArr.length % 2 ?
+                newArr[medianItem] :
+                precision ?
+                ((newArr[medianItem - 1] + newArr[medianItem]) / 2).toFixed(Math.abs(precision)) :
+                (newArr[medianItem - 1] + newArr[medianItem]) / 2;
         },
 
         /**
@@ -219,7 +225,7 @@
             var result = [];
 
             arr.forEach(function(item) {
-                if (Array.isArray(item) && item.length !== 0) {
+                if (Array.isArray(item) && item.length) {
                     result.push(__.cop(item));
                 } else if (typeof item !== "undefined") {
                     result.push(item);
@@ -229,16 +235,16 @@
         },
 
         /* Filter an array by item type or remove some types
-        * type: — sets the type of an object to work with.
-        *  Values are:
-        * 'string' [default], 'number', 'function', 'object', 'boolean', 'null', 'undefined'`
-        *
-        * logic: sets the logic for the method.
-        * Values are:
-        * all: [default] keep all array items of `type`, remove the rest
-        * but: keep all array items, but `type`
-        *
-        */
+         * type: — sets the type of an object to work with.
+         *  Values are:
+         * 'string' [default], 'number', 'function', 'object', 'boolean', 'null', 'undefined'`
+         *
+         * logic: sets the logic for the method.
+         * Values are:
+         * all: [default] keep all array items of `type`, remove the rest
+         * but: keep all array items, but `type`
+         *
+         */
         keep: function(arr, type, logic) {
             this.check(arr);
             arr = this.flatten(arr);
@@ -263,12 +269,12 @@
 
         /* Remove non alphanumerics from the String items */
         alpha: function(arr) {
-            return this.check(arr) ? this.regExpFilter(arr, /[^a-z]/gi) : arr;
+            return this.check(arr) ? this.regExpFilter(arr, /[^a-z]/gi) : null;
         },
 
         /* Remove non alphanumerics from the String items but saving digits as well */
         alphaNum: function(arr) {
-            return this.check(arr) ? this.regExpFilter(arr, /[^a-z0-9]/gi) : arr;
+            return this.check(arr) ? this.regExpFilter(arr, /[^a-z0-9]/gi) : null;
         },
 
         regExpFilter: function(arr, expression) {
@@ -291,23 +297,21 @@
         },
 
         arrify: function(obj) {
-
-            if (typeof obj === "object") {
-
-                return Object.keys(obj).map(function(key) {
+            return typeof obj === "object" ?
+                Object.keys(obj).map(function(key) {
                     return obj[key];
-                });
-            }
-            throw new Error("Not an object!");
+                }) :
+                (function() {
+                    throw new Error("Not an object!")
+                }());
         },
 
         index: function(arr, element, preserveStructure) {
+            this.check(arr);
 
             if (!element) {
                 throw new Error("Element not passed as argument");
             }
-
-            this.check(arr);
             arr = preserveStructure ? arr : this.flatten(arr);
             var result = [];
 
