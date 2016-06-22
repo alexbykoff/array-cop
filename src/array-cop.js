@@ -26,23 +26,21 @@
          * treated as duplicates(if `force` is not set to `true`) to avoid mess.
          */
         dedup: function(arr, force) {
+            this.check(arr);
             arr = force ? this.flatten(arr) : arr;
-            return this.check(arr) ?
-                arr.filter(function(item, i) {
-                    return arr.lastIndexOf(item) === i;
-                }) :
-                null;
+            return arr.filter(function(item, i) {
+                return arr.lastIndexOf(item) === i;
+            });
         },
 
         /**
          * Randomly picks and returns one item from an array or from a given range
          */
         rand: function(arr, min, max) {
+            this.check(arr)
             min < 0 ? min = 0 : min = min;
             max < 0 || max < min ? max = min : max = max;
-            return this.check(arr) ?
-                arr[Math.floor(Math.random() * (max - min)) + min] :
-                null;
+            return arr[Math.floor(Math.random() * (max - min)) + min];
         },
 
         /** Returns a sum of all the items. Flattens an array and takes
