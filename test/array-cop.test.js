@@ -8,17 +8,15 @@ require('mocha-sinon');
 describe('#check - help method. Return Boolean for Array and throw error if not.', function() {
 
   var testCases = [
-    {
+  {
       description: 'it should return True for empty Array',
       input: [],
       expected: true
-    },
-    {
+  }, {
       description: 'it should return True for Array',
       input: ["StringValue", 2, 3, 7, , ],
       expected: true
-    }
-  ];
+  }];
 
   it('should throw error if argument isn\'t aray', function() {
       expect(function() {
@@ -50,9 +48,12 @@ describe('#flatten() - Flattens an array', function() {
             input: [],
             expected: []
         }];
-// TODO: check for Error throw
 
-
+        it('should throw error if argument isn\'t aray', function() {
+            expect(function() {
+                arrayCop.flatten(new Object)
+            }).to.throw('Not an array!');
+        });
 
         testCases.forEach(function(tst) {
             var actual = arrayCop.flatten(tst.input);
@@ -66,6 +67,12 @@ describe('#flatten() - Flattens an array', function() {
 // DEDUP
 describe('#dedup() - Removes duplicates', function() {
 
+    it('should throw error if argument isn\'t aray', function() {
+        expect(function() {
+            arrayCop.flatten(new Object)
+        }).to.throw('Not an array!');
+    });
+
     it('should remove duplicates from an array', function() {
 
         var testCases = [{
@@ -77,19 +84,12 @@ describe('#dedup() - Removes duplicates', function() {
         }, {
             input: [],
             expected: []
-        }
-        //
-        // }, {
-        //     input: "not an Array, just string",
-        //     // TODO
-        //     // ? throw error if !Array.isArray(arr)
-        //     expected: "not an Array, just string"
-        // }
-    ];
+        }];
 
-        testCases.forEach(function(tst) {
-            var actual = arrayCop.dedup(tst.input);
-            assert.deepEqual(actual, tst.expected);
+        it('should throw error if argument isn\'t aray', function() {
+            expect(function() {
+                arrayCop.dedup(new Object)
+            }).to.throw('Not an array!');
         });
 
     });
@@ -124,6 +124,12 @@ describe('#rand() - Returns a random item from an Array', function() {
                 inputMin: 2,
                 inputMax: 3,
                 expected: 3
+            },
+            {
+                inputArray: [1, 2, 3],
+                inputMin: 0,
+                inputMax: 0,
+                expected: 1
             }
 
         ]
@@ -134,6 +140,7 @@ describe('#rand() - Returns a random item from an Array', function() {
         });
 
     });
+
     it('should throw an error if argument is not an Array', function() {
         expect(function() {
             arrayCop.rand(1)
@@ -549,21 +556,19 @@ describe('#index() - Returns an `array` of index values. ', function() {
 describe('#keep() - filter an array by item type or remove some types', function() {
 
   var testCases = [
-    {
+  {
       description: 'it should return Array with Strings',
       inputArray: [1, 2, 3, "Str1", "Str2"],
       // inputType: "string",
       inputLogic: "all",
       expected: ["Str1", "Str2"]
-    },
-    {
+  }, {
       description: 'it should remove Number elements from Array',
       inputArray: [1, 2, 3, "Str1", "Str2"],
       inputType: "number",
       inputLogic: "but",
       expected: ["Str1", "Str2"]
-    },
-  ];
+  }];
 
   it('should throw error if argument isn\'t aray', function() {
       expect(function() {
@@ -584,17 +589,15 @@ describe('#keep() - filter an array by item type or remove some types', function
 describe('#alpha() - remove non alphanumerics from the String items.', function() {
 
   var testCases = [
-    {
+  {
       description: 'it should remove all non alphanumeric symbols from String items',
       input: [1, 2, 3, "Str1StrN3-w", "JackD4ani1el's"],
       expected: [1, 2, 3,"StrStrNw", "JackDaniels"]
-    },
-    {
+  }, {
       description: 'it should remove all non alphanumeric symbols from String items',
       input: [1, 2, 3, "123", "#010", [5, 6, "S0meL0ngStr1ng"]],
       expected: [1, 2, 3, "", "", [5, 6,"SmeLngStrng"]]
-    },
-  ];
+  }];
 
   it('should throw error if argument isn\'t aray', function() {
       expect(function() {
@@ -615,17 +618,15 @@ describe('#alpha() - remove non alphanumerics from the String items.', function(
 describe('#alphaNum() - Remove non alphanumerics from the String items but saving digits as well.', function() {
 
   var testCases = [
-    {
+  {
       description: 'it should remove all non alphanumeric symbols from String items with saving digits',
       input: [1, 2, 3, "Str1StrN3-w", "JackD4ani1el's"],
       expected: [1, 2, 3,"Str1StrN3w", "JackD4ani1els"]
-    },
-    {
+  },{
       description: 'it should remove all non alphanumeric symbols from String items with saving digits',
       input: [1, 2, 3, "123", "#010", [5, 6, "S0meL0ngStr1ng!#0&^"]],
       expected: [1, 2, 3, "123", "010", [5, 6,"S0meL0ngStr1ng0"]]
-    },
-  ];
+  }];
 
   it('should throw error if argument isn\'t aray', function() {
       expect(function() {
@@ -636,6 +637,44 @@ describe('#alphaNum() - Remove non alphanumerics from the String items but savin
   testCases.forEach(function(tst) {
       it(tst.description, function() {
           var actual = arrayCop.alphaNum(tst.input);
+          assert.deepEqual(actual, tst.expected);
+      });
+  });
+
+});
+
+// ALPHANUM
+describe('#regExpFilter() - Remove non alphanumerics from the String items but saving digits as well.', function() {
+
+  var testCases = [
+    {
+      description: 'it should remove all non alphanumeric symbols from String items with saving digits',
+      inputArray: [1, 2, 3, "Str1StrN3-w", "JackD4ani1el's"],
+      inputRegExp: /[^a-z0-9]/gi,
+      expected: [1, 2, 3,"Str1StrN3w", "JackD4ani1els"]
+    }, {
+      description: 'it should remove all non alphanumeric symbols from String items with saving digits',
+      inputArray: [1, 2, 3, "123", "#010", [5, 6, "S0meL0ngStr1ng!#0&^"]],
+      inputRegExp: /[^a-z0-9]/gi,
+      expected: [1, 2, 3, "123", "010", [5, 6,"S0meL0ngStr1ng0"]]
+    }, {
+      description: 'inputRegExp - not expression',
+      inputArray: [1, 2, 3, "123", "#010", [5, 6, "S0meL0ngStr1ng!#0&^"]],
+      inputRegExp: "regexp",
+      expected: [1, 2, 3, "123", "#010", [5, 6, "S0meL0ngStr1ng!#0&^"]]
+    },
+  ];
+
+  it('should throw error if argument isn\'t aray', function() {
+      expect(function() {
+          arrayCop.regExpFilter(new Object)
+      }).to.throw('Not an array!');
+  });
+
+  testCases.forEach(function(tst) {
+      it(tst.description, function() {
+        console.log("Expression: ", tst.inputRegExp);
+          var actual = arrayCop.regExpFilter(tst.inputArray, tst.inputRegExp);
           assert.deepEqual(actual, tst.expected);
       });
   });
