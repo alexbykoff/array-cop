@@ -53,7 +53,7 @@
         sum: function(arr) {
             return this.check(arr) ?
                 this.flatten(arr).reduce(function(a, b) {
-                    return typeof(b) === "number" ? a += b : a;
+                    return typeof b === "number" ? a += b : a;
                 }, 0) :
                 null;
         },
@@ -81,7 +81,7 @@
                 return mean;
             }
 
-            typeof(type) === "string" ? type = type || "ari": precision = Math.abs(type) || precision;
+            typeof type === "string" ? type = type : precision = Math.abs(type) || precision;
 
             // Main arithmetic logic
             switch (type) {
@@ -111,7 +111,7 @@
                     arr.forEach(function(v) {
                         typeof v === "number" && harArray.push(v);
                     });
-                    
+
                     var harDenominator = harArray.map(function(number) {
                         return 1 / number;
                     }).reduce(function(a, b) {
@@ -135,11 +135,9 @@
             var newArr = [];
 
             // Push Number values into temp array
-            for (var i in arr) {
-                if (typeof(arr[i]) === "number") {
-                    newArr.push(arr[i]);
-                }
-            }
+            arr.forEach(function(v) {
+                typeof v === "number" && newArr.push(v);
+            });
 
             // Return 0 for empty array, or 1st element for array with 1 item
             if (!newArr || !newArr.length) {
@@ -169,15 +167,10 @@
         freq: function(arr) {
             this.check(arr);
             arr = this.flatten(arr);
-            var frequencyMap = arr.reduce(function(obj, item) {
-                if (obj[item]) {
-                    obj[item]++;
-                } else {
-                    obj[item] = 1;
-                }
+            return arr.reduce(function(obj, item) {
+                obj[item] ? obj[item]++ : obj[item] = 1;
                 return obj;
             }, {});
-            return frequencyMap;
         },
 
         /* Service method.
@@ -200,9 +193,8 @@
                 boolean_: []
             };
 
-            arr.forEach(function(value, index, arr) {
-                var key_ = typeof arr[index] + "_";
-                total[key_].push(arr[index]);
+            arr.forEach(function(v) {
+                total[typeof v + "_"].push(v);
             });
 
             return toObject ?
@@ -222,9 +214,10 @@
          * `undefined` and `null` from an array preserving the structure.
          */
         cop: function(arr, toFlatten) {
-            this.check(arr);
-            arr = toFlatten ? this.flatten(arr) : arr;
             var __ = this;
+            __.check(arr);
+            arr = toFlatten ? this.flatten(arr) : arr;
+
             var result = [];
 
             arr.forEach(function(item) {
