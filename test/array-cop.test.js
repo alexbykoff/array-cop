@@ -641,3 +641,43 @@ describe('#alphaNum() - Remove non alphanumerics from the String items but savin
   });
 
 });
+
+// ALPHANUM
+describe('#regExpFilter() - Remove non alphanumerics from the String items but saving digits as well.', function() {
+
+  var testCases = [
+    {
+      description: 'it should remove all non alphanumeric symbols from String items with saving digits',
+      inputArray: [1, 2, 3, "Str1StrN3-w", "JackD4ani1el's"],
+      inputRegExp: /[^a-z0-9]/gi,
+      expected: [1, 2, 3,"Str1StrN3w", "JackD4ani1els"]
+    },
+    {
+      description: 'it should remove all non alphanumeric symbols from String items with saving digits',
+      inputArray: [1, 2, 3, "123", "#010", [5, 6, "S0meL0ngStr1ng!#0&^"]],
+      inputRegExp: /[^a-z0-9]/gi,
+      expected: [1, 2, 3, "123", "010", [5, 6,"S0meL0ngStr1ng0"]]
+    },
+    {
+      description: 'inputRegExp - not expression',
+      inputArray: [1, 2, 3, "123", "#010", [5, 6, "S0meL0ngStr1ng!#0&^"]],
+      inputRegExp: "regexp",
+      expected: [1, 2, 3, "123", "#010", [5, 6, "S0meL0ngStr1ng!#0&^"]]
+    },
+  ];
+
+  it('should throw error if argument isn\'t aray', function() {
+      expect(function() {
+          arrayCop.regExpFilter(new Object)
+      }).to.throw('Not an array!');
+  });
+
+  testCases.forEach(function(tst) {
+      it(tst.description, function() {
+        console.log("Expression: ", tst.inputRegExp);
+          var actual = arrayCop.regExpFilter(tst.inputArray, tst.inputRegExp);
+          assert.deepEqual(actual, tst.expected);
+      });
+  });
+
+});
