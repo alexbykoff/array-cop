@@ -3,7 +3,7 @@
 
         check: function(arr) {
             return Array.isArray(arr) || (function() {
-                throw new Error("Not an array!")
+                throw new Error("Not an array!");
             }());
         },
 
@@ -302,7 +302,7 @@
                     return obj[key];
                 }) :
                 (function() {
-                    throw new Error("Not an object!")
+                    throw new Error("Not an object!");
                 }());
         },
 
