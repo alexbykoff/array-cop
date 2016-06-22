@@ -36,8 +36,10 @@
          * Randomly picks and returns one item from an array or from a given range
          */
         rand: function(arr, min, max) {
+            min < 0 ? min = 0 : min = min;
+            max < 0 || max < min ? max = min : max = max
             return this.check(arr) ?
-                arr[Math.floor(Math.random() * ((max || arr.length) - (min || 0))) + (min || 0)] :
+                arr[Math.floor(Math.random() * (max - min)) + min] :
                 null;
         },
 
