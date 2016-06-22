@@ -26,9 +26,7 @@
          * treated as duplicates(if `force` is not set to `true`) to avoid mess.
          */
         dedup: function(arr, force) {
-            arr = force ?
-                this.flatten(arr) :
-                arr;
+            arr = force ? this.flatten(arr) : arr;
             return this.check(arr) ?
                 arr.filter(function(item, i) {
                     return arr.lastIndexOf(item) === i;
