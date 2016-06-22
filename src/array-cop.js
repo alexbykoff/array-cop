@@ -12,9 +12,13 @@
          */
         flatten: function(arr) {
             var __ = this;
-            return this.check(arr) ? arr.reduce(function(f, i) {
-                return f.concat(Array.isArray(i) ? __.flatten(i) : i);
-            }, []) : null;
+            return this.check(arr) ?
+                arr.reduce(function(f, i) {
+                    return f.concat(Array.isArray(i) ?
+                        __.flatten(i) :
+                        i);
+                }, []) :
+                null;
         },
 
         /**
@@ -83,32 +87,31 @@
             switch (type) {
                 case "ari":
                 default:
-                    for (var i in arr) {
-                        if (typeof(arr[i]) === "number") {
-                            sum += arr[i];
+                    arr.forEach(function(v) {
+                        if (typeof v === "number") {
+                            sum += v;
                             num++;
-                        }
-                    }
+                        };
+                    });
                     mean = (sum / num);
                     break;
 
                 case "geo":
-                    for (var j in arr) {
-                        if (typeof(arr[j]) === "number") {
-                            mul *= arr[j];
+                    arr.forEach(function(v) {
+                        if (typeof v === "number") {
+                            mul *= v;
                             num++;
-                        }
-                    }
+                        };
+                    });
                     mean = Math.pow(mul, 1 / num);
                     break;
 
                 case "har":
                     var harArray = [];
-                    for (var k in arr) {
-                        if (typeof(arr[k]) === "number") {
-                            harArray.push(arr[k]);
-                        }
-                    }
+                    arr.forEach(function(v) {
+                        typeof v === "number" && harArray.push(v);
+                    });
+                    
                     var harDenominator = harArray.map(function(number) {
                         return 1 / number;
                     }).reduce(function(a, b) {
