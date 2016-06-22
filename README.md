@@ -201,10 +201,10 @@ Argument provided should be an `object`. Will throw an error if not an object ty
 > ['Jack', 12345, [12, 23, 102]]  
 
 ###**...get an array of indexes of a given element:**
-**`array_.index(arr, element, preserveStructure)`**  
+**`array_.index(arr, element, [preserveStructure])`**  
 Flattens an array and returns an `array` of index values.  
 **element** - mandatory. An element to look for in an array. If element does not exist then `-1` is returned.  
-**`preserveStructure`** - Optional, if set to `true` will not `flatten` an array and skip nested arrays.  
+**preserveStructure: Boolean** - Optional, if set to `true` will not `flatten` an array and skip nested arrays.  
 ```
 var arr = ['Humpty','Dumpty', 'Sat', 'On', 'A', null, 'Humpty', 'Dumpty'];
 var elem = "Humpty";
