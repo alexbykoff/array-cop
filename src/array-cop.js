@@ -1,6 +1,25 @@
-(function(_) {
-    var array_ = {
+/**
+ * @module array-cop
+ */
 
+/**
+* @function
+* @name Anonymous self-invoked function
+* @description Call main module
+* @param {Object} this Window for the browser
+*/
+
+(function(_) {
+
+    var array_ = {
+      /**
+      * @function
+      * @name check
+      * @description Method for checking type of the source data.
+      * @param {Array} arr  Source data.
+      * @returns {Boolean} Returns true if Array.isArray, otherwise throw error.
+      * @throws Will throw an error "Not an array" if the argument isn't array.
+      */
         check: function(arr) {
             return Array.isArray(arr) || (function() {
                 throw new Error("Not an array!");
@@ -8,8 +27,12 @@
         },
 
         /**
-         * Flattens an array to a single-dimensional one
-         */
+        * @function
+        * @name flatten
+        * @description Flattens an array to a single-dimensional one
+        * @param {Array} arr Source data
+        * @returns {Array} Returns flattened array
+        */
         flatten: function(arr) {
             var __ = this;
             return this.check(arr) ?
