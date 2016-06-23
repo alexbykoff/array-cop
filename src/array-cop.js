@@ -249,24 +249,24 @@
                 case "all":
                 default:
                     return arr.filter(function(i) {
-                        return typeof(i) === type.toLowerCase();
+                        return typeof i  === type.toLowerCase();
                     });
 
                 case "but":
                     return arr.filter(function(i) {
-                        return typeof(i) !== type.toLowerCase();
+                        return typeof i !== type.toLowerCase();
                     });
             }
         },
 
         /* Remove non alphanumerics from the String items */
         alpha: function(arr) {
-            return this.check(arr) ? this.regExpFilter(arr, /[^a-z]/gi) : null;
+            return this.check(arr) && this.regExpFilter(arr, /[^a-z]/gi);
         },
 
         /* Remove non alphanumerics from the String items but saving digits as well */
         alphaNum: function(arr) {
-            return this.check(arr) ? this.regExpFilter(arr, /[^a-z0-9]/gi) : null;
+            return this.check(arr) && this.regExpFilter(arr, /[^a-z0-9]/gi);
         },
 
         regExpFilter: function(arr, expression) {
@@ -301,9 +301,10 @@
         index: function(arr, element, preserveStructure) {
             this.check(arr);
 
-            if (!element) {
-                throw new Error("Element not passed as argument");
-            }
+            !element && (function() {
+                throw new Error("Element not passed as argument")
+            }());
+
             arr = preserveStructure ? arr : this.flatten(arr);
             var result = [];
 
