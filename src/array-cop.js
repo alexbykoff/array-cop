@@ -16,7 +16,7 @@
       * @function
       * @name check
       * @description Method for checking type of the source data.
-      * @param {Array} arr  Source data.
+      * @param {Array} arr  - Source data.
       * @returns {Boolean} Returns true if Array.isArray, otherwise throw error.
       * @throws Will throw an error "Not an array" if the argument isn't array.
       */
@@ -30,8 +30,9 @@
         * @function
         * @name flatten
         * @description Flattens an array to a single-dimensional one
-        * @param {Array} arr Source data
+        * @param {Array} arr - Source data
         * @returns {Array} Returns flattened array
+        * @throws Will throw an error "Not an array" if the argument isn't array.
         */
         flatten: function(arr) {
             var __ = this;
@@ -44,9 +45,14 @@
                 null;
         },
 
-        /**
-         * Removes duplicates from an array. Items in nested arrays are not
-         * treated as duplicates(if `force` is not set to `true`) to avoid mess.
+         /**
+         * @function
+         * @name dedup
+         * @description Removes duplicates from an array. Items in nested arrays are not treated as duplicates
+         * @param {Array} arr - Source data
+         * @param {Boolean} [force = false]  - If set to True - flatten array
+         * @returns {Array} Returns flattened array
+         * @throws Will throw an error "Not an array" if the argument isn't array.
          */
         dedup: function(arr, force) {
             this.check(arr);
@@ -56,8 +62,15 @@
             });
         },
 
-        /**
-         * Randomly picks and returns one item from an array or from a given range
+         /**
+         * @function
+         * @name rand
+         * @description Randomly picks and returns one item from an array or from a given range
+         * @param {Array} arr - Source data
+         * @param {Number} min - minimum index for random range
+         * @param {Number} max - maximum index for random range
+         * @returns {Number|String|Object} Random element from the Source data
+         * @throws Will throw an error "Not an array" if the argument isn't array.
          */
         rand: function(arr, min, max) {
             this.check(arr)
@@ -66,8 +79,13 @@
             return arr[Math.floor(Math.random() * (max - min)) + min];
         },
 
-        /** Returns a sum of all the items. Flattens an array and takes
-         * only numeric values into a consideration
+         /**
+         * @function
+         * @name sum
+         * @description Returns a sum of all the items, flattens an array and takes only numeric values
+         * @param {Array} arr - Source data
+         * @returns {Number} Sum of the all numeric items
+         * @throws Will throw an error "Not an array" if the argument isn't array.
          */
         sum: function(arr) {
             return this.check(arr) ?
@@ -77,16 +95,18 @@
                 null;
         },
 
+
         /**
-         * Returns Mean of an array(arr). Flattens an array and takes only numeric
-         * values into a consideration.
-         *
-         * type: type of mean -  'ari': arithmetic, 'geo':  geometric, 'har': harmonic.
-         * If omitted then calculates an arithmetic mean.
-         *
-         * precision: Number — Optional argument, sets the number of digits after a decimal
-         * point. If omitted then falls back to 2.
-         */
+        * @function
+        * @name mean
+        * @description Returns mean of an array. Flattens an array and takes only numeric
+        * values into a consideration.
+        * @param {Array} arr - Source data
+        * @param {String} [type = 'ari'] - type of the mean. 'ari': arithmetic, 'geo':  geometric, 'har': harmonic
+        * @param {Number} [precision = 2] - precision of the calculations
+        * @returns {Number} Mean of an array
+        * @throws Will throw an error "Not an array" if the argument isn't array.
+        */
         mean: function(arr, type, precision) {
             this.check(arr);
             isNaN(precision) && (precision = 2);
@@ -141,12 +161,15 @@
             return precision > 0 ? mean.toFixed(precision) : mean;
         },
 
-        /**
-         * Returns median for numeric values. Flattens an array before calculations.
-         *
-         * precision: Number — optional argument, sets the number of digits after a decimal
-         * point. If omitted then falls back to 2
-         */
+       /**
+       * @function
+       * @name median
+       * @description Returns median for numeric values. Flattens an array before calculations.
+       * @param {Array} arr - Source data
+       * @param {Number} [precision = 2] - precision of the calculations
+       * @returns {Number} Median for numeric values
+       * @throws Will throw an error "Not an array" if the argument isn't array.
+       */
         median: function(arr, precision) {
             this.check(arr);
             isNaN(precision) && (precision = 2);
@@ -178,11 +201,15 @@
                 (newArr[medianItem - 1] + newArr[medianItem]) / 2;
         },
 
-        /**
-         * Returns an Object: frequency, where item is the value of an each array item
-         * and frequency is the number of times that item appears in an array.
-         * Flattens an array before evaluation.
-         */
+       /**
+       * @function
+       * @name freq
+       * @description Returns median for numeric values. Flattens an array before calculations.
+       * @param {Array} arr - Source data
+       * @returns {Object}  Frequency, where item is the value of an each array item
+       * and frequency is the number of times that item appears in an array.
+       * @throws Will throw an error "Not an array" if the argument isn't array.
+       */
         freq: function(arr) {
             this.check(arr);
             arr = this.flatten(arr);
@@ -192,13 +219,16 @@
             }, {});
         },
 
-        /* Service method.
-         * Result: array console pretty print, or object with items sorted by type
-         *
-         * **toObject: Boolean** — Optional argument, if set to true then method
-         * will return an object with items sorted by their type.
-         * Service method. Result is an array console pretty print.
-         */
+       /**
+       * @function
+       * @name breakdown
+       * @description Service method. Returns median for numeric values. Flattens an array before calculations.
+       * @param {Array} arr - Source data
+       * @param {Boolean} [toObject = False] - Convert data to console output or to the Object
+       * @returns {Object|Console}  Frequency, where item is the value of an each array item
+       * and frequency is the number of times that item appears in an array.
+       * @throws Will throw an error "Not an array" if the argument isn't array.
+       */
         breakdown: function(arr, toObject) {
             this.check(arr);
             arr = this.flatten(arr);
@@ -229,9 +259,15 @@
 
         },
 
-        /* Goes on patrol and removes all the empty items aka
-         * `undefined` and `null` from an array preserving the structure.
-         */
+       /**
+       * @function
+       * @name cop
+       * @description Removes all the empty items (`undefined`, `null`) from an array preserving the structure.
+       * @param {Array} arr - Source data
+       * @param {Boolean} [toFlatten = False] - Flatten array before proceed
+       * @returns {Array}  Array without empty items
+       * @throws Will throw an error "Not an array" if the argument isn't array.
+       */
         cop: function(arr, toFlatten) {
             var __ = this;
             __.check(arr);
@@ -249,17 +285,18 @@
             return result;
         },
 
-        /* Filter an array by item type or remove some types
-         * type: — sets the type of an object to work with.
-         *  Values are:
-         * 'string' [default], 'number', 'function', 'object', 'boolean', 'null', 'undefined'`
-         *
-         * logic: sets the logic for the method.
-         * Values are:
-         * all: [default] keep all array items of `type`, remove the rest
-         * but: keep all array items, but `type`
-         *
-         */
+       /**
+       * @function
+       * @name keep
+       * @description Filter an array by item type or remove some types
+       * @param {Array} arr - Source data
+       * @param {String} [type = 'string'] - Set the type of an object to work with:
+       *                'number', 'function', 'object', 'boolean', 'null', 'undefined'
+       * @param {String} [logic = 'all'] - Keep all array items of `type`, remove the rest
+       *                'but': keep all array items, but `type`
+       * @returns {Array}  Filtered array
+       * @throws Will throw an error "Not an array" if the argument isn't array.
+       */
         keep: function(arr, type, logic) {
             this.check(arr);
             arr = this.flatten(arr);
@@ -282,16 +319,39 @@
             }
         },
 
-        /* Remove non alphanumerics from the String items */
+        /**
+        * @function
+        * @name alpha
+        * @description Remove non alphanumerics from the String items in Source data
+        * @param {Array} arr - Source data
+        * @returns {Array}  Array with 'string' items without alphanumeric symbols
+        * @throws Will throw an error "Not an array" if the argument isn't array.
+        */
         alpha: function(arr) {
             return this.check(arr) && this.regExpFilter(arr, /[^a-z]/gi);
         },
 
-        /* Remove non alphanumerics from the String items but saving digits as well */
+        /**
+        * @function
+        * @name alphaNum
+        * @description Service method. Returns array with filtered items according to expression
+        * @param {Array} arr - Source data
+        * @returns {Array}  Array with 'string' items without alphanumeric symbols but saving digits as well
+        * @throws Will throw an error "Not an array" if the argument isn't array.
+        */
         alphaNum: function(arr) {
             return this.check(arr) && this.regExpFilter(arr, /[^a-z0-9]/gi);
         },
 
+        /**
+        * @function
+        * @name regExpFilter
+        * @description Service method. Returns array with filtered items according to expression
+        * @param {Array} arr - Source data
+        * @param {RegExp} expression - RegExp odject for filtering source data
+        * @returns {Array}  Array with filtered items, or empty array if none.
+        * @throws Will throw an error "Not an array" if the argument isn't array.
+        */
         regExpFilter: function(arr, expression) {
             var __ = this;
             var result = [];
@@ -311,6 +371,14 @@
             return result;
         },
 
+        /**
+        * @function
+        * @name arrify
+        * @description Converts an Object into an array that consists of values of the given object
+        * @param {Object} obj - Source data
+        * @returns {Array}  Array of items, that consists of values from the source data object
+        * @throws Will throw an error "Not an object" if the argument isn't Object.
+        */
         arrify: function(obj) {
             return typeof obj === "object" ?
                 Object.keys(obj).map(function(key) {
@@ -321,6 +389,17 @@
                 }());
         },
 
+        /**
+        * @function
+        * @name index
+        * @description Returns an 'Array' of index values of the found element.
+        * @param {Array} arr - Source data
+        * @param {Number|String|Object} element - Element to find
+        * @param {Boolean} [preserveStructure = True] - Preserving array structure
+        * @returns {Array}  Returns an Array of index values of the found element.
+        * @throws Will throw an error "Not an array" if the argument isn't array.
+        * @throws Will throw an error "Element not passed as argument" if the argument isn't array.
+        */
         index: function(arr, element, preserveStructure) {
             this.check(arr);
 
