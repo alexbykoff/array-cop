@@ -73,7 +73,7 @@
          * @throws Will throw an error "Not an array" if the argument isn't array.
          */
         rand: function(arr, min, max) {
-            this.check(arr)
+            this.check(arr);
             min < 0 ? min = 0 : min = min;
             max < 0 || max < min ? max = min : max = max;
             return arr[Math.floor(Math.random() * (max - min)) + min];
@@ -356,7 +356,7 @@
             var __ = this;
             var result = [];
 
-            this.check(arr);
+            __.check(arr);
 
             arr.forEach(function(item) {
                 if (Array.isArray(item) && item.length !== 0) {
