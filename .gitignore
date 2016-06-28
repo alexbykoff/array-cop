@@ -1,4 +1,6 @@
 node_modules
+docs
 ftest.*
 test/array-cop.test.min.js
 coverage
+.idea

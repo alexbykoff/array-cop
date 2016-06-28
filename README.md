@@ -1,4 +1,4 @@
-[![Serve and Array](http://i.imgur.com/gC66Q3w.png)](http://tomkallen.github.io)  
+[![Serve and Array](http://i.imgur.com/Fciup0A.png?1)](http://tomkallen.github.io)  
 #Array Cop  
 [![npm version](https://badge.fury.io/js/array-cop.svg)](https://badge.fury.io/js/array-cop)[![Build Status](https://travis-ci.org/tomkallen/array-cop.svg?branch=master)](https://travis-ci.org/tomkallen/array-cop) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/19b1eead08a24b8c97756b5f5ac45adc)](https://www.codacy.com/app/spbeat/array-cop?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tomkallen/array-cop&amp;utm_campaign=Badge_Grade)
 
