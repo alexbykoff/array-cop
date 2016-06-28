@@ -130,7 +130,7 @@
                         if (typeof v === "number") {
                             sum += v;
                             num++;
-                        };
+                        }
                     });
                     mean = (sum / num);
                     break;
@@ -404,7 +404,7 @@
             this.check(arr);
 
             !element && (function() {
-                throw new Error("Element not passed as argument")
+                throw new Error("Element not passed as argument");
             }());
 
             arr = preserveStructure ? arr : this.flatten(arr);
