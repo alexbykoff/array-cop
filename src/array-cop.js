@@ -140,7 +140,7 @@
                         if (typeof v === "number") {
                             mul *= v;
                             num++;
-                        };
+                        }
                     });
                     mean = Math.pow(mul, 1 / num);
                     break;
