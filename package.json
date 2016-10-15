@@ -1,36 +1,36 @@
 {
-  "name": "array-cop",
-  "version": "0.7.0",
-  "description": "An [array] utility tool that makes life easier and also does some maths for you.",
-  "main": "src/array-cop.js",
-  "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tomkallen/array-cop.git"
-  },
-  "keywords": [
-    "arrays",
-    "array",
-    "utils",
-    "utility",
-    "maths",
-    "flatten"
-  ],
-  "author": "Alex Bykoff <comradebykoff@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/tomkallen/array-cop/issues"
-  },
-  "homepage": "https://github.com/tomkallen/array-cop#readme",
-  "devDependencies": {
-    "chai": "3.5.0",
-    "gulp": "^3.9.1",
-    "istanbul": "0.4.3",
-    "jsdoc": "^3.4.0",
-    "mocha": "2.5.3",
-    "mocha-sinon": "^1.1.5",
-    "sinon": "^1.17.4"
-  }
+    "name": "array-cop",
+    "version": "1.0.0",
+    "description": "An [array] utility tool that makes life easier and also does some maths for you.",
+    "main": "src/array-cop.js",
+    "scripts": {
+        "test": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/tomkallen/array-cop.git"
+    },
+    "keywords": [
+        "arrays",
+        "array",
+        "utils",
+        "utility",
+        "maths",
+        "flatten"
+    ],
+    "author": "Alex Bykoff <comradebykoff@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/tomkallen/array-cop/issues"
+    },
+    "homepage": "https://github.com/tomkallen/array-cop#readme",
+    "devDependencies": {
+        "chai": "3.5.0",
+        "gulp": "^3.9.1",
+        "istanbul": "0.4.3",
+        "jsdoc": "^3.4.0",
+        "mocha": "2.5.3",
+        "mocha-sinon": "^1.1.5",
+        "sinon": "^1.17.4"
+    }
 }
